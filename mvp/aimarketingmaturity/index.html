@@ -350,13 +350,13 @@ const STAGES = [
    desc:'Curiosity without commitment. AI shows up in conversation, not yet in the work.'},
   {name:'Connecting', band:'2.00 to 2.99', lead:'Strategy and execution start to talk, on a few real workflows.',
    desc:'First real links between strategy and execution. The deck and the dashboard are starting to talk.'},
-  {name:'Scaling',    band:'3.00 to 3.99', lead:'Repeatable, measured AI workflows spread across programs.',
+  {name:'Scaling',    band:'3.00 to 4.49', lead:'Repeatable, measured AI workflows spread across programs.',
    desc:'Repeatable, measured workflows are spreading across programs. The gap is closing fast.'},
-  {name:'Leading',    band:'4.00 to 5.00', lead:'AI runs as one system across marketing and sets the pace.',
+  {name:'Leading',    band:'4.50 to 5.00', lead:'AI runs as one system across marketing and sets the pace.',
    desc:'AI runs as one system across marketing and sets the pace for the market.'}
 ];
-const THRESHOLDS = [2, 3, 4]; // upper edge of Exploring, Connecting, Scaling (1-5 scale)
-function stageIndex(v){ if(v<2)return 0; if(v<3)return 1; if(v<4)return 2; return 3; }
+const THRESHOLDS = [2, 3, 4.5]; // upper edge of Exploring, Connecting, Scaling (1-5 scale; Leading is hard to reach)
+function stageIndex(v){ if(v<2)return 0; if(v<3)return 1; if(v<4.5)return 2; return 3; }
 
 const DIMS = [
   {name:'Strategy', weight:1.25, goal:'A clear, measurable point of view on where AI plays in your marketing.',
