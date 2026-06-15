@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AMMF — AI Marketing Maturity Assessment</title>
+<title>AI Marketing Maturity Assessment</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,15 +31,13 @@ h1,h2,h3{color:var(--navy);font-weight:800;letter-spacing:-.02em;line-height:1.1
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* top bar */
-.topbar{display:flex;align-items:center;gap:12px;padding:22px 0}
-.logo{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--navy);font-size:18px}
-.logo svg{width:38px;height:38px;display:block}
-
 /* hero */
-.hero{padding:48px 0 64px}
+.hero{padding:40px 0 64px}
+.brand-row{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.brand-logo{width:46px;height:46px;display:block;flex:none}
 .eyebrow{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--blue);background:#fff;border:1px solid var(--border);
-  padding:7px 14px;border-radius:999px;margin-bottom:22px}
+  padding:7px 14px;border-radius:999px}
 .hero h1{font-size:clamp(34px,6vw,56px);margin-bottom:20px}
 .hero h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p.lead{font-size:clamp(18px,2.4vw,22px);max-width:660px;margin-bottom:18px}
@@ -147,8 +148,7 @@ h1,h2,h3{color:var(--navy);font-weight:800;letter-spacing:-.02em;line-height:1.1
 footer{border-top:1px solid var(--border);background:#fff}
 .foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:26px 0}
 .foot .who{display:flex;align-items:center;gap:14px}
-.foot .who .av{width:46px;height:46px;border-radius:50%;background:var(--grad);display:flex;align-items:center;
-  justify-content:center;color:#fff;font-weight:800;font-size:17px}
+.foot .who .av{width:46px;height:46px;border-radius:50%;object-fit:cover;display:block;border:1px solid var(--border)}
 .foot .who b{color:var(--navy);display:block;font-size:15px}
 .foot .who span{font-size:13px;color:var(--muted)}
 .foot .copy{font-size:12.5px;color:var(--muted)}
@@ -172,17 +172,13 @@ footer{border-top:1px solid var(--border);background:#fff}
 </head>
 <body>
 
-<!-- ===== top bar (shared) ===== -->
-<div class="wrap">
-  <div class="topbar">
-    <div class="logo" id="logoSlot"></div>
-  </div>
-</div>
-
 <!-- ===== LANDING ===== -->
 <section class="screen active" id="screen-landing">
   <div class="wrap hero">
-    <span class="eyebrow">AI Marketing Maturity Framework</span>
+    <div class="brand-row">
+      <span class="eyebrow">AI Marketing Maturity Framework</span>
+      <img class="brand-logo" src="assets/logo.svg" alt="AI Marketing Maturity Framework logo" width="46" height="46">
+    </div>
     <h1>Most marketing teams don't have a strategy problem.<br><span class="grad">They have a distance problem.</span></h1>
     <p class="lead">The distance between <b>AI ambition</b> and <b>marketing execution</b>.<br>
       Between what <b>leadership</b> wants to build, what <b>teams</b> are ready to adopt, and what actually becomes part of <b>daily work</b>.</p>
@@ -284,7 +280,7 @@ footer{border-top:1px solid var(--border);background:#fff}
 <footer>
   <div class="wrap foot">
     <div class="who">
-      <div class="av">VS</div>
+      <img class="av" src="assets/vales.jpg" alt="Valentino Scicolone" width="46" height="46">
       <div><b>Valentino Scicolone</b><span>Media &amp; MarTech Strategy Leader · Dubai</span></div>
     </div>
     <button class="btn btn-ghost" onclick="openContact()">Contact me</button>
@@ -311,32 +307,6 @@ footer{border-top:1px solid var(--border);background:#fff}
 <div class="toast" id="toast"></div>
 
 <script>
-/* ---------- brand logo (four-pane mark) ---------- */
-function logoSVG(size){
-  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" aria-label="AMMF">
-    <rect x="2" y="2" width="96" height="96" rx="22" fill="#1A56FF"/>
-    <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-      <!-- curiosity: search (cyan pane) -->
-      <rect x="11" y="11" width="35" height="35" rx="10" fill="#00D4FF" stroke="none"/>
-      <circle cx="26" cy="26" r="8"/><line x1="32" y1="32" x2="38" y2="38"/>
-      <!-- creativity: sun (blue) -->
-      <rect x="54" y="11" width="35" height="35" rx="10" fill="#1A56FF" stroke="none"/>
-      <circle cx="71.5" cy="28.5" r="6"/>
-      <g stroke-width="4"><line x1="71.5" y1="15" x2="71.5" y2="18"/><line x1="71.5" y1="39" x2="71.5" y2="42"/>
-      <line x1="58" y1="28.5" x2="61" y2="28.5"/><line x1="82" y1="28.5" x2="85" y2="28.5"/>
-      <line x1="62" y1="19" x2="64" y2="21"/><line x1="79" y1="36" x2="81" y2="38"/>
-      <line x1="81" y1="19" x2="79" y2="21"/><line x1="64" y1="36" x2="62" y2="38"/></g>
-      <!-- critical thinking: check (navy) -->
-      <rect x="11" y="54" width="35" height="35" rx="10" fill="#0D1F5C" stroke="none"/>
-      <polyline points="19,72 26,79 39,64"/>
-      <!-- empathy: heart (blue mid) -->
-      <rect x="54" y="54" width="35" height="35" rx="10" fill="#4D7BFF" stroke="none"/>
-      <path d="M71.5 80 C 64 74, 60 69, 64 64 C 67 60.5, 71 62, 71.5 65 C 72 62, 76 60.5, 79 64 C 83 69, 79 74, 71.5 80 Z" fill="#fff" stroke="none"/>
-    </g>
-  </svg>`;
-}
-document.getElementById('logoSlot').innerHTML = logoSVG(38) + '<span>AMMF</span>';
-
 /* ---------- data ---------- */
 const STAGES = [
   {name:'Exploring',  band:'1.00 to 1.74', lead:'AI is a conversation, not yet a capability.',

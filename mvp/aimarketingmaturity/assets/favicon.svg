@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 44 44" role="img" aria-label="AMMF">
+  <rect x="0" y="0" width="44" height="44" rx="10" fill="#F4F7FF"/>
+  <rect x="5" y="5" width="16" height="16" rx="4" fill="#00D4FF"/>
+  <rect x="23" y="5" width="16" height="16" rx="4" fill="#1A56FF"/>
+  <rect x="5" y="23" width="16" height="16" rx="4" fill="#0D1F5C"/>
+  <rect x="23" y="23" width="16" height="16" rx="4" fill="#4D7BFF"/>
+</svg>
