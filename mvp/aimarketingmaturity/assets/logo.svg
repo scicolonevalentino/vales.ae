@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 44 44" role="img" aria-label="AMMF">
-  <title>AMMF</title>
-  <rect x="0.5" y="0.5" width="43" height="43" rx="10" fill="#F4F7FF" stroke="#DCE3FF" stroke-width="1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 44 44" role="img" aria-label="AI Marketing Maturity Framework">
+  <title>AI Marketing Maturity Framework</title>
+  <rect x="0.5" y="0.5" width="43" height="43" rx="10" fill="#FFFFFF" stroke="#DCE3FF" stroke-width="1"/>
   <rect x="4" y="4" width="17" height="17" rx="5" fill="#00D4FF"/>
   <rect x="23" y="4" width="17" height="17" rx="5" fill="#1A56FF"/>
   <rect x="4" y="23" width="17" height="17" rx="5" fill="#0D1F5C"/>
