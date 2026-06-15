@@ -414,6 +414,17 @@ const DIMS = [
   ]}
 ];
 
+/* storage endpoint (Apps Script web app URL — filled in after deploy) */
+const STORAGE_URL = 'https://script.google.com/macros/s/AKfycbyva0i1INHIe4-5Px2lWoBrSyVwMGlon58X7oNx7bZmpIt7qukVCbCBlRIFK3Shk7nV/exec';
+function saveToDrive(payload){
+  if(!STORAGE_URL) return; // not wired yet
+  try{
+    fetch(STORAGE_URL,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)});
+  }catch(e){console.warn('storage post failed',e);}
+}
+
 /* flatten into 18 items */
 const FLOW = [];
 DIMS.forEach((d,di)=>d.q.forEach((q,qi)=>FLOW.push({di,qi,dim:d.name,t:q.t,o:q.o})));
@@ -492,10 +503,11 @@ function submitGate(){
   if(!first||!last||!company||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
     toast('Please complete all fields with a valid email.');return;}
   const {ds,overall}=computeScores();
-  const lead={first,last,email,company,overall:+overall.toFixed(2),
+  const lead={type:'assessment',first,last,email,company,
+    overall:+overall.toFixed(2),stage:STAGES[stageIndex(overall)].name,
     dimensions:Object.fromEntries(DIMS.map((d,i)=>[d.name,+ds[i].toFixed(2)])),at:new Date().toISOString()};
   try{const all=JSON.parse(localStorage.getItem('ammf_leads')||'[]');all.push(lead);localStorage.setItem('ammf_leads',JSON.stringify(all));}catch(e){}
-  console.log('AMMF lead (would be saved to Google Drive):',lead);
+  saveToDrive(lead);
   renderResults(ds,overall);
   show('screen-results');
 }
@@ -544,9 +556,10 @@ async function downloadPDF(){
 /* ---------- contact + helpers ---------- */
 function openContact(){document.getElementById('contactModal').classList.add('open');}
 function closeContact(){document.getElementById('contactModal').classList.remove('open');}
-function submitContact(){const n=val('c_name'),e=val('c_email');
+function submitContact(){const n=val('c_name'),e=val('c_email'),m=val('c_msg');
   if(!n||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){toast('Add your name and a valid email.');return;}
-  closeContact();toast('Thanks! In the live site this reaches Valentino.');}
+  saveToDrive({type:'contact',name:n,email:e,message:m,at:new Date().toISOString()});
+  closeContact();toast('Thanks! Valentino will be in touch.');}
 function val(id){return document.getElementById(id).value.trim();}
 let tT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
   clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2600);}
