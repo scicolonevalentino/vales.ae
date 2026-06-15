@@ -261,7 +261,7 @@ footer{border-top:1px solid var(--border);background:#fff}
         </div>
         <div class="scorebadge">
           <div class="num" id="r_score">2.1</div>
-          <div class="den">out of 4.0</div>
+          <div class="den">out of 5.0</div>
           <div class="bandtag" id="r_band">Connecting band</div>
         </div>
       </div>
@@ -309,7 +309,6 @@ footer{border-top:1px solid var(--border);background:#fff}
       </div>
     </div>
     <button class="btn btn-ghost" onclick="openContact()">Contact me</button>
-    <div class="copy">© 2026</div>
   </div>
 </footer>
 
@@ -347,17 +346,17 @@ footer{border-top:1px solid var(--border);background:#fff}
 <script>
 /* ---------- data ---------- */
 const STAGES = [
-  {name:'Exploring',  band:'1.00 to 1.74', lead:'AI is a conversation, not yet a capability.',
+  {name:'Exploring',  band:'1.00 to 1.99', lead:'AI is a conversation, not yet a capability.',
    desc:'Curiosity without commitment. AI shows up in conversation, not yet in the work.'},
-  {name:'Connecting', band:'1.75 to 2.49', lead:'Strategy and execution start to talk, on a few real workflows.',
+  {name:'Connecting', band:'2.00 to 2.99', lead:'Strategy and execution start to talk, on a few real workflows.',
    desc:'First real links between strategy and execution. The deck and the dashboard are starting to talk.'},
-  {name:'Scaling',    band:'2.50 to 3.24', lead:'Repeatable, measured AI workflows spread across programs.',
+  {name:'Scaling',    band:'3.00 to 3.99', lead:'Repeatable, measured AI workflows spread across programs.',
    desc:'Repeatable, measured workflows are spreading across programs. The gap is closing fast.'},
-  {name:'Leading',    band:'3.25 to 4.00', lead:'AI runs as one system across marketing and sets the pace.',
+  {name:'Leading',    band:'4.00 to 5.00', lead:'AI runs as one system across marketing and sets the pace.',
    desc:'AI runs as one system across marketing and sets the pace for the market.'}
 ];
-const THRESHOLDS = [1.75, 2.5, 3.25]; // upper edge of Exploring, Connecting, Scaling
-function stageIndex(v){ if(v<1.75)return 0; if(v<2.5)return 1; if(v<3.25)return 2; return 3; }
+const THRESHOLDS = [2, 3, 4]; // upper edge of Exploring, Connecting, Scaling (1-5 scale)
+function stageIndex(v){ if(v<2)return 0; if(v<3)return 1; if(v<4)return 2; return 3; }
 
 const DIMS = [
   {name:'Strategy', weight:1.25, goal:'A clear, measurable point of view on where AI plays in your marketing.',
@@ -370,17 +369,20 @@ const DIMS = [
       "We don't have one yet. It comes up in conversation but isn't written down.",
       "We have a vision deck, but it doesn't drive day-to-day marketing decisions.",
       "We have a documented AI marketing strategy with priorities teams actually use.",
-      "It's live, revisited on a cadence and tied to measurable marketing outcomes."]},
+      "It's live, revisited on a cadence and tied to measurable marketing outcomes.",
+      "It's a living strategy that adapts in near real time and gives us an edge competitors can't copy."]},
     {t:'How do you decide where AI gets applied in marketing?',o:[
       "Wherever an individual marketer happens to try it.",
       "We have a list of marketing use cases but haven't prioritized them.",
       "We've picked a few high-value marketing use cases and resourced them.",
-      "We continuously reprioritize marketing use cases by results and ROI."]},
+      "We continuously reprioritize marketing use cases by results and ROI.",
+      "Reprioritization is automatic, with resources flowing to the highest-return AI use cases as the data changes."]},
     {t:'How aligned is marketing leadership behind AI?',o:[
       "Marketing leadership is curious but hasn't committed.",
       "Leadership supports it in principle but hasn't funded or mandated it.",
       "Leadership has set clear expectations for AI in marketing and backed them with budget.",
-      "AI marketing maturity is a metric leadership is held accountable for."]}
+      "AI marketing maturity is a metric leadership is held accountable for.",
+      "Leadership treats AI marketing as a core advantage and invests ahead of the curve to stay in front."]}
   ]},
   {name:'Data & Stack', weight:1.15, goal:'Unified, governed, activation-ready data flowing through an AI-native stack.',
    next:[
@@ -392,17 +394,20 @@ const DIMS = [
       "Scattered across tools and spreadsheets, so pulling it together is manual.",
       "Partly centralized, but gaps and silos still slow us down.",
       "Largely unified and accessible, so most data is activation-ready.",
-      "Unified, real-time and governed, so data flows where it's needed automatically."]},
+      "Unified, real-time and governed, so data flows where it's needed automatically.",
+      "Our data is a live asset that improves itself, ready for any new AI use the moment we need it."]},
     {t:'How integrated are your AI tools with your martech stack?',o:[
       "A few marketers use point tools they found themselves.",
       "We have several AI tools, but they're disconnected from our martech stack.",
       "AI tools are chosen deliberately and integrated into our martech stack.",
-      "Our martech stack is AI-native, with tools, data and workflows connected end to end."]},
+      "Our martech stack is AI-native, with tools, data and workflows connected end to end.",
+      "The stack evolves as we add capability, with new AI tools plugging in without rework."]},
     {t:"How well governed is AI's use of your customer data?",o:[
       "No real policies on how AI can use our customer and marketing data.",
       "Informal rules, decided case by case.",
       "Clear policies on access, privacy and acceptable use that marketing follows.",
-      "Governance is automated and audited, so we trust AI on customer data at scale."]}
+      "Governance is automated and audited, so we trust AI on customer data at scale.",
+      "Governance is a competitive strength: provably safe, fully auditable, and a reason customers trust us."]}
   ]},
   {name:'Operations', weight:1.0, goal:'Standardized AI workflows with guardrails that anyone on the team can run.',
    next:[
@@ -414,17 +419,20 @@ const DIMS = [
       "Individual hacks, where whoever's keen uses AI on their own content and campaigns.",
       "Some shared tips, but no documented way of working.",
       "Documented, repeatable workflows (briefs, content, campaigns) anyone can run.",
-      "Standardized and continuously improved, so AI is how marketing work gets done."]},
+      "Standardized and continuously improved, so AI is how marketing work gets done.",
+      "Our AI workflows are a playbook others copy, refined continuously and scaled across the whole function."]},
     {t:'How do you control quality and protect the brand in AI output?',o:[
       "Little review, so AI output goes out as-is, or not at all.",
       "Ad hoc checking, when someone remembers.",
       "Human-in-the-loop review and brand guardrails are in place for AI output.",
-      "Systematized, with brand guardrails, review and clear accountability for AI content."]},
+      "Systematized, with brand guardrails, review and clear accountability for AI content.",
+      "Guardrails are automated and self-checking, so quality and brand safety hold even as volume scales."]},
     {t:'How much does AI improve your marketing speed and throughput?',o:[
       "AI hasn't meaningfully changed how fast marketing ships.",
       "A few tasks are faster, but it's inconsistent.",
       "AI reliably shortens campaign and content cycle times across the team.",
-      "AI is a core driver of marketing throughput, so we ship far more, far faster."]}
+      "AI is a core driver of marketing throughput, so we ship far more, far faster.",
+      "AI lets us operate at a scale and speed competitors can't match, without adding headcount."]}
   ]},
   {name:'Talent', weight:1.0, goal:'Broad fluency, clear ownership, and enablement built into how the team works.',
    next:[
@@ -436,17 +444,20 @@ const DIMS = [
       "One or two marketers are enthusiasts; everyone else is watching.",
       "Pockets of skill, but it's uneven across the marketing team.",
       "Broad, role-relevant AI fluency across the marketing team.",
-      "Deep capability, where our marketers set the standard others learn from."]},
+      "Deep capability, where our marketers set the standard others learn from.",
+      "Our team is a magnet for AI marketing talent and sets the standard the industry follows."]},
     {t:'How clearly is AI in marketing owned and structured?',o:[
       "No one clearly owns AI in marketing.",
       "Ownership is unclear or part-time, bolted onto other roles.",
       "Clear ownership and an operating model for AI in marketing.",
-      "A defined structure with roles, mandate and resourcing to match."]},
+      "A defined structure with roles, mandate and resourcing to match.",
+      "AI is woven through every marketing role, with a model other teams benchmark against."]},
     {t:'How do marketers build their AI skills?',o:[
       "Marketers learn on their own time, if at all.",
       "Occasional training, but no real program.",
       "Funded training and shared marketing playbooks people actually use.",
-      "Continuous enablement, with learning built into how marketing works."]}
+      "Continuous enablement, with learning built into how marketing works.",
+      "Learning compounds on its own, so the team's AI edge widens quarter after quarter."]}
   ]},
   {name:'Measurement', weight:1.0, goal:"AI's impact measured against business outcomes in a closed loop that feeds strategy.",
    next:[
@@ -458,17 +469,20 @@ const DIMS = [
       "We don't really measure it; it's a gut feel.",
       "We track activity (like tool usage), but not marketing outcomes.",
       "We have defined KPIs for AI's contribution to marketing.",
-      "Impact is measured against marketing and business outcomes, continuously."]},
+      "Impact is measured against marketing and business outcomes, continuously.",
+      "Measurement is real time and predictive, so we know an AI bet's value before we scale it."]},
     {t:'How well do results feed back into your AI marketing decisions?',o:[
       "No link between AI marketing work and results.",
       "We can sometimes tell what worked, after the fact.",
       "Marketing results feed back into how we prioritize AI.",
-      "Closed-loop, where measurement automatically informs strategy and media spend."]},
+      "Closed-loop, where measurement automatically informs strategy and media spend.",
+      "The loop is self-optimizing, reallocating strategy and spend toward what works without waiting on us."]},
     {t:'Do you measure AI outcomes, or just activity?',o:[
       "We count outputs, like posts, assets and campaigns.",
       "We're starting to connect outputs to performance.",
       "We tie AI work to pipeline, revenue or marketing efficiency.",
-      "AI's marketing value is proven in hard business terms leadership trusts."]}
+      "AI's marketing value is proven in hard business terms leadership trusts.",
+      "AI's contribution is a line the business forecasts on, as trusted as any core revenue driver."]}
   ]},
   {name:'Activation', weight:1.0, goal:'AI embedded across what ships, with strategy and execution running as one loop.',
    next:[
@@ -480,17 +494,20 @@ const DIMS = [
       "Mostly slides and talk about AI; little reaches campaigns or customers.",
       "Some AI-assisted work ships, in fits and starts.",
       "AI is regularly in live campaigns and customer-facing marketing.",
-      "AI is embedded in most of the marketing we ship."]},
+      "AI is embedded in most of the marketing we ship.",
+      "AI is in virtually everything we ship, and it's a visible reason our marketing outperforms."]},
     {t:'How widely is AI deployed across your channels and programs?',o:[
       "A one-off campaign or experiment.",
       "A handful of programs or channels use it.",
       "Deployed across most marketing programs and channels.",
-      "Marketing-wide and compounding, where every new use builds on the last."]},
+      "Marketing-wide and compounding, where every new use builds on the last.",
+      "Compounding across every channel, so our advantage grows faster than competitors can follow."]},
     {t:'How far apart are your AI marketing strategy and your shipped work?',o:[
       "Big gap, where our AI marketing strategy and our shipped work are worlds apart.",
       "The gap is narrowing, but slowly.",
       "Strategy and execution are closely connected.",
-      "No distance, with marketing strategy and execution as one continuous loop."]}
+      "No distance, with marketing strategy and execution as one continuous loop.",
+      "Strategy and execution move as one in real time, and that speed is itself our competitive moat."]}
   ]}
 ];
 
@@ -568,14 +585,14 @@ function radarSVG(scores){
   const ang=i=>(-90+i*60)*Math.PI/180;
   const pt=(i,r)=>[cx+Math.cos(ang(i))*r, cy+Math.sin(ang(i))*r];
   let rings='';
-  [1,2,3,4].forEach(v=>{
-    const p=[...Array(N)].map((_,i)=>pt(i,R*v/4).join(',')).join(' ');
+  [1,2,3,4,5].forEach(v=>{
+    const p=[...Array(N)].map((_,i)=>pt(i,R*v/5).join(',')).join(' ');
     rings+=`<polygon points="${p}" fill="none" stroke="#DCE3FF" stroke-width="1"/>`;
   });
   let axes='';
   for(let i=0;i<N;i++){const[e1,e2]=pt(i,R);axes+=`<line x1="${cx}" y1="${cy}" x2="${e1}" y2="${e2}" stroke="#DCE3FF" stroke-width="1"/>`;}
-  const dp=scores.map((v,i)=>pt(i,R*v/4).join(',')).join(' ');
-  let dots='';scores.forEach((v,i)=>{const[x,y]=pt(i,R*v/4);dots+=`<circle cx="${x}" cy="${y}" r="3.5" fill="#1A56FF"/>`;});
+  const dp=scores.map((v,i)=>pt(i,R*v/5).join(',')).join(' ');
+  let dots='';scores.forEach((v,i)=>{const[x,y]=pt(i,R*v/5);dots+=`<circle cx="${x}" cy="${y}" r="3.5" fill="#1A56FF"/>`;});
   let labels='';
   DIMS.forEach((d,i)=>{let[x,y]=pt(i,R+26);
     let anchor=Math.abs(x-cx)<6?'middle':(x>cx?'start':'end');
@@ -630,7 +647,7 @@ function renderResults(ds,overall){
   const lo=order[0];
   const loStage=STAGES[stageIndex(ds[lo])].name;
   document.getElementById('r_gap').innerHTML=
-    `<b>${DIMS[lo].name}</b> is your widest distance, at <b>${loStage}</b> (${ds[lo].toFixed(1)}/4).<br>
+    `<b>${DIMS[lo].name}</b> is your widest distance, at <b>${loStage}</b> (${ds[lo].toFixed(1)}/5).<br>
      <span style="color:var(--body)">Where you're headed: ${DIMS[lo].goal}</span>`;
 
   // priority moves = three lowest dimensions, with the move that advances each
@@ -638,13 +655,13 @@ function renderResults(ds,overall){
     const sIdx=stageIndex(ds[di]);
     return `<div class="move"><div class="rank">${n+1}</div><div class="mbody">
       <div class="mhead"><span class="mname">${DIMS[di].name}</span>
-        <span class="mstage">${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/4</span></div>
+        <span class="mstage">${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/5</span></div>
       <div class="mtext">${DIMS[di].next[sIdx]}</div></div></div>`;}).join('');
 
   document.getElementById('r_breakdown').innerHTML=DIMS.map((d,i)=>{
     const stg=STAGES[stageIndex(ds[i])].name;
     return `<div class="dimrow"><div class="nm">${d.name}</div>
-      <div class="bar"><i style="width:${ds[i]/4*100}%"></i></div>
+      <div class="bar"><i style="width:${ds[i]/5*100}%"></i></div>
       <div class="sc">${ds[i].toFixed(1)}</div>
       <div class="st">${stg}</div></div>`;}).join('');
 }
@@ -678,15 +695,15 @@ function pdfRadar(pdf,cx,cy,R,ds){
   const pt=(i,rr)=>[cx+Math.cos(ang(i))*rr, cy+Math.sin(ang(i))*rr];
   // rings
   pdf.setDrawColor(C.border[0],C.border[1],C.border[2]); pdf.setLineWidth(0.3);
-  [1,2,3,4].forEach(v=>{
-    const vs=[...Array(N)].map((_,i)=>pt(i,R*v/4));
+  [1,2,3,4,5].forEach(v=>{
+    const vs=[...Array(N)].map((_,i)=>pt(i,R*v/5));
     const segs=vs.slice(1).map((p,i)=>[p[0]-vs[i][0],p[1]-vs[i][1]]);
     pdf.lines(segs, vs[0][0], vs[0][1], [1,1], 'S', true);
   });
   // axes
   for(let i=0;i<N;i++){const[ex,ey]=pt(i,R);pdf.line(cx,cy,ex,ey);}
   // data polygon
-  const dv=ds.map((v,i)=>pt(i,R*v/4));
+  const dv=ds.map((v,i)=>pt(i,R*v/5));
   const dsegs=dv.slice(1).map((p,i)=>[p[0]-dv[i][0],p[1]-dv[i][1]]);
   pdf.setFillColor(C.fill[0],C.fill[1],C.fill[2]);
   pdf.setDrawColor(C.blue[0],C.blue[1],C.blue[2]); pdf.setLineWidth(0.8);
@@ -725,7 +742,7 @@ function downloadPDF(){
     pdf.setFont('helvetica','bold');pdf.setFontSize(34);pdf.setTextColor(255,255,255);
     pdf.text(overall.toFixed(1), PW-MX, 30, {align:'right'});
     pdf.setFont('helvetica','normal');pdf.setFontSize(9);pdf.setTextColor(214,224,255);
-    pdf.text('out of 4.0', PW-MX, 36, {align:'right'});
+    pdf.text('out of 5.0', PW-MX, 36, {align:'right'});
     pdf.setFont('helvetica','bold');pdf.setFontSize(7.5);
     pdf.text(STAGES[si].band+' band', PW-MX, 43, {align:'right'});
 
@@ -774,7 +791,7 @@ function downloadPDF(){
       pdf.text(DIMS[di].name, MX+11, y+3.4);
       const nameW=pdf.getTextWidth(DIMS[di].name); // measured at 10.5 before switching size
       pdf.setFont('helvetica','normal');pdf.setFontSize(8.5);pdf.setTextColor(C.blue[0],C.blue[1],C.blue[2]);
-      pdf.text(`${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/4`, MX+11+nameW+5, y+3.4);
+      pdf.text(`${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/5`, MX+11+nameW+5, y+3.4);
       // move text
       pdf.setTextColor(C.body[0],C.body[1],C.body[2]);pdf.setFontSize(9.5);
       pdf.text(moveLines, MX+11, y+8);
@@ -791,7 +808,7 @@ function downloadPDF(){
       pdf.text(d.name, MX, y+2.6);
       const bx=MX+42, bw=CW-42-44, bh=3;
       pdf.setFillColor(C.ice[0],C.ice[1],C.ice[2]);pdf.roundedRect(bx,y,bw,bh,1.5,1.5,'F');
-      pdf.setFillColor(C.blue[0],C.blue[1],C.blue[2]);pdf.roundedRect(bx,y,Math.max(2,bw*ds[i]/4),bh,1.5,1.5,'F');
+      pdf.setFillColor(C.blue[0],C.blue[1],C.blue[2]);pdf.roundedRect(bx,y,Math.max(2,bw*ds[i]/5),bh,1.5,1.5,'F');
       pdf.setFont('helvetica','bold');pdf.setFontSize(9.5);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
       pdf.text(ds[i].toFixed(1), bx+bw+8, y+2.6, {align:'right'});
       pdf.setFont('helvetica','normal');pdf.setFontSize(8.5);pdf.setTextColor(C.blue[0],C.blue[1],C.blue[2]);
@@ -805,8 +822,7 @@ function downloadPDF(){
     pdf.text('Valentino Scicolone', MX, PH-12);
     pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(C.muted[0],C.muted[1],C.muted[2]);
     pdf.text('AI Marketing Consultant, based in Dubai, present globally', MX, PH-8);
-    pdf.text('vales.ae/aimarketingmaturity', PW-MX, PH-12, {align:'right'});
-    pdf.text('© 2026', PW-MX, PH-8, {align:'right'});
+    pdf.text('vales.ae/aimarketingmaturity', PW-MX, PH-8, {align:'right'});
 
     pdf.save('AMMF-Maturity-Results.pdf');
   }catch(e){ console.warn('PDF build failed, printing instead',e); window.print(); }
