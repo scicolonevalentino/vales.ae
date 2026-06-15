@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AMMF — AI Marketing Maturity Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --blue:#1A56FF; --blue-dark:#0A2EB8; --blue-mid:#4D7BFF; --navy:#0D1F5C;
+  --cyan:#00D4FF; --ice:#F4F7FF; --border:#DCE3FF; --muted:#8896B8;
+  --body:#3D5080; --red:#E5484D; --white:#fff;
+  --grad:linear-gradient(120deg,var(--blue-dark),var(--blue) 55%,var(--cyan));
+  --shadow:0 18px 50px rgba(13,31,92,.12);
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--body);background:var(--ice);line-height:1.55;
+  -webkit-font-smoothing:antialiased;}
+h1,h2,h3{color:var(--navy);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+.screen{display:none;animation:fade .4s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* top bar */
+.topbar{display:flex;align-items:center;gap:12px;padding:22px 0}
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--navy);font-size:18px}
+.logo svg{width:38px;height:38px;display:block}
+
+/* hero */
+.hero{padding:48px 0 64px}
+.eyebrow{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blue);background:#fff;border:1px solid var(--border);
+  padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.hero h1{font-size:clamp(34px,6vw,56px);margin-bottom:20px}
+.hero h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(18px,2.4vw,22px);max-width:660px;margin-bottom:18px}
+.hero p.lead b{color:var(--navy);font-weight:800}
+.hero p.sub{color:var(--body);font-size:clamp(16px,2vw,18px);font-weight:500;max-width:640px;margin-bottom:34px}
+.meta-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;color:var(--muted);font-size:14px;font-weight:600}
+.meta-row b{color:var(--navy)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);font-weight:700;
+  font-size:16px;border:none;border-radius:12px;padding:15px 26px;cursor:pointer;transition:.18s;
+  text-decoration:none}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 24px rgba(26,86,255,.32)}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--blue-mid);color:var(--blue)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+
+/* dimensions strip */
+.dimstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin-top:46px}
+.dimchip{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;font-size:14px;transition:.18s}
+.dimchip:hover{border-color:var(--blue-mid);box-shadow:0 8px 24px rgba(13,31,92,.07)}
+.dimchip b{display:block;color:var(--navy);font-weight:800;font-size:16px;margin-bottom:6px}
+.dimchip span{color:var(--body);font-size:14px;line-height:1.5}
+
+/* assessment */
+.assess{padding:30px 0 70px;max-width:760px;margin:0 auto}
+.progress{height:8px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 6px}
+.progress > i{display:block;height:100%;width:0;background:var(--grad);border-radius:99px;transition:.35s}
+.progress-meta{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:30px}
+.q-dim{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.q-text{font-size:clamp(22px,3.4vw,30px);margin-bottom:26px}
+.options{display:flex;flex-direction:column;gap:12px}
+.opt{display:flex;align-items:flex-start;gap:14px;text-align:left;background:#fff;border:1.5px solid var(--border);
+  border-radius:14px;padding:17px 18px;cursor:pointer;font-family:var(--font);font-size:15.5px;color:var(--body);
+  transition:.15s;width:100%}
+.opt:hover{border-color:var(--blue-mid);background:#fbfcff}
+.opt.sel{border-color:var(--blue);background:#f3f7ff;box-shadow:0 0 0 3px rgba(26,86,255,.12)}
+.opt .dot{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid var(--border);margin-top:1px;transition:.15s}
+.opt.sel .dot{border-color:var(--blue);background:var(--blue);box-shadow:inset 0 0 0 4px #fff}
+.nav{display:flex;justify-content:space-between;margin-top:34px}
+
+/* gate / card */
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:40px;box-shadow:var(--shadow)}
+.gate{max-width:540px;margin:40px auto 80px}
+.gate h2{font-size:28px;margin-bottom:8px}
+.gate p.sub{color:var(--muted);margin-bottom:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.field input{width:100%;font-family:var(--font);font-size:15px;color:var(--navy);padding:13px 15px;
+  border:1.5px solid var(--border);border-radius:11px;background:var(--ice);transition:.15s}
+.field input:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(26,86,255,.12)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gate .btn-primary{width:100%;justify-content:center;margin-top:8px}
+.gate .privacy{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+
+/* results */
+.results{padding:30px 0 80px}
+.res-head{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between;
+  background:var(--grad);color:#fff;border-radius:22px;padding:38px 40px;margin-bottom:26px}
+.res-head .stagebig{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.res-head h2{color:#fff;font-size:clamp(34px,6vw,50px);margin:6px 0}
+.res-head p{max-width:420px;opacity:.92;font-size:15px}
+.scorebadge{text-align:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);
+  border-radius:18px;padding:20px 26px;min-width:130px}
+.scorebadge .num{font-size:46px;font-weight:800;line-height:1}
+.scorebadge .den{opacity:.8;font-size:14px}
+.res-grid{display:grid;grid-template-columns:360px 1fr;gap:26px;align-items:start}
+@media(max-width:760px){.res-grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px}
+.panel h3{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.gap-call{border-left:4px solid var(--cyan);background:#f5fdff;border-radius:0 12px 12px 0;padding:14px 18px;margin-top:14px}
+.gap-call b{color:var(--navy)}
+.dimrow{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border)}
+.dimrow:last-child{border-bottom:none}
+.dimrow .nm{flex:0 0 130px;font-weight:700;color:var(--navy);font-size:14px}
+.dimrow .bar{flex:1;height:9px;background:var(--ice);border-radius:99px;overflow:hidden}
+.dimrow .bar > i{display:block;height:100%;border-radius:99px;background:var(--grad)}
+.dimrow .st{flex:0 0 92px;text-align:right;font-size:12.5px;font-weight:700;color:var(--blue)}
+.res-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center}
+
+/* footer */
+footer{border-top:1px solid var(--border);background:#fff}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:26px 0}
+.foot .who{display:flex;align-items:center;gap:14px}
+.foot .who .av{width:46px;height:46px;border-radius:50%;background:var(--grad);display:flex;align-items:center;
+  justify-content:center;color:#fff;font-weight:800;font-size:17px}
+.foot .who b{color:var(--navy);display:block;font-size:15px}
+.foot .who span{font-size:13px;color:var(--muted)}
+.foot .copy{font-size:12.5px;color:var(--muted)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(13,31,92,.5);display:none;align-items:center;justify-content:center;
+  padding:24px;z-index:50;backdrop-filter:blur(3px)}
+.modal.open{display:flex;animation:fade .25s ease}
+.modal .card{max-width:440px;width:100%;position:relative}
+.modal h3{font-size:22px;color:var(--navy);margin-bottom:4px}
+.modal p.s{color:var(--muted);font-size:14px;margin-bottom:20px}
+.modal textarea{width:100%;font-family:var(--font);font-size:15px;color:var(--navy);padding:13px 15px;
+  border:1.5px solid var(--border);border-radius:11px;background:var(--ice);resize:vertical;min-height:90px}
+.modal textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+.x{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;line-height:1}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120%);background:var(--navy);
+  color:#fff;padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;transition:.35s;z-index:60}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.demo-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+
+<!-- ===== top bar (shared) ===== -->
+<div class="wrap">
+  <div class="topbar">
+    <div class="logo" id="logoSlot"></div>
+  </div>
+</div>
+
+<!-- ===== LANDING ===== -->
+<section class="screen active" id="screen-landing">
+  <div class="wrap hero">
+    <span class="eyebrow">AI Marketing Maturity Framework</span>
+    <h1>Most marketing teams don't have a strategy problem.<br><span class="grad">They have a distance problem.</span></h1>
+    <p class="lead">The distance between <b>AI ambition</b> and <b>marketing execution</b>.<br>
+      Between what <b>leadership</b> wants to build, what <b>teams</b> are ready to adopt, and what actually becomes part of <b>daily work</b>.</p>
+    <p class="sub">This free assessment scores how AI and your marketing work together across six dimensions, then shows you exactly where your distance is widest, and what closing it looks like.</p>
+    <button class="btn btn-primary" onclick="startAssessment()">Start the assessment →</button>
+    <div class="meta-row">
+      <div>Just <b>5</b> minutes</div>
+      <div><b>6</b> dimensions scored</div>
+      <div><b>PDF</b> result you keep</div>
+    </div>
+    <div class="dimstrip" id="dimstrip"></div>
+  </div>
+</section>
+
+<!-- ===== ASSESSMENT ===== -->
+<section class="screen" id="screen-assess">
+  <div class="wrap assess">
+    <div class="progress"><i id="progBar"></i></div>
+    <div class="progress-meta"><span id="progLabel">Your progress</span><span id="progPct">0%</span></div>
+    <div class="q-dim" id="qDim"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="qOpts"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="backBtn" onclick="prevQ()">← Back</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" disabled>Next →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EMAIL GATE ===== -->
+<section class="screen" id="screen-gate">
+  <div class="wrap">
+    <div class="card gate">
+      <h2>Your results are ready.</h2>
+      <p class="sub">Tell us where to send them. You'll see your maturity stage instantly and can download the full PDF.</p>
+      <div class="two">
+        <div class="field"><label>First name</label><input id="f_first" type="text" placeholder="Jane"></div>
+        <div class="field"><label>Last name</label><input id="f_last" type="text" placeholder="Doe"></div>
+      </div>
+      <div class="field"><label>Work email</label><input id="f_email" type="email" placeholder="jane@company.com"></div>
+      <div class="field"><label>Company</label><input id="f_company" type="text" placeholder="Company name"></div>
+      <button class="btn btn-primary" onclick="submitGate()">See my results →</button>
+      <p class="privacy">We'll only use this to share your results and relevant insights.</p>
+      <p class="demo-note" id="gateDemo">Demo mode: in the live site this lead is saved to Google Drive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="screen" id="screen-results">
+  <div class="wrap results">
+    <div id="resultsCard">
+      <div class="res-head">
+        <div>
+          <div class="stagebig">Your AI Marketing Maturity</div>
+          <h2 id="r_stage">Connecting</h2>
+          <p id="r_stagedesc"></p>
+        </div>
+        <div class="scorebadge"><div class="num" id="r_score">2.1</div><div class="den">out of 4.0</div></div>
+      </div>
+      <div class="res-grid">
+        <div class="panel" style="text-align:center">
+          <div id="radarSlot"></div>
+        </div>
+        <div>
+          <div class="panel">
+            <h3>Your biggest distance</h3>
+            <div class="gap-call" id="r_gap"></div>
+          </div>
+          <div class="panel" style="margin-top:18px">
+            <h3>Dimension breakdown</h3>
+            <div id="r_breakdown"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="res-cta">
+      <button class="btn btn-primary" onclick="downloadPDF()">⬇ Download your results (PDF)</button>
+      <button class="btn btn-ghost" onclick="openContact()">Contact Valentino</button>
+      <button class="btn btn-ghost" onclick="location.reload()">Retake</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== footer (shared) ===== -->
+<footer>
+  <div class="wrap foot">
+    <div class="who">
+      <div class="av">VS</div>
+      <div><b>Valentino Scicolone</b><span>Media &amp; MarTech Strategy Leader · Dubai</span></div>
+    </div>
+    <button class="btn btn-ghost" onclick="openContact()">Contact me</button>
+    <div class="copy">© 2026 Valentino Scicolone · Confidential</div>
+  </div>
+</footer>
+
+<!-- ===== contact modal ===== -->
+<div class="modal" id="contactModal">
+  <div class="card">
+    <button class="x" onclick="closeContact()">×</button>
+    <h3>Let's talk</h3>
+    <p class="s">Tell me a bit about your team and I'll be in touch.</p>
+    <div class="two">
+      <div class="field"><label>Name</label><input id="c_name" type="text" placeholder="Your name"></div>
+      <div class="field"><label>Email</label><input id="c_email" type="email" placeholder="you@company.com"></div>
+    </div>
+    <div class="field"><label>Message</label><textarea id="c_msg" placeholder="What's on your mind?"></textarea></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitContact()">Send</button>
+    <p class="demo-note">Demo mode: the contact workflow gets wired later.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- brand logo (four-pane mark) ---------- */
+function logoSVG(size){
+  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" aria-label="AMMF">
+    <rect x="2" y="2" width="96" height="96" rx="22" fill="#1A56FF"/>
+    <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <!-- curiosity: search (cyan pane) -->
+      <rect x="11" y="11" width="35" height="35" rx="10" fill="#00D4FF" stroke="none"/>
+      <circle cx="26" cy="26" r="8"/><line x1="32" y1="32" x2="38" y2="38"/>
+      <!-- creativity: sun (blue) -->
+      <rect x="54" y="11" width="35" height="35" rx="10" fill="#1A56FF" stroke="none"/>
+      <circle cx="71.5" cy="28.5" r="6"/>
+      <g stroke-width="4"><line x1="71.5" y1="15" x2="71.5" y2="18"/><line x1="71.5" y1="39" x2="71.5" y2="42"/>
+      <line x1="58" y1="28.5" x2="61" y2="28.5"/><line x1="82" y1="28.5" x2="85" y2="28.5"/>
+      <line x1="62" y1="19" x2="64" y2="21"/><line x1="79" y1="36" x2="81" y2="38"/>
+      <line x1="81" y1="19" x2="79" y2="21"/><line x1="64" y1="36" x2="62" y2="38"/></g>
+      <!-- critical thinking: check (navy) -->
+      <rect x="11" y="54" width="35" height="35" rx="10" fill="#0D1F5C" stroke="none"/>
+      <polyline points="19,72 26,79 39,64"/>
+      <!-- empathy: heart (blue mid) -->
+      <rect x="54" y="54" width="35" height="35" rx="10" fill="#4D7BFF" stroke="none"/>
+      <path d="M71.5 80 C 64 74, 60 69, 64 64 C 67 60.5, 71 62, 71.5 65 C 72 62, 76 60.5, 79 64 C 83 69, 79 74, 71.5 80 Z" fill="#fff" stroke="none"/>
+    </g>
+  </svg>`;
+}
+document.getElementById('logoSlot').innerHTML = logoSVG(38) + '<span>AMMF</span>';
+
+/* ---------- data ---------- */
+const STAGES = [
+  {name:'Exploring',  desc:'Curiosity without commitment. AI shows up in conversation, not yet in the work.'},
+  {name:'Connecting', desc:'First real links between strategy and execution. The deck and the dashboard are starting to talk.'},
+  {name:'Scaling',    desc:'Repeatable, measured workflows are spreading across programs. The gap is closing fast.'},
+  {name:'Leading',    desc:'AI runs as one system across marketing and sets the pace for the market.'}
+];
+function stageIndex(v){ if(v<1.75)return 0; if(v<2.5)return 1; if(v<3.25)return 2; return 3; }
+
+const DIMS = [
+  {name:'Strategy', weight:1.25, goal:'A clear, measurable point of view on where AI plays in your marketing.', q:[
+    {t:'How developed is your AI marketing strategy?',o:[
+      "We don't have one yet. It comes up in conversation but isn't written down.",
+      "We have a vision deck, but it doesn't drive day-to-day marketing decisions.",
+      "We have a documented AI marketing strategy with priorities teams actually use.",
+      "It's live, revisited on a cadence and tied to measurable marketing outcomes."]},
+    {t:'How do you decide where AI gets applied in marketing?',o:[
+      "Wherever an individual marketer happens to try it.",
+      "We have a list of marketing use cases but haven't prioritized them.",
+      "We've picked a few high-value marketing use cases and resourced them.",
+      "We continuously reprioritize marketing use cases by results and ROI."]},
+    {t:'How aligned is marketing leadership behind AI?',o:[
+      "Marketing leadership is curious but hasn't committed.",
+      "Leadership supports it in principle but hasn't funded or mandated it.",
+      "Leadership has set clear expectations for AI in marketing and backed them with budget.",
+      "AI marketing maturity is a metric leadership is held accountable for."]}
+  ]},
+  {name:'Data & Stack', weight:1.15, goal:'Unified, governed, activation-ready data flowing through an AI-native stack.', q:[
+    {t:'How ready for AI is your marketing and customer data?',o:[
+      "Scattered across tools and spreadsheets, so pulling it together is manual.",
+      "Partly centralized, but gaps and silos still slow us down.",
+      "Largely unified and accessible, so most data is activation-ready.",
+      "Unified, real-time and governed, so data flows where it's needed automatically."]},
+    {t:'How integrated are your AI tools with your martech stack?',o:[
+      "A few marketers use point tools they found themselves.",
+      "We have several AI tools, but they're disconnected from our martech stack.",
+      "AI tools are chosen deliberately and integrated into our martech stack.",
+      "Our martech stack is AI-native, with tools, data and workflows connected end to end."]},
+    {t:"How well governed is AI's use of your customer data?",o:[
+      "No real policies on how AI can use our customer and marketing data.",
+      "Informal rules, decided case by case.",
+      "Clear policies on access, privacy and acceptable use that marketing follows.",
+      "Governance is automated and audited, so we trust AI on customer data at scale."]}
+  ]},
+  {name:'Operations', weight:1.0, goal:'Standardized AI workflows with guardrails that anyone on the team can run.', q:[
+    {t:'How does AI marketing work actually get done?',o:[
+      "Individual hacks, where whoever's keen uses AI on their own content and campaigns.",
+      "Some shared tips, but no documented way of working.",
+      "Documented, repeatable workflows (briefs, content, campaigns) anyone can run.",
+      "Standardized and continuously improved, so AI is how marketing work gets done."]},
+    {t:'How do you control quality and protect the brand in AI output?',o:[
+      "Little review, so AI output goes out as-is, or not at all.",
+      "Ad hoc checking, when someone remembers.",
+      "Human-in-the-loop review and brand guardrails are in place for AI output.",
+      "Systematized, with brand guardrails, review and clear accountability for AI content."]},
+    {t:'How much does AI improve your marketing speed and throughput?',o:[
+      "AI hasn't meaningfully changed how fast marketing ships.",
+      "A few tasks are faster, but it's inconsistent.",
+      "AI reliably shortens campaign and content cycle times across the team.",
+      "AI is a core driver of marketing throughput, so we ship far more, far faster."]}
+  ]},
+  {name:'Talent', weight:1.0, goal:'Broad fluency, clear ownership, and enablement built into how the team works.', q:[
+    {t:'How widespread are AI skills across your marketing team?',o:[
+      "One or two marketers are enthusiasts; everyone else is watching.",
+      "Pockets of skill, but it's uneven across the marketing team.",
+      "Broad, role-relevant AI fluency across the marketing team.",
+      "Deep capability, where our marketers set the standard others learn from."]},
+    {t:'How clearly is AI in marketing owned and structured?',o:[
+      "No one clearly owns AI in marketing.",
+      "Ownership is unclear or part-time, bolted onto other roles.",
+      "Clear ownership and an operating model for AI in marketing.",
+      "A defined structure with roles, mandate and resourcing to match."]},
+    {t:'How do marketers build their AI skills?',o:[
+      "Marketers learn on their own time, if at all.",
+      "Occasional training, but no real program.",
+      "Funded training and shared marketing playbooks people actually use.",
+      "Continuous enablement, with learning built into how marketing works."]}
+  ]},
+  {name:'Measurement', weight:1.0, goal:"AI's impact measured against business outcomes in a closed loop that feeds strategy.", q:[
+    {t:"How do you measure AI's impact on marketing?",o:[
+      "We don't really measure it; it's a gut feel.",
+      "We track activity (like tool usage), but not marketing outcomes.",
+      "We have defined KPIs for AI's contribution to marketing.",
+      "Impact is measured against marketing and business outcomes, continuously."]},
+    {t:'How well do results feed back into your AI marketing decisions?',o:[
+      "No link between AI marketing work and results.",
+      "We can sometimes tell what worked, after the fact.",
+      "Marketing results feed back into how we prioritize AI.",
+      "Closed-loop, where measurement automatically informs strategy and media spend."]},
+    {t:'Do you measure AI outcomes, or just activity?',o:[
+      "We count outputs, like posts, assets and campaigns.",
+      "We're starting to connect outputs to performance.",
+      "We tie AI work to pipeline, revenue or marketing efficiency.",
+      "AI's marketing value is proven in hard business terms leadership trusts."]}
+  ]},
+  {name:'Activation', weight:1.0, goal:'AI embedded across what ships, with strategy and execution running as one loop.', q:[
+    {t:'How much of your marketing actually ships with AI?',o:[
+      "Mostly slides and talk about AI; little reaches campaigns or customers.",
+      "Some AI-assisted work ships, in fits and starts.",
+      "AI is regularly in live campaigns and customer-facing marketing.",
+      "AI is embedded in most of the marketing we ship."]},
+    {t:'How widely is AI deployed across your channels and programs?',o:[
+      "A one-off campaign or experiment.",
+      "A handful of programs or channels use it.",
+      "Deployed across most marketing programs and channels.",
+      "Marketing-wide and compounding, where every new use builds on the last."]},
+    {t:'How far apart are your AI marketing strategy and your shipped work?',o:[
+      "Big gap, where our AI marketing strategy and our shipped work are worlds apart.",
+      "The gap is narrowing, but slowly.",
+      "Strategy and execution are closely connected.",
+      "No distance, with marketing strategy and execution as one continuous loop."]}
+  ]}
+];
+
+/* flatten into 18 items */
+const FLOW = [];
+DIMS.forEach((d,di)=>d.q.forEach((q,qi)=>FLOW.push({di,qi,dim:d.name,t:q.t,o:q.o})));
+const answers = new Array(FLOW.length).fill(null);
+let cur = 0;
+
+/* dim strip on landing */
+document.getElementById('dimstrip').innerHTML = DIMS.map(d=>
+  `<div class="dimchip"><b>${d.name}</b><span>${d.goal}</span></div>`).join('');
+
+/* ---------- navigation ---------- */
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function startAssessment(){cur=0;renderQ();show('screen-assess');}
+
+function renderQ(){
+  const item=FLOW[cur];
+  document.getElementById('qDim').textContent=item.dim;
+  document.getElementById('qText').textContent=item.t;
+  document.getElementById('qOpts').innerHTML=item.o.map((txt,i)=>
+    `<button class="opt${answers[cur]===i+1?' sel':''}" onclick="pick(${i+1})">
+       <span class="dot"></span><span>${txt}</span></button>`).join('');
+  const pct=Math.round((cur)/FLOW.length*100);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progPct').textContent=pct+'%';
+  document.getElementById('progLabel').textContent='Your progress';
+  document.getElementById('backBtn').style.visibility=cur===0?'hidden':'visible';
+  document.getElementById('nextBtn').disabled=answers[cur]===null;
+  document.getElementById('nextBtn').textContent=cur===FLOW.length-1?'See results →':'Next →';
+}
+function pick(v){answers[cur]=v;renderQ();setTimeout(()=>{ if(answers[cur]!==null) nextQ(); },230);}
+function nextQ(){if(answers[cur]===null)return;
+  if(cur<FLOW.length-1){cur++;renderQ();}else{show('screen-gate');}}
+function prevQ(){if(cur>0){cur--;renderQ();}}
+
+/* ---------- scoring ---------- */
+function computeScores(){
+  const byDim=DIMS.map(()=>[]);
+  FLOW.forEach((f,idx)=>byDim[f.di].push(answers[idx]));
+  const ds=byDim.map(arr=>arr.reduce((a,b)=>a+b,0)/arr.length);
+  let wsum=0,acc=0;
+  DIMS.forEach((d,i)=>{acc+=ds[i]*d.weight;wsum+=d.weight;});
+  const overall=acc/wsum;
+  return {ds,overall};
+}
+
+/* ---------- radar ---------- */
+function radarSVG(scores){
+  const cx=220,cy=182,R=110,N=6;
+  const ang=i=>(-90+i*60)*Math.PI/180;
+  const pt=(i,r)=>[cx+Math.cos(ang(i))*r, cy+Math.sin(ang(i))*r];
+  let rings='';
+  [1,2,3,4].forEach(v=>{
+    const p=[...Array(N)].map((_,i)=>pt(i,R*v/4).join(',')).join(' ');
+    rings+=`<polygon points="${p}" fill="none" stroke="#DCE3FF" stroke-width="1"/>`;
+  });
+  let axes='';
+  for(let i=0;i<N;i++){const[e1,e2]=pt(i,R);axes+=`<line x1="${cx}" y1="${cy}" x2="${e1}" y2="${e2}" stroke="#DCE3FF" stroke-width="1"/>`;}
+  const dp=scores.map((v,i)=>pt(i,R*v/4).join(',')).join(' ');
+  let dots='';scores.forEach((v,i)=>{const[x,y]=pt(i,R*v/4);dots+=`<circle cx="${x}" cy="${y}" r="3.5" fill="#1A56FF"/>`;});
+  let labels='';
+  DIMS.forEach((d,i)=>{let[x,y]=pt(i,R+26);
+    let anchor=Math.abs(x-cx)<6?'middle':(x>cx?'start':'end');
+    labels+=`<text x="${x}" y="${y}" font-size="11.5" font-weight="700" fill="#0D1F5C" text-anchor="${anchor}">${d.name}</text>
+             <text x="${x}" y="${y+14}" font-size="10.5" fill="#8896B8" text-anchor="${anchor}">${scores[i].toFixed(1)}</text>`;
+  });
+  return `<svg viewBox="0 0 440 384" width="100%" style="max-width:400px">
+    ${rings}${axes}
+    <polygon points="${dp}" fill="rgba(26,86,255,.18)" stroke="#1A56FF" stroke-width="2.5"/>
+    ${dots}${labels}</svg>`;
+}
+
+/* ---------- gate ---------- */
+function submitGate(){
+  const first=val('f_first'),last=val('f_last'),email=val('f_email'),company=val('f_company');
+  if(!first||!last||!company||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    toast('Please complete all fields with a valid email.');return;}
+  const {ds,overall}=computeScores();
+  const lead={first,last,email,company,overall:+overall.toFixed(2),
+    dimensions:Object.fromEntries(DIMS.map((d,i)=>[d.name,+ds[i].toFixed(2)])),at:new Date().toISOString()};
+  try{const all=JSON.parse(localStorage.getItem('ammf_leads')||'[]');all.push(lead);localStorage.setItem('ammf_leads',JSON.stringify(all));}catch(e){}
+  console.log('AMMF lead (would be saved to Google Drive):',lead);
+  renderResults(ds,overall);
+  show('screen-results');
+}
+
+/* ---------- results ---------- */
+function renderResults(ds,overall){
+  const si=stageIndex(overall);
+  document.getElementById('r_stage').textContent=STAGES[si].name;
+  document.getElementById('r_stagedesc').textContent=STAGES[si].desc;
+  document.getElementById('r_score').textContent=overall.toFixed(1);
+  document.getElementById('radarSlot').innerHTML=radarSVG(ds);
+  // biggest gap = lowest dimension
+  let lo=0;ds.forEach((v,i)=>{if(v<ds[lo])lo=i;});
+  const loStage=STAGES[stageIndex(ds[lo])].name;
+  document.getElementById('r_gap').innerHTML=
+    `<b>${DIMS[lo].name}</b> is your widest distance, at <b>${loStage}</b> (${ds[lo].toFixed(1)}/4).<br>
+     <span style="color:var(--body)">Where you're headed: ${DIMS[lo].goal}</span>`;
+  document.getElementById('r_breakdown').innerHTML=DIMS.map((d,i)=>{
+    const stg=STAGES[stageIndex(ds[i])].name;
+    return `<div class="dimrow"><div class="nm">${d.name}</div>
+      <div class="bar"><i style="width:${ds[i]/4*100}%"></i></div>
+      <div class="st">${stg}</div></div>`;}).join('');
+}
+
+/* ---------- PDF ---------- */
+async function downloadPDF(){
+  const node=document.getElementById('resultsCard');
+  if(window.html2canvas&&window.jspdf){
+    toast('Generating your PDF…');
+    try{
+      const canvas=await html2canvas(node,{scale:2,backgroundColor:'#ffffff'});
+      const img=canvas.toDataURL('image/png');
+      const {jsPDF}=window.jspdf;
+      const pdf=new jsPDF('p','mm','a4');
+      const pw=210, ph=pdf.internal.pageSize.getHeight();
+      const w=pw-20, h=canvas.height*w/canvas.width;
+      pdf.setFillColor(244,247,255);pdf.rect(0,0,210,297,'F');
+      pdf.addImage(img,'PNG',10,12,w,Math.min(h,ph-24));
+      pdf.save('AMMF-Maturity-Results.pdf');
+      return;
+    }catch(e){console.warn(e);}
+  }
+  window.print(); // fallback
+}
+
+/* ---------- contact + helpers ---------- */
+function openContact(){document.getElementById('contactModal').classList.add('open');}
+function closeContact(){document.getElementById('contactModal').classList.remove('open');}
+function submitContact(){const n=val('c_name'),e=val('c_email');
+  if(!n||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){toast('Add your name and a valid email.');return;}
+  closeContact();toast('Thanks! In the live site this reaches Valentino.');}
+function val(id){return document.getElementById(id).value.trim();}
+let tT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2600);}
+document.getElementById('contactModal').addEventListener('click',e=>{if(e.target.id==='contactModal')closeContact();});
+</script>
+</body>
+</html>

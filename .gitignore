@@ -1,0 +1,8 @@
+# Internal working docs — kept private, NOT part of the public site
+CLAUDE.md
+assessment-design.md
+.claude/
+
+# OS / tooling
+.DS_Store
+node_modules/
