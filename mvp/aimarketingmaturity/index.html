@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
@@ -101,22 +100,47 @@ h1,h2,h3{color:var(--navy);font-weight:800;letter-spacing:-.02em;line-height:1.1
 .res-head .stagebig{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
 .res-head h2{color:#fff;font-size:clamp(34px,6vw,50px);margin:6px 0}
 .res-head p{max-width:420px;opacity:.92;font-size:15px}
+.res-head-l{flex:1;min-width:240px}
 .scorebadge{text-align:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);
   border-radius:18px;padding:20px 26px;min-width:130px}
 .scorebadge .num{font-size:46px;font-weight:800;line-height:1}
 .scorebadge .den{opacity:.8;font-size:14px}
-.res-grid{display:grid;grid-template-columns:360px 1fr;gap:26px;align-items:start}
-@media(max-width:760px){.res-grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
-.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px}
-.panel h3{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.gap-call{border-left:4px solid var(--cyan);background:#f5fdff;border-radius:0 12px 12px 0;padding:14px 18px;margin-top:14px}
+.scorebadge .bandtag{margin-top:10px;font-size:11px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;opacity:.9;border-top:1px solid rgba(255,255,255,.25);padding-top:9px}
+.res-grid{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:stretch;margin-bottom:18px}
+.rstack{display:flex;flex-direction:column;gap:18px}
+.rstack .panel{flex:1}
+@media(max-width:760px){.res-grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+  .res-head{padding:26px 24px}.scorebadge{align-self:flex-start}}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:18px}
+.panel:last-child{margin-bottom:0}
+.panel h3{font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.panel-sub{font-size:13.5px;color:var(--muted);margin:-3px 0 16px}
+.radarpanel{display:flex;align-items:center;justify-content:center;margin-bottom:0}
+#r_meaning{font-size:15px;color:var(--body)}
+#r_meaning .lead-line{color:var(--navy);font-weight:700;margin-top:10px;display:block}
+.gap-call{border-left:4px solid var(--cyan);background:#f5fdff;border-radius:0 12px 12px 0;padding:14px 18px;margin-top:6px}
 .gap-call b{color:var(--navy)}
+/* priority moves */
+.move{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+.move:last-child{border-bottom:none;padding-bottom:0}
+.move:first-child{padding-top:4px}
+.move .rank{flex:0 0 30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;
+  font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.move .mbody{flex:1}
+.move .mhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.move .mname{font-weight:800;color:var(--navy);font-size:15.5px}
+.move .mstage{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--blue);background:var(--ice);border:1px solid var(--border);padding:2px 9px;border-radius:99px}
+.move .mtext{font-size:14.5px;color:var(--body)}
 .dimrow{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border)}
 .dimrow:last-child{border-bottom:none}
-.dimrow .nm{flex:0 0 130px;font-weight:700;color:var(--navy);font-size:14px}
+.dimrow .nm{flex:0 0 124px;font-weight:700;color:var(--navy);font-size:14px}
 .dimrow .bar{flex:1;height:9px;background:var(--ice);border-radius:99px;overflow:hidden}
 .dimrow .bar > i{display:block;height:100%;border-radius:99px;background:var(--grad)}
-.dimrow .st{flex:0 0 92px;text-align:right;font-size:12.5px;font-weight:700;color:var(--blue)}
+.dimrow .sc{flex:0 0 40px;text-align:right;font-size:14px;font-weight:800;color:var(--navy)}
+.dimrow .st{flex:0 0 88px;text-align:right;font-size:12px;font-weight:700;color:var(--blue)}
+@media(max-width:760px){.dimrow .nm{flex-basis:96px}.dimrow .st{display:none}}
 .res-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center}
 
 /* footer */
@@ -212,27 +236,40 @@ footer{border-top:1px solid var(--border);background:#fff}
   <div class="wrap results">
     <div id="resultsCard">
       <div class="res-head">
-        <div>
+        <div class="res-head-l">
           <div class="stagebig">Your AI Marketing Maturity</div>
           <h2 id="r_stage">Connecting</h2>
           <p id="r_stagedesc"></p>
         </div>
-        <div class="scorebadge"><div class="num" id="r_score">2.1</div><div class="den">out of 4.0</div></div>
+        <div class="scorebadge">
+          <div class="num" id="r_score">2.1</div>
+          <div class="den">out of 4.0</div>
+          <div class="bandtag" id="r_band">Connecting band</div>
+        </div>
       </div>
       <div class="res-grid">
-        <div class="panel" style="text-align:center">
+        <div class="panel radarpanel">
           <div id="radarSlot"></div>
         </div>
-        <div>
+        <div class="rstack">
+          <div class="panel">
+            <h3>What your stage means</h3>
+            <div id="r_meaning"></div>
+          </div>
           <div class="panel">
             <h3>Your biggest distance</h3>
             <div class="gap-call" id="r_gap"></div>
           </div>
-          <div class="panel" style="margin-top:18px">
-            <h3>Dimension breakdown</h3>
-            <div id="r_breakdown"></div>
-          </div>
         </div>
+      </div>
+      <div class="panel moves-panel">
+        <h3>Your priority moves</h3>
+        <p class="panel-sub">The three dimensions where you have the most to gain, and the next move for each.</p>
+        <div id="r_moves"></div>
+      </div>
+      <div class="panel">
+        <h3>Full dimension breakdown</h3>
+        <div id="r_breakdown"></div>
       </div>
     </div>
     <div class="res-cta">
@@ -302,15 +339,25 @@ document.getElementById('logoSlot').innerHTML = logoSVG(38) + '<span>AMMF</span>
 
 /* ---------- data ---------- */
 const STAGES = [
-  {name:'Exploring',  desc:'Curiosity without commitment. AI shows up in conversation, not yet in the work.'},
-  {name:'Connecting', desc:'First real links between strategy and execution. The deck and the dashboard are starting to talk.'},
-  {name:'Scaling',    desc:'Repeatable, measured workflows are spreading across programs. The gap is closing fast.'},
-  {name:'Leading',    desc:'AI runs as one system across marketing and sets the pace for the market.'}
+  {name:'Exploring',  band:'1.00 to 1.74', lead:'AI is a conversation, not yet a capability.',
+   desc:'Curiosity without commitment. AI shows up in conversation, not yet in the work.'},
+  {name:'Connecting', band:'1.75 to 2.49', lead:'Strategy and execution start to talk, on a few real workflows.',
+   desc:'First real links between strategy and execution. The deck and the dashboard are starting to talk.'},
+  {name:'Scaling',    band:'2.50 to 3.24', lead:'Repeatable, measured AI workflows spread across programs.',
+   desc:'Repeatable, measured workflows are spreading across programs. The gap is closing fast.'},
+  {name:'Leading',    band:'3.25 to 4.00', lead:'AI runs as one system across marketing and sets the pace.',
+   desc:'AI runs as one system across marketing and sets the pace for the market.'}
 ];
+const THRESHOLDS = [1.75, 2.5, 3.25]; // upper edge of Exploring, Connecting, Scaling
 function stageIndex(v){ if(v<1.75)return 0; if(v<2.5)return 1; if(v<3.25)return 2; return 3; }
 
 const DIMS = [
-  {name:'Strategy', weight:1.25, goal:'A clear, measurable point of view on where AI plays in your marketing.', q:[
+  {name:'Strategy', weight:1.25, goal:'A clear, measurable point of view on where AI plays in your marketing.',
+   next:[
+     "Write down a one-page AI marketing strategy: where AI plays, who owns it, and the first two use cases worth funding.",
+     "Turn the vision deck into decisions. Tie each AI priority to a marketing outcome and put it in front of the team that ships.",
+     "Set a quarterly cadence to revisit AI marketing priorities against ROI, and retire the use cases that aren't paying off.",
+     "Make AI marketing maturity a leadership KPI and benchmark it against the market you compete in."], q:[
     {t:'How developed is your AI marketing strategy?',o:[
       "We don't have one yet. It comes up in conversation but isn't written down.",
       "We have a vision deck, but it doesn't drive day-to-day marketing decisions.",
@@ -327,7 +374,12 @@ const DIMS = [
       "Leadership has set clear expectations for AI in marketing and backed them with budget.",
       "AI marketing maturity is a metric leadership is held accountable for."]}
   ]},
-  {name:'Data & Stack', weight:1.15, goal:'Unified, governed, activation-ready data flowing through an AI-native stack.', q:[
+  {name:'Data & Stack', weight:1.15, goal:'Unified, governed, activation-ready data flowing through an AI-native stack.',
+   next:[
+     "Pick one source of marketing truth and start consolidating customer and campaign data into it, so AI has something clean to work with.",
+     "Close the gaps between your AI tools and your martech stack. Connect the two or three integrations that unlock activation.",
+     "Move toward real-time, governed data flows, and automate the access and privacy rules AI relies on.",
+     "Treat the stack as a product: keep tools, data and workflows connected end to end as you add new AI capability."], q:[
     {t:'How ready for AI is your marketing and customer data?',o:[
       "Scattered across tools and spreadsheets, so pulling it together is manual.",
       "Partly centralized, but gaps and silos still slow us down.",
@@ -344,7 +396,12 @@ const DIMS = [
       "Clear policies on access, privacy and acceptable use that marketing follows.",
       "Governance is automated and audited, so we trust AI on customer data at scale."]}
   ]},
-  {name:'Operations', weight:1.0, goal:'Standardized AI workflows with guardrails that anyone on the team can run.', q:[
+  {name:'Operations', weight:1.0, goal:'Standardized AI workflows with guardrails that anyone on the team can run.',
+   next:[
+     "Document one repeatable AI workflow (a brief, a content cycle, a campaign) so it stops depending on whoever is keen.",
+     "Add human-in-the-loop review and brand guardrails, then turn your best informal habits into a written way of working.",
+     "Standardize the workflows that work, assign clear accountability, and measure cycle-time gains across the team.",
+     "Keep improving the system, and feed throughput data back into where AI gets applied next."], q:[
     {t:'How does AI marketing work actually get done?',o:[
       "Individual hacks, where whoever's keen uses AI on their own content and campaigns.",
       "Some shared tips, but no documented way of working.",
@@ -361,7 +418,12 @@ const DIMS = [
       "AI reliably shortens campaign and content cycle times across the team.",
       "AI is a core driver of marketing throughput, so we ship far more, far faster."]}
   ]},
-  {name:'Talent', weight:1.0, goal:'Broad fluency, clear ownership, and enablement built into how the team works.', q:[
+  {name:'Talent', weight:1.0, goal:'Broad fluency, clear ownership, and enablement built into how the team works.',
+   next:[
+     "Name an owner for AI in marketing and give two or three people role-relevant training to build a core of fluency.",
+     "Even out the pockets of skill with shared playbooks, and make ownership a real part of someone's role, not a bolt-on.",
+     "Fund continuous enablement and build learning into how the team works, so fluency keeps spreading.",
+     "Position your marketers as the standard others learn from, inside the company and in the market."], q:[
     {t:'How widespread are AI skills across your marketing team?',o:[
       "One or two marketers are enthusiasts; everyone else is watching.",
       "Pockets of skill, but it's uneven across the marketing team.",
@@ -378,7 +440,12 @@ const DIMS = [
       "Funded training and shared marketing playbooks people actually use.",
       "Continuous enablement, with learning built into how marketing works."]}
   ]},
-  {name:'Measurement', weight:1.0, goal:"AI's impact measured against business outcomes in a closed loop that feeds strategy.", q:[
+  {name:'Measurement', weight:1.0, goal:"AI's impact measured against business outcomes in a closed loop that feeds strategy.",
+   next:[
+     "Define one or two KPIs for AI's contribution to marketing, beyond tool usage, so you can tell what's working.",
+     "Connect AI outputs to performance, and start feeding results back into what you prioritize next.",
+     "Tie AI work to pipeline, revenue or efficiency, and close the loop so measurement informs strategy and spend.",
+     "Automate the closed loop and prove AI's marketing value in business terms leadership trusts."], q:[
     {t:"How do you measure AI's impact on marketing?",o:[
       "We don't really measure it; it's a gut feel.",
       "We track activity (like tool usage), but not marketing outcomes.",
@@ -395,7 +462,12 @@ const DIMS = [
       "We tie AI work to pipeline, revenue or marketing efficiency.",
       "AI's marketing value is proven in hard business terms leadership trusts."]}
   ]},
-  {name:'Activation', weight:1.0, goal:'AI embedded across what ships, with strategy and execution running as one loop.', q:[
+  {name:'Activation', weight:1.0, goal:'AI embedded across what ships, with strategy and execution running as one loop.',
+   next:[
+     "Get AI past the slides: ship one real piece of AI-assisted work into a live campaign this quarter.",
+     "Move from fits and starts to regular use across a few core programs and channels.",
+     "Scale AI across most programs and channels, so each new use builds on the last.",
+     "Run strategy and execution as one continuous loop, with AI embedded in most of what ships."], q:[
     {t:'How much of your marketing actually ships with AI?',o:[
       "Mostly slides and talk about AI; little reaches campaigns or customers.",
       "Some AI-assisted work ships, in fits and starts.",
@@ -430,6 +502,7 @@ const FLOW = [];
 DIMS.forEach((d,di)=>d.q.forEach((q,qi)=>FLOW.push({di,qi,dim:d.name,t:q.t,o:q.o})));
 const answers = new Array(FLOW.length).fill(null);
 let cur = 0;
+let LEAD = null, RES = null; // captured for the PDF
 
 /* dim strip on landing */
 document.getElementById('dimstrip').innerHTML = DIMS.map(d=>
@@ -508,6 +581,7 @@ function submitGate(){
     dimensions:Object.fromEntries(DIMS.map((d,i)=>[d.name,+ds[i].toFixed(2)])),at:new Date().toISOString()};
   try{const all=JSON.parse(localStorage.getItem('ammf_leads')||'[]');all.push(lead);localStorage.setItem('ammf_leads',JSON.stringify(all));}catch(e){}
   saveToDrive(lead);
+  LEAD=lead;
   renderResults(ds,overall);
   show('screen-results');
 }
@@ -515,42 +589,209 @@ function submitGate(){
 /* ---------- results ---------- */
 function renderResults(ds,overall){
   const si=stageIndex(overall);
+  RES={ds,overall,si};
   document.getElementById('r_stage').textContent=STAGES[si].name;
   document.getElementById('r_stagedesc').textContent=STAGES[si].desc;
   document.getElementById('r_score').textContent=overall.toFixed(1);
+  document.getElementById('r_band').textContent=STAGES[si].band;
   document.getElementById('radarSlot').innerHTML=radarSVG(ds);
-  // biggest gap = lowest dimension
-  let lo=0;ds.forEach((v,i)=>{if(v<ds[lo])lo=i;});
+
+  // what your stage means + how far to the next stage (honest, band-based)
+  let meaning=`You're at <b>${STAGES[si].name}</b>. ${STAGES[si].desc}`;
+  if(si<3){
+    const dist=(THRESHOLDS[si]-overall);
+    meaning+=`<span class="lead-line">Reaching ${STAGES[si+1].name}: ${STAGES[si+1].lead} `+
+      `You're about ${dist.toFixed(2)} ${dist<=0.1?'point':'points'} away.</span>`;
+  } else {
+    meaning+=`<span class="lead-line">You're setting the pace. The work now is to stay there as the market moves.</span>`;
+  }
+  document.getElementById('r_meaning').innerHTML=meaning;
+
+  // rank dimensions low to high
+  const order=DIMS.map((d,i)=>i).sort((a,b)=>ds[a]-ds[b]);
+  const lo=order[0];
   const loStage=STAGES[stageIndex(ds[lo])].name;
   document.getElementById('r_gap').innerHTML=
     `<b>${DIMS[lo].name}</b> is your widest distance, at <b>${loStage}</b> (${ds[lo].toFixed(1)}/4).<br>
      <span style="color:var(--body)">Where you're headed: ${DIMS[lo].goal}</span>`;
+
+  // priority moves = three lowest dimensions, with the move that advances each
+  document.getElementById('r_moves').innerHTML=order.slice(0,3).map((di,n)=>{
+    const sIdx=stageIndex(ds[di]);
+    return `<div class="move"><div class="rank">${n+1}</div><div class="mbody">
+      <div class="mhead"><span class="mname">${DIMS[di].name}</span>
+        <span class="mstage">${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/4</span></div>
+      <div class="mtext">${DIMS[di].next[sIdx]}</div></div></div>`;}).join('');
+
   document.getElementById('r_breakdown').innerHTML=DIMS.map((d,i)=>{
     const stg=STAGES[stageIndex(ds[i])].name;
     return `<div class="dimrow"><div class="nm">${d.name}</div>
       <div class="bar"><i style="width:${ds[i]/4*100}%"></i></div>
+      <div class="sc">${ds[i].toFixed(1)}</div>
       <div class="st">${stg}</div></div>`;}).join('');
 }
 
-/* ---------- PDF ---------- */
-async function downloadPDF(){
-  const node=document.getElementById('resultsCard');
-  if(window.html2canvas&&window.jspdf){
-    toast('Generating your PDF…');
-    try{
-      const canvas=await html2canvas(node,{scale:2,backgroundColor:'#ffffff'});
-      const img=canvas.toDataURL('image/png');
-      const {jsPDF}=window.jspdf;
-      const pdf=new jsPDF('p','mm','a4');
-      const pw=210, ph=pdf.internal.pageSize.getHeight();
-      const w=pw-20, h=canvas.height*w/canvas.width;
-      pdf.setFillColor(244,247,255);pdf.rect(0,0,210,297,'F');
-      pdf.addImage(img,'PNG',10,12,w,Math.min(h,ph-24));
-      pdf.save('AMMF-Maturity-Results.pdf');
-      return;
-    }catch(e){console.warn(e);}
+/* ---------- PDF (vector, branded) ---------- */
+const C = { // brand colours as RGB
+  blue:[26,86,255], blueDark:[10,46,184], navy:[13,31,92], cyan:[0,212,255],
+  ice:[244,247,255], border:[220,227,255], muted:[136,150,184], body:[61,80,128],
+  white:[255,255,255], fill:[201,216,255]
+};
+const PW=210, PH=297, MX=16, CW=PW-MX*2;
+
+function pdfGradientBand(pdf,x,y,w,h){
+  // horizontal gradient blueDark -> blue -> cyan, drawn as thin strips
+  const stops=[C.blueDark,C.blue,C.cyan], n=120;
+  for(let i=0;i<n;i++){
+    const t=i/(n-1), seg=t*(stops.length-1), k=Math.min(stops.length-2,Math.floor(seg)), f=seg-k;
+    const c=[0,1,2].map(j=>Math.round(stops[k][j]+(stops[k+1][j]-stops[k][j])*f));
+    pdf.setFillColor(c[0],c[1],c[2]);
+    pdf.rect(x+w*i/n, y, w/n+0.4, h, 'F');
   }
-  window.print(); // fallback
+}
+function pdfLogo(pdf,x,y,s){ // four-pane mark
+  const g=s*0.46, r=0.8;
+  const cells=[[C.cyan,0,0],[C.blue,1,0],[C.navy,0,1],[C.blueMid||[77,123,255],1,1]];
+  cells.forEach(([col,cx,cy])=>{pdf.setFillColor(col[0],col[1],col[2]);
+    pdf.roundedRect(x+cx*(g+s*0.08), y+cy*(g+s*0.08), g, g, r, r, 'F');});
+}
+function pdfRadar(pdf,cx,cy,R,ds){
+  const N=6, ang=i=>(-90+i*60)*Math.PI/180;
+  const pt=(i,rr)=>[cx+Math.cos(ang(i))*rr, cy+Math.sin(ang(i))*rr];
+  // rings
+  pdf.setDrawColor(C.border[0],C.border[1],C.border[2]); pdf.setLineWidth(0.3);
+  [1,2,3,4].forEach(v=>{
+    const vs=[...Array(N)].map((_,i)=>pt(i,R*v/4));
+    const segs=vs.slice(1).map((p,i)=>[p[0]-vs[i][0],p[1]-vs[i][1]]);
+    pdf.lines(segs, vs[0][0], vs[0][1], [1,1], 'S', true);
+  });
+  // axes
+  for(let i=0;i<N;i++){const[ex,ey]=pt(i,R);pdf.line(cx,cy,ex,ey);}
+  // data polygon
+  const dv=ds.map((v,i)=>pt(i,R*v/4));
+  const dsegs=dv.slice(1).map((p,i)=>[p[0]-dv[i][0],p[1]-dv[i][1]]);
+  pdf.setFillColor(C.fill[0],C.fill[1],C.fill[2]);
+  pdf.setDrawColor(C.blue[0],C.blue[1],C.blue[2]); pdf.setLineWidth(0.8);
+  pdf.lines(dsegs, dv[0][0], dv[0][1], [1,1], 'FD', true);
+  dv.forEach(([x,y])=>{pdf.setFillColor(C.blue[0],C.blue[1],C.blue[2]);pdf.circle(x,y,0.9,'F');});
+  // labels
+  DIMS.forEach((d,i)=>{
+    let[lx,ly]=pt(i,R+8);
+    const align=Math.abs(lx-cx)<2?'center':(lx>cx?'left':'right');
+    pdf.setFont('helvetica','bold');pdf.setFontSize(8);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+    pdf.text(d.name, lx, ly, {align});
+    pdf.setFont('helvetica','normal');pdf.setFontSize(7.5);pdf.setTextColor(C.muted[0],C.muted[1],C.muted[2]);
+    pdf.text(ds[i].toFixed(1), lx, ly+3.6, {align});
+  });
+}
+function downloadPDF(){
+  if(!(window.jspdf&&RES&&LEAD)){ window.print(); return; }
+  toast('Generating your PDF…');
+  try{
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF('p','mm','a4');
+    const {ds,overall,si}=RES;
+    const ICE=()=>{pdf.setFillColor(C.ice[0],C.ice[1],C.ice[2]);pdf.rect(0,0,PW,PH,'F');};
+    ICE();
+
+    // ---- header band ----
+    pdfGradientBand(pdf,0,0,PW,52);
+    pdfLogo(pdf,MX,12,7);
+    pdf.setFont('helvetica','bold');pdf.setFontSize(12);pdf.setTextColor(255,255,255);
+    pdf.text('AMMF', MX+19, 17.5);
+    pdf.setFontSize(8.5);pdf.setTextColor(232,238,255);
+    pdf.text('AI MARKETING MATURITY', MX, 32, {charSpace:0.4});
+    pdf.setFont('helvetica','bold');pdf.setFontSize(30);pdf.setTextColor(255,255,255);
+    pdf.text(STAGES[si].name, MX, 44);
+    // score block right
+    pdf.setFont('helvetica','bold');pdf.setFontSize(34);pdf.setTextColor(255,255,255);
+    pdf.text(overall.toFixed(1), PW-MX, 30, {align:'right'});
+    pdf.setFont('helvetica','normal');pdf.setFontSize(9);pdf.setTextColor(214,224,255);
+    pdf.text('out of 4.0', PW-MX, 36, {align:'right'});
+    pdf.setFont('helvetica','bold');pdf.setFontSize(7.5);
+    pdf.text(STAGES[si].band+' band', PW-MX, 43, {align:'right'});
+
+    // ---- prepared for ----
+    let y=62;
+    pdf.setFont('helvetica','normal');pdf.setFontSize(9.5);pdf.setTextColor(C.body[0],C.body[1],C.body[2]);
+    const when=new Date(LEAD.at||Date.now()).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    pdf.text(`Prepared for ${LEAD.first} ${LEAD.last}, ${LEAD.company}  ·  ${when}`, MX, y);
+    y+=4;
+    pdf.setDrawColor(C.border[0],C.border[1],C.border[2]);pdf.setLineWidth(0.3);pdf.line(MX,y,PW-MX,y);
+
+    // ---- radar (left) + meaning (right) ----
+    const rowTop=y+6, radarR=30, radarCX=MX+38, radarCY=rowTop+radarR+4;
+    pdfRadar(pdf, radarCX, radarCY, radarR, ds);
+    // meaning text right column
+    const colX=MX+86, colW=PW-MX-colX;
+    let my=rowTop+2;
+    pdf.setFont('helvetica','bold');pdf.setFontSize(9.5);pdf.setTextColor(C.muted[0],C.muted[1],C.muted[2]);
+    pdf.text('WHAT YOUR STAGE MEANS', colX, my, {charSpace:0.3}); my+=6;
+    pdf.setFont('helvetica','normal');pdf.setFontSize(10);pdf.setTextColor(C.body[0],C.body[1],C.body[2]);
+    const m1=pdf.splitTextToSize(`You're at ${STAGES[si].name}. ${STAGES[si].desc}`, colW);
+    pdf.text(m1, colX, my); my+=m1.length*4.8+2;
+    pdf.setFont('helvetica','bold');pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+    let fwd = si<3
+      ? `Reaching ${STAGES[si+1].name}: ${STAGES[si+1].lead} You're about ${(THRESHOLDS[si]-overall).toFixed(2)} points away.`
+      : `You're setting the pace. The work now is to stay there as the market moves.`;
+    const m2=pdf.splitTextToSize(fwd, colW);
+    pdf.text(m2, colX, my); my+=m2.length*4.8;
+
+    y=Math.max(radarCY+radarR+10, my+6);
+
+    // ---- priority moves ----
+    pdf.setFont('helvetica','bold');pdf.setFontSize(11);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+    pdf.text('Your priority moves', MX, y); y+=6;
+    const order=DIMS.map((d,i)=>i).sort((a,b)=>ds[a]-ds[b]);
+    order.slice(0,3).forEach((di,n)=>{
+      const sIdx=stageIndex(ds[di]);
+      const moveLines=pdf.splitTextToSize(DIMS[di].next[sIdx], CW-14);
+      const blockH=8+moveLines.length*4.6+4;
+      // rank chip
+      pdf.setFillColor(C.blue[0],C.blue[1],C.blue[2]);pdf.roundedRect(MX,y,7,7,1.4,1.4,'F');
+      pdf.setFont('helvetica','bold');pdf.setFontSize(9.5);pdf.setTextColor(255,255,255);
+      pdf.text(String(n+1), MX+3.5, y+4.9, {align:'center'});
+      // name + stage
+      pdf.setFontSize(10.5);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+      pdf.text(DIMS[di].name, MX+11, y+3.4);
+      const nameW=pdf.getTextWidth(DIMS[di].name); // measured at 10.5 before switching size
+      pdf.setFont('helvetica','normal');pdf.setFontSize(8.5);pdf.setTextColor(C.blue[0],C.blue[1],C.blue[2]);
+      pdf.text(`${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/4`, MX+11+nameW+5, y+3.4);
+      // move text
+      pdf.setTextColor(C.body[0],C.body[1],C.body[2]);pdf.setFontSize(9.5);
+      pdf.text(moveLines, MX+11, y+8);
+      y+=blockH+2;
+      if(n<2){pdf.setDrawColor(C.border[0],C.border[1],C.border[2]);pdf.line(MX+11,y-2,PW-MX,y-2);}
+    });
+
+    y+=4;
+    // ---- full breakdown ----
+    pdf.setFont('helvetica','bold');pdf.setFontSize(11);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+    pdf.text('Full dimension breakdown', MX, y); y+=7;
+    DIMS.forEach((d,i)=>{
+      pdf.setFont('helvetica','bold');pdf.setFontSize(9.5);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+      pdf.text(d.name, MX, y+2.6);
+      const bx=MX+42, bw=CW-42-44, bh=3;
+      pdf.setFillColor(C.ice[0],C.ice[1],C.ice[2]);pdf.roundedRect(bx,y,bw,bh,1.5,1.5,'F');
+      pdf.setFillColor(C.blue[0],C.blue[1],C.blue[2]);pdf.roundedRect(bx,y,Math.max(2,bw*ds[i]/4),bh,1.5,1.5,'F');
+      pdf.setFont('helvetica','bold');pdf.setFontSize(9.5);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+      pdf.text(ds[i].toFixed(1), bx+bw+8, y+2.6, {align:'right'});
+      pdf.setFont('helvetica','normal');pdf.setFontSize(8.5);pdf.setTextColor(C.blue[0],C.blue[1],C.blue[2]);
+      pdf.text(STAGES[stageIndex(ds[i])].name, PW-MX, y+2.6, {align:'right'});
+      y+=8.5;
+    });
+
+    // ---- footer ----
+    pdf.setDrawColor(C.border[0],C.border[1],C.border[2]);pdf.line(MX,PH-18,PW-MX,PH-18);
+    pdf.setFont('helvetica','bold');pdf.setFontSize(9);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+    pdf.text('Valentino Scicolone', MX, PH-12);
+    pdf.setFont('helvetica','normal');pdf.setFontSize(8);pdf.setTextColor(C.muted[0],C.muted[1],C.muted[2]);
+    pdf.text('Media & MarTech Strategy Leader · Dubai', MX, PH-8);
+    pdf.text('vales.ae/aimarketingmaturity', PW-MX, PH-12, {align:'right'});
+    pdf.text('© 2026 Valentino Scicolone · Confidential', PW-MX, PH-8, {align:'right'});
+
+    pdf.save('AMMF-Maturity-Results.pdf');
+  }catch(e){ console.warn('PDF build failed, printing instead',e); window.print(); }
 }
 
 /* ---------- contact + helpers ---------- */
