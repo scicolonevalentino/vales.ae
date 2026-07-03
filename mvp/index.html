@@ -136,10 +136,9 @@
   .lane.ai .lbl{color:var(--accent,var(--blue))} .lane.ai .val{color:var(--navy)}
   .lane.you{background:var(--navy)}
   .lane.you .lbl{color:var(--cyan)} .lane.you .val{color:#fff}
-  .flow{display:flex;justify-content:center;padding:9px 0;color:var(--muted)}
-  .flow svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .feat.in .feat-card .flow svg{animation:nudge 1.8s ease-in-out infinite}
-  @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+  .lanes{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px}
+  .lane.me{background:var(--blue);border-left:3px solid var(--accent,var(--cyan))}
+  .lane.me .lbl{color:rgba(255,255,255,.85)} .lane.me .val{color:#fff}
 
   @media(max-width:820px){
     .feat{grid-template-columns:1fr;gap:26px;padding:40px 0}
@@ -152,7 +151,7 @@
   footer::before{content:"";position:absolute;width:720px;height:720px;border-radius:50%;background:var(--blue);filter:blur(120px);opacity:.4;top:-220px;left:50%;transform:translateX(-50%);animation:drift1 16s ease-in-out infinite alternate}
   .f-cta{position:relative;z-index:1;text-align:center;padding:132px 28px 112px}
   .f-cta .logo{width:66px;height:66px;margin:0 auto 30px;display:block;animation:floaty 5s ease-in-out infinite}
-  .f-cta h2{font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-.028em;line-height:1.04;max-width:780px;margin:0 auto}
+  .f-cta h2{font-size:clamp(27px,4.6vw,48px);font-weight:800;letter-spacing:-.028em;line-height:1.12;max-width:840px;margin:0 auto}
   .f-cta h2 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#8fb4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
   .f-cta .btn-primary{margin-top:38px;font-size:17px;padding:18px 40px}
   .foot-bottom{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;max-width:var(--maxw);margin:0 auto;padding:26px 28px}
@@ -206,10 +205,10 @@
       <h1>
         <span class="h-line"><span>AI accelerates.</span></span>
         <span class="h-line"><span>But the four things it can't replace</span></span>
-        <span class="h-line"><span class="h-grad">stay with you.</span></span>
+        <span class="h-line"><span class="h-grad">stay with us.</span></span>
       </h1>
       <div class="hero-ctas">
-        <a class="btn-primary" href="#services">Explore the services <span class="arr">↓</span></a>
+        <a class="btn-primary" href="#services">Discover how <span class="arr">↓</span></a>
       </div>
     </div>
 
@@ -267,7 +266,7 @@
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Services</p>
-      <h2>Six ways in.<br>One standard.<span class="exp">AI does the heavy lifting. I help you make the right moves.</span></h2>
+      <h2>Six ways in.<br>One standard.<span class="exp">AI accelerates. You own the call. I turn it into results.</span></h2>
     </div>
 
     <!-- 1 -->
@@ -279,9 +278,11 @@
       </div>
       <div class="feat-card">
         <span class="ghost">01</span>
-        <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Reading everything, fast</span></div>
-        <div class="flow"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
-        <div class="lane you"><span class="lbl">You own</span><span class="val">The right questions</span></div>
+        <div class="lanes">
+          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Reading everything, fast</span></div>
+          <div class="lane you"><span class="lbl">You own</span><span class="val">The right questions</span></div>
+          <div class="lane me"><span class="lbl">I turn</span><span class="val">Findings into direction</span></div>
+        </div>
       </div>
     </div>
 
@@ -294,9 +295,11 @@
       </div>
       <div class="feat-card">
         <span class="ghost">02</span>
-        <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Options at speed</span></div>
-        <div class="flow"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
-        <div class="lane you"><span class="lbl">You own</span><span class="val">The bet</span></div>
+        <div class="lanes">
+          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Options at speed</span></div>
+          <div class="lane you"><span class="lbl">You own</span><span class="val">The bet</span></div>
+          <div class="lane me"><span class="lbl">I turn</span><span class="val">Options into a plan</span></div>
+        </div>
       </div>
     </div>
 
@@ -309,9 +312,11 @@
       </div>
       <div class="feat-card">
         <span class="ghost">03</span>
-        <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Wiring it together</span></div>
-        <div class="flow"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
-        <div class="lane you"><span class="lbl">You own</span><span class="val">What good looks like</span></div>
+        <div class="lanes">
+          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Wiring it together</span></div>
+          <div class="lane you"><span class="lbl">You own</span><span class="val">What good looks like</span></div>
+          <div class="lane me"><span class="lbl">I turn</span><span class="val">Tools into a stack that works</span></div>
+        </div>
       </div>
     </div>
 
@@ -324,9 +329,11 @@
       </div>
       <div class="feat-card">
         <span class="ghost">04</span>
-        <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">The volume</span></div>
-        <div class="flow"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
-        <div class="lane you"><span class="lbl">You own</span><span class="val">The bar for quality</span></div>
+        <div class="lanes">
+          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">The volume</span></div>
+          <div class="lane you"><span class="lbl">You own</span><span class="val">The bar for quality</span></div>
+          <div class="lane me"><span class="lbl">I turn</span><span class="val">Volume into a system</span></div>
+        </div>
       </div>
     </div>
 
@@ -339,9 +346,11 @@
       </div>
       <div class="feat-card">
         <span class="ghost">05</span>
-        <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Crunching the numbers</span></div>
-        <div class="flow"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
-        <div class="lane you"><span class="lbl">You own</span><span class="val">What they actually mean</span></div>
+        <div class="lanes">
+          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Crunching the numbers</span></div>
+          <div class="lane you"><span class="lbl">You own</span><span class="val">What they actually mean</span></div>
+          <div class="lane me"><span class="lbl">I turn</span><span class="val">Numbers into KPIs that matter</span></div>
+        </div>
       </div>
     </div>
 
@@ -354,9 +363,11 @@
       </div>
       <div class="feat-card">
         <span class="ghost">06</span>
-        <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Showing the how</span></div>
-        <div class="flow"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
-        <div class="lane you"><span class="lbl">You own</span><span class="val">The judgment to use it</span></div>
+        <div class="lanes">
+          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Showing the how</span></div>
+          <div class="lane you"><span class="lbl">You own</span><span class="val">The judgment to use it</span></div>
+          <div class="lane me"><span class="lbl">I turn</span><span class="val">Training into a habit</span></div>
+        </div>
       </div>
     </div>
 
@@ -379,7 +390,7 @@
         <path transform="translate(26,26.65)" stroke="#FFFFFF" d="M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z"/>
       </g>
     </svg>
-    <h2>Start your free AI marketing assessment <em>today.</em></h2>
+    <h2>Start your free<br>AI Marketing Maturity<br>assessment <em>today.</em></h2>
     <a class="btn-primary" href="https://vales.ae/aimarketingmaturity">See where you stand <span class="arr">→</span></a>
   </div>
   <div class="foot-bottom">
