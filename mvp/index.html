@@ -34,10 +34,10 @@
   .hb-cta{display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:var(--navy);font-weight:800;font-size:14px;padding:10px 22px;border-radius:999px;white-space:nowrap;animation:pulse 2.6s infinite;transition:transform .25s var(--ease)}
   .hb-cta:hover{transform:translateY(-1px) scale(1.03);animation:none}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,212,255,.45)}70%{box-shadow:0 0 0 12px rgba(0,212,255,0)}100%{box-shadow:0 0 0 0 rgba(0,212,255,0)}}
-  /* mobile: keep hello bar one compact row so the sticky nav (top:54px) pins cleanly below it, not overlapping the photo */
+  /* mobile: drop the hello bar entirely; the nav (photo) pins to the very top */
   @media(max-width:640px){
-    .hellobar p{display:none}
-    .hellobar .wrap{height:54px;min-height:54px;padding-top:0;padding-bottom:0}
+    .hellobar{display:none}
+    .nav{top:0}
   }
 
   /* ================= NAV ================= */
