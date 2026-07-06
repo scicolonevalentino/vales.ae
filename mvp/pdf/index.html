@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Merge PDFs · vales.ae</title>
+<title>PDF Tools · vales.ae</title>
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel-2:#1d212b; --line:#2a2f3a;
@@ -73,6 +73,34 @@
   .foot{margin-top:34px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.7}
   .foot b{color:#aab2c2}
   a{color:var(--accent);text-decoration:none}
+
+  .divider{margin:52px 0 36px;border-top:1px solid var(--line)}
+  h2{font-size:24px;margin:0 0 4px;letter-spacing:-.02em}
+  .paste-toggle{
+    display:inline-block;margin-top:12px;background:none;border:0;color:var(--muted);
+    font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0;
+  }
+  .paste-toggle:hover{color:var(--text)}
+  .codebox{display:none;margin-top:14px}
+  .codebox.show{display:block}
+  .codebox textarea{
+    width:100%;min-height:150px;resize:vertical;background:var(--panel);color:var(--text);
+    border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;outline:none;
+  }
+  .codebox textarea:focus{border-color:var(--accent)}
+  .codebox .load{margin-top:10px}
+  .prev{display:none;margin-top:20px}
+  .prev.show{display:block}
+  .prev .cap{
+    display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;margin-bottom:8px;
+  }
+  .prev .cap .fname{color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prev iframe{
+    width:100%;height:380px;border:1px solid var(--line);border-radius:10px;background:#fff;
+  }
+  .opt{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13.5px;cursor:pointer;user-select:none}
+  .opt input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -98,6 +126,40 @@
     <div class="foot">
       Lossless merge — pages are copied, not re-rendered, so quality is identical to the originals.<br>
       Runs entirely on <b>your device</b>. Files never touch a server.
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>HTML to PDF</h2>
+    <p class="sub">Pixel-perfect conversion — your browser's own rendering engine does the job, so colors, fonts and layout come out <b>exactly</b> as on screen.</p>
+
+    <div class="drop" id="hdrop">
+      <div class="icon">⤓</div>
+      <div class="big">Drop an HTML file here</div>
+      <div class="small">or click to choose a file</div>
+      <input type="file" id="hfile" accept=".html,.htm,text/html" hidden>
+    </div>
+    <button class="paste-toggle" id="htoggle">…or paste HTML code instead</button>
+    <div class="codebox" id="hcodebox">
+      <textarea id="hcode" spellcheck="false" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html&gt;…"></textarea>
+      <div class="load"><button class="act" id="hload">Load preview</button></div>
+    </div>
+
+    <div class="prev" id="hprev">
+      <div class="cap"><span>Preview:</span><span class="fname" id="hname"></span></div>
+      <iframe id="hframe" title="HTML preview"></iframe>
+    </div>
+
+    <div class="bar" id="hbar" style="display:none">
+      <button class="act" id="hconvert">Convert to PDF</button>
+      <label class="opt"><input type="checkbox" id="hbleed"> No page margins</label>
+      <button class="ghost" id="hclear">Clear</button>
+      <span class="status" id="hstatus"></span>
+    </div>
+
+    <div class="foot">
+      In the dialog that opens, choose <b>“Save as PDF”</b> as destination. Text stays sharp and selectable — nothing is rasterized.<br>
+      External images and fonts need absolute URLs (https://…) to show up. Runs entirely on <b>your device</b>.
     </div>
   </div>
 
@@ -212,6 +274,91 @@ mergeBtn.onclick = async () => {
     setStatus('Merge failed: ' + (e.message || e), 'err');
   }finally{
     mergeBtn.disabled = false;
+  }
+};
+
+// ================= HTML → PDF =================
+const hdropEl = document.getElementById('hdrop');
+const hfileEl = document.getElementById('hfile');
+const htoggle = document.getElementById('htoggle');
+const hcodebox = document.getElementById('hcodebox');
+const hcodeEl = document.getElementById('hcode');
+const hloadBtn = document.getElementById('hload');
+const hprevEl = document.getElementById('hprev');
+const hnameEl = document.getElementById('hname');
+const hframeEl = document.getElementById('hframe');
+const hbarEl = document.getElementById('hbar');
+const hstatusEl = document.getElementById('hstatus');
+const hconvertBtn = document.getElementById('hconvert');
+const hbleedEl = document.getElementById('hbleed');
+const hclearBtn = document.getElementById('hclear');
+
+let hUrl = null;
+
+function hStatus(msg, cls=''){ hstatusEl.textContent = msg; hstatusEl.className = 'status ' + cls; }
+
+function loadHtml(text, name){
+  if(hUrl) URL.revokeObjectURL(hUrl);
+  hUrl = URL.createObjectURL(new Blob([text], { type:'text/html' }));
+  hframeEl.src = hUrl;
+  hnameEl.textContent = name;
+  hprevEl.classList.add('show');
+  hbarEl.style.display = 'flex';
+  hStatus('Rendering preview…');
+}
+
+hframeEl.addEventListener('load', () => { if(hUrl) hStatus('Ready — check the preview, then convert.'); });
+
+async function hAddFile(f){
+  if(!f) return;
+  const ok = f.type === 'text/html' || /\.html?$/i.test(f.name);
+  if(!ok){ hStatus('That wasn’t an HTML file.', 'err'); return; }
+  loadHtml(await f.text(), f.name);
+}
+
+['dragenter','dragover'].forEach(ev => hdropEl.addEventListener(ev, e => { e.preventDefault(); hdropEl.classList.add('over'); }));
+['dragleave','drop'].forEach(ev => hdropEl.addEventListener(ev, e => { e.preventDefault(); if(ev==='dragleave' && hdropEl.contains(e.relatedTarget)) return; hdropEl.classList.remove('over'); }));
+hdropEl.addEventListener('drop', e => { if(e.dataTransfer.files.length) hAddFile(e.dataTransfer.files[0]); });
+hdropEl.addEventListener('click', () => hfileEl.click());
+hfileEl.addEventListener('change', () => { if(hfileEl.files.length) hAddFile(hfileEl.files[0]); hfileEl.value=''; });
+
+htoggle.onclick = () => { hcodebox.classList.toggle('show'); if(hcodebox.classList.contains('show')) hcodeEl.focus(); };
+hloadBtn.onclick = () => {
+  const code = hcodeEl.value.trim();
+  if(!code){ hStatus('Paste some HTML first.', 'err'); return; }
+  loadHtml(code, 'pasted code');
+};
+
+hclearBtn.onclick = () => {
+  if(hUrl) URL.revokeObjectURL(hUrl);
+  hUrl = null;
+  hframeEl.src = 'about:blank';
+  hprevEl.classList.remove('show');
+  hbarEl.style.display = 'none';
+  hcodeEl.value = '';
+  hStatus('');
+};
+
+hconvertBtn.onclick = async () => {
+  const win = hframeEl.contentWindow;
+  const doc = hframeEl.contentDocument;
+  if(!hUrl || !doc){ hStatus('Load an HTML file first.', 'err'); return; }
+  hconvertBtn.disabled = true;
+  try{
+    // force backgrounds/colors to survive printing, exactly as rendered
+    let st = doc.getElementById('__pdf_fidelity');
+    if(!st){ st = doc.createElement('style'); st.id = '__pdf_fidelity'; (doc.head || doc.documentElement).appendChild(st); }
+    st.textContent = '*{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}'
+      + (hbleedEl.checked ? '@page{margin:0}' : '');
+    try{ await doc.fonts.ready; }catch(e){}
+    hStatus('In the print dialog, choose “Save as PDF”.');
+    win.focus();
+    win.print();
+  }catch(e){
+    console.error(e);
+    hStatus('Conversion failed: ' + (e.message || e), 'err');
+  }finally{
+    hconvertBtn.disabled = false;
   }
 };
 </script>
