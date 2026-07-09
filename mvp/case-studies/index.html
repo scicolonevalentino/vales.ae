@@ -100,7 +100,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <footer><div class="wrap"><span>Valentino Scicolone · AI Marketing Consultant · Dubai</span><span>© 2026 vales.ae</span></div></footer>
 <script>
 const PID="7fvx0718",DS="production";
-const Q=`*[_type=="caseStudy"]|order(featured desc, date desc){_id,title,subtitle,"slug":slug.current,"year":string(date),date,featured,market,engagementType,"industry":industry->title,"services":services[]->title,competencies,cardMetric,metrics,takeaway,challenge,angle,actions,"img":coverImage.asset->url}`;
+const Q=`*[_type=="caseStudy"]|order(featured desc, date desc){title,subtitle,"slug":slug.current,"year":string(date),date,featured,market,engagementType,"industry":industry->title,"services":services[]->title,competencies,cardMetric,metrics,takeaway,challenge,angle,actions,"img":coverImage.asset->url}`;
 const CTA="The strategy is different every time. The starting point never is: know where you stand.";
 const CMAP={"curiosity":"Curiosity","creativity":"Creativity","critical-thinking":"Critical thinking","empathy":"Empathy"};
 let DATA=[],F={industry:"",service:"",year:""};
