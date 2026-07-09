@@ -110,7 +110,7 @@ const flow=t=>esc(t).split(/(?<=\.)\s+(?=[A-Z"'])/).map(s=>`<span class="s">${s}
 const uniq=a=>[...new Set(a)];
 function fetchData(){
   const url=`https://${PID}.apicdn.sanity.io/v2024-01-01/data/query/${DS}?query=`+encodeURIComponent(Q);
-  return fetch(url).then(r=>r.json()).then(j=>{DATA=j.result||[];route();});
+  return fetch(url,{cache:'no-store'}).then(r=>r.json()).then(j=>{DATA=j.result||[];route();});
 }
 function route(){ (location.hash.slice(1)) ? detail(decodeURIComponent(location.hash.slice(1))) : gridView(); window.scrollTo(0,0); }
 /* ---------- GRID ---------- */
