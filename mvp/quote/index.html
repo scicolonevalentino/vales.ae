@@ -29,7 +29,6 @@
   header.top{padding:28px 0 8px}
   header.top .wrap{display:flex;align-items:center;justify-content:space-between}
   .brandmark{display:flex;align-items:center;gap:12px}
-  .brandmark .dot{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--cyan))}
   .brandmark b{font-size:15px;font-weight:800;letter-spacing:-.01em}
   .brandmark span{display:block;font-size:11.5px;font-weight:600;color:var(--muted)}
   .backlink{font-size:13.5px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
@@ -88,8 +87,12 @@
   .opt b{font-size:14.5px;font-weight:800}
   .opt span{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px}
   .opt .tag{font-size:12.5px;font-weight:800;padding:5px 12px;border-radius:99px;background:rgba(13,31,92,.06);color:var(--muted);white-space:nowrap}
+  .opt .tag.tag-good{background:rgba(22,163,74,.14);color:#158043}
+  .opt .tag.tag-bad{background:rgba(220,38,38,.12);color:#c53030}
   .opt.sel{border-color:var(--blue);background:rgba(26,86,255,.05)}
   .opt.sel .tag{background:var(--blue);color:#fff}
+  .opt.sel .tag.tag-good{background:#189652;color:#fff}
+  .opt.sel .tag.tag-bad{background:#d1445c;color:#fff}
   .opt-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media(max-width:640px){.opt-3{grid-template-columns:1fr}}
   .opt-3 .opt{flex-direction:column;align-items:flex-start;text-align:left}
@@ -132,6 +135,14 @@
   .range-box .sub{font-size:13.5px;color:rgba(255,255,255,.7);font-weight:600;margin-top:12px}
   .assumptions{font-size:12.5px;color:var(--muted);font-weight:500;line-height:1.7;background:var(--ice);border-radius:14px;padding:16px 18px}
   .assumptions b{color:var(--navy)}
+  .assump-row{margin-bottom:8px}
+  .assump-row:last-of-type{margin-bottom:0}
+  .assump-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .chip{display:inline-flex;align-items:center;font-size:11.5px;font-weight:800;padding:5px 12px;border-radius:99px;background:rgba(13,31,92,.07);color:var(--navy)}
+  .chip.cx-simple{background:rgba(22,163,74,.14);color:#158043}
+  .chip.cx-standard{background:rgba(26,86,255,.12);color:var(--blue)}
+  .chip.cx-complex{background:rgba(217,119,6,.16);color:#a15c07}
+  .fit-note{font-size:12.5px;color:var(--navy);font-weight:600;line-height:1.6;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:14px}
 
   /* ---------------- thank you ---------------- */
   .thanks-icon{width:64px;height:64px;border-radius:50%;background:rgba(26,86,255,.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
@@ -143,7 +154,6 @@
 <header class="top">
   <div class="wrap">
     <div class="brandmark">
-      <div class="dot"></div>
       <div><b>Valentino Scicolone</b><span>vales.ae</span></div>
     </div>
     <a class="backlink" href="/">&larr; Back to site</a>
@@ -282,7 +292,7 @@
     <!-- STEP 5 — range reveal -->
     <section class="step" data-step="5">
       <p class="eyebrow">Your range</p>
-      <h2>Here's an honest number</h2>
+      <h2>Here's an estimated range</h2>
       <p class="lede">Not a final quote. A range built from real scope, so nobody wastes time.</p>
 
       <div class="range-box">
@@ -295,7 +305,7 @@
 
       <div class="stepnav">
         <button class="btn-ghost" onclick="goBack(5)">&larr; Adjust something</button>
-        <button class="btn-primary" onclick="goNext(5)">This works for me <span>&rarr;</span></button>
+        <button class="btn-primary" onclick="goNext(5)">Let's move on! <span>&rarr;</span></button>
       </div>
     </section>
 
@@ -346,9 +356,9 @@ const SIZE_OPTIONS = [
 ];
 
 const PAYMENT_OPTIONS = [
-  { key:'advance',  label:'Pay 100% upfront',      hint:'Locks the lowest rate',     tag:'-5%' },
-  { key:'standard', label:'Split 50/50',           hint:'Half now, half on delivery', tag:'Standard' },
-  { key:'postpaid', label:'Pay 100% on completion',hint:'Full amount when it\'s done',tag:'+15%' },
+  { key:'advance',  label:'Pay 100% upfront',      hint:'Locks the lowest rate',     tag:'-5%', tagClass:'tag-good' },
+  { key:'standard', label:'Split 50/50',           hint:'Half now, half on delivery', tag:'Standard', tagClass:'' },
+  { key:'postpaid', label:'Pay 100% on completion',hint:'Full amount when it\'s done',tag:'+15%', tagClass:'tag-bad' },
 ];
 
 const DIAL_CODES = [
@@ -384,7 +394,9 @@ const DIAL_CODES = [
   { flag:'🇵🇰', code:'+92',  country:'Pakistan' },
 ];
 
-const FREE_EMAIL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','icloud.com','aol.com','msn.com','protonmail.com','gmx.com','yandex.com','mail.com'];
+// gmail.com is deliberately allowed - Valentino's call, everything else
+// personal (yahoo/hotmail/icloud/etc.) still gets blocked as non-business.
+const FREE_EMAIL_DOMAINS = ['yahoo.com','hotmail.com','outlook.com','live.com','icloud.com','aol.com','msn.com','protonmail.com','gmx.com','yandex.com','mail.com'];
 function emailCheck(email){
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'invalid';
   const domain = email.split('@')[1].toLowerCase();
@@ -451,6 +463,22 @@ const STEP_NAMES = ['The problem','What you need','About you','Payment terms','Y
 
 function fmt(n){ return '$' + n.toLocaleString('en-US'); }
 
+function truncate(s, max){ return s.length > max ? s.slice(0, max - 1).trim() + '…' : s; }
+function escapeHtml(s){
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+const COMPLEXITY_INFO = {
+  simple:   { label: 'Simple scope', chip: 'cx-simple',
+              fit: "A contained, well-defined ask - squarely routine scope for senior-level marketing consulting." },
+  standard: { label: 'Standard scope', chip: 'cx-standard',
+              fit: "A fairly typical scope for this kind of engagement - matches the complexity handled day to day at director level." },
+  complex:  { label: 'Complex scope', chip: 'cx-complex',
+              fit: "A multi-layered ask with real complexity - the kind of engagement senior, multi-market experience is built for." },
+};
+
 function updateTimelineLabel(v){
   v = +v;
   document.getElementById('timelineLabel').textContent = v === 0 ? 'ASAP' : (v === 12 ? '12+ weeks' : `${v} week${v > 1 ? 's' : ''}`);
@@ -493,7 +521,7 @@ function renderPaymentGrid(){
   grid.innerHTML = PAYMENT_OPTIONS.map(o => `
     <div class="opt${o.key===state.payment?' sel':''}" data-key="${o.key}" onclick="selectPayment('${o.key}')">
       <div><b>${o.label}</b><span>${o.hint}</span></div>
-      <div class="tag">${o.tag}</div>
+      <div class="tag ${o.tagClass}">${o.tag}</div>
     </div>`).join('');
 }
 function selectPayment(key){
@@ -560,15 +588,20 @@ function goBack(from){ showStep(from - 1); }
 
 async function goNext(from){
   if(from === 1){
+    const err1 = document.getElementById('err1');
     const challenge = document.getElementById('f_challenge').value.trim();
-    if(!challenge){ document.getElementById('err1').classList.add('on'); return; }
-    document.getElementById('err1').classList.remove('on');
+    if(!challenge){
+      err1.textContent = 'Tell me at least what the challenge is.';
+      err1.classList.add('on'); return;
+    }
+    err1.classList.remove('on');
     const outcome = document.getElementById('f_outcome').value.trim();
     const combined = challenge + ' ' + outcome;
     // Real Claude call first (Apps Script, type: 'proposal_infer'). Falls
     // back to the local keyword heuristic if the call fails for any reason
     // (no API key set yet, network hiccup, unexpected response) so a brief
     // still gets a usable, if cruder, suggestion instead of nothing.
+    let unclear = false;
     await withLoading('Reading your brief...', async () => {
       const apiResult = await inferFromBriefAPI(challenge, outcome);
       if(apiResult && apiResult.configured){
@@ -576,16 +609,25 @@ async function goNext(from){
         // services list (found nothing that clearly applies) is a real
         // answer, not a failure. configured:false (no API key set server
         // side yet, or the call failed) is what should fall back to the
-        // cruder local heuristic below.
+        // cruder local heuristic below. briefUnclear is a separate signal:
+        // Claude genuinely could not tell what the person is asking at all
+        // (gibberish, keyboard mashing) - different from a coherent brief
+        // that's simply out of scope, which maps to empty services instead.
+        if(apiResult.briefUnclear){ unclear = true; return; }
         state.services = apiResult.services;
         state.complexity = apiResult.complexity || 'standard';
       } else {
         state.services = inferServices(combined);
         state.complexity = inferComplexity(combined);
       }
-      renderServiceGrid();
-      showStep(2);
     });
+    if(unclear){
+      err1.textContent = "That doesn't read like a clear brief yet. Try describing the actual problem in a sentence or two.";
+      err1.classList.add('on');
+      return;
+    }
+    renderServiceGrid();
+    showStep(2);
     return;
   }
   if(from === 2){
@@ -629,10 +671,21 @@ async function goNext(from){
       const rushNote = q.rushMult > 1
         ? `Timeline is tighter than the natural ~${q.naturalWeeks}-week pace, so a rush premium is baked in.`
         : `Timeline fits the natural ~${q.naturalWeeks}-week pace, no rush premium.`;
+      const challengeTxt = document.getElementById('f_challenge').value.trim();
+      const outcomeTxt = document.getElementById('f_outcome').value.trim();
+      const cx = COMPLEXITY_INFO[state.complexity] || COMPLEXITY_INFO.standard;
       document.getElementById('assumptions').innerHTML =
-        `<b>Based on:</b> ${svcLabels} &middot; ${sizeLabel} team &middot; ${state.complexity} complexity &middot; ${paymentLabel}.<br>` +
-        `${rushNote}<br>` +
-        `This is a wide range on purpose. The real scope gets locked in the proposal, not here.`;
+        (challengeTxt ? `<div class="assump-row"><b>The problem:</b> "${escapeHtml(truncate(challengeTxt, 90))}"</div>` : '') +
+        (outcomeTxt ? `<div class="assump-row"><b>Success looks like:</b> "${escapeHtml(truncate(outcomeTxt, 90))}"</div>` : '') +
+        `<div class="assump-chips">` +
+          `<span class="chip">${svcLabels}</span>` +
+          `<span class="chip">${sizeLabel} team</span>` +
+          `<span class="chip ${cx.chip}">${cx.label}</span>` +
+          `<span class="chip">${paymentLabel}</span>` +
+        `</div>` +
+        `<div class="fit-note">${cx.fit}</div>` +
+        `<div class="assump-row">${rushNote}</div>` +
+        `<div class="assump-row">This is a wide range on purpose. The real scope gets locked in the proposal, not here.</div>`;
       showStep(5);
     });
     return;
