@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Get a price range · vales.ae</title>
+<meta name="description" content="Tell me what you need. Get an honest price range in two minutes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1A56FF; --cyan:#00D4FF; --navy:#0D1F5C; --mid:#4D7BFF; --ice:#F4F7FF;
+    --muted:#5b6aa0; --line:rgba(13,31,92,.10);
+    --maxw:720px; --ease:cubic-bezier(.16,.84,.44,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--ice);color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.5;
+    min-height:100vh;
+  }
+  a{color:inherit}
+  button{font-family:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------------- header ---------------- */
+  header.top{padding:28px 0 8px}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between}
+  .brandmark{display:flex;align-items:center;gap:12px}
+  .brandmark .dot{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--cyan))}
+  .brandmark b{font-size:15px;font-weight:800;letter-spacing:-.01em}
+  .brandmark span{display:block;font-size:11.5px;font-weight:600;color:var(--muted)}
+  .backlink{font-size:13.5px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .backlink:hover{color:var(--blue)}
+
+  /* ---------------- progress ---------------- */
+  .progress-wrap{padding:22px 0 6px}
+  .progress-label{display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:10px}
+  .progress-label b{color:var(--navy)}
+  .progress-track{height:5px;border-radius:99px;background:rgba(13,31,92,.08);overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:99px;transition:width .5s var(--ease)}
+
+  /* ---------------- card / steps ---------------- */
+  main.wrap{padding-bottom:80px}
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:26px;padding:44px;margin-top:22px;box-shadow:0 24px 60px rgba(13,31,92,.08)}
+  @media(max-width:640px){.card{padding:28px 22px;border-radius:20px}}
+  .step{display:none}
+  .step.on{display:block;animation:stepIn .5s var(--ease)}
+  @keyframes stepIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+  .step h2{font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:10px 0 8px}
+  .step .lede{font-size:15.5px;color:var(--muted);font-weight:500;margin-bottom:24px}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--blue);background:rgba(26,86,255,.08);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+
+  /* ---------------- service cards ---------------- */
+  .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+  .svc{border:1.5px solid rgba(13,31,92,.16);border-radius:16px;padding:18px 20px;cursor:pointer;transition:border-color .2s,background .2s,transform .2s;position:relative}
+  .svc:hover{transform:translateY(-1px);border-color:rgba(13,31,92,.3)}
+  .svc b{display:block;font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+  .svc span{display:block;font-size:13px;color:var(--muted);font-weight:600;margin-top:4px}
+  .svc .chk{position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:6px;border:1.5px solid rgba(13,31,92,.3);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;background:#fff}
+  .svc .chk svg{width:13px;height:13px;opacity:0;transition:opacity .15s}
+  .svc.sel{border-color:var(--blue);background:rgba(26,86,255,.05)}
+  .svc.sel .chk{background:var(--blue);border-color:var(--blue)}
+  .svc.sel .chk svg{opacity:1}
+  .svc .suggested{position:absolute;top:-9px;left:16px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--navy);color:var(--cyan);padding:3px 9px;border-radius:99px;display:none}
+  .svc.suggested-tag .suggested{display:inline-block}
+
+  /* ---------------- form fields ---------------- */
+  .field{margin-bottom:20px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+  .field .hint{font-size:12px;color:var(--muted);font-weight:500;margin-top:5px}
+  .field input,.field select,.field textarea{
+    width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14.5px;
+    font-family:inherit;color:var(--navy);background:var(--ice);transition:border-color .2s;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
+  .field textarea{resize:vertical;min-height:78px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+
+  /* ---------------- radio-ish cards (size / payment) ---------------- */
+  .opt-list{display:flex;flex-direction:column;gap:12px}
+  .opt{border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:border-color .2s,background .2s}
+  .opt b{font-size:14.5px;font-weight:800}
+  .opt span{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px}
+  .opt .tag{font-size:12.5px;font-weight:800;padding:5px 12px;border-radius:99px;background:rgba(13,31,92,.06);color:var(--muted);white-space:nowrap}
+  .opt.sel{border-color:var(--blue);background:rgba(26,86,255,.05)}
+  .opt.sel .tag{background:var(--blue);color:#fff}
+  .opt-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.opt-3{grid-template-columns:1fr}}
+  .opt-3 .opt{flex-direction:column;align-items:flex-start;text-align:left}
+
+  /* ---------------- timeline slider ---------------- */
+  .slider-val{font-size:16px;font-weight:800;color:var(--blue);margin-bottom:14px;display:block}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--cyan));outline:none;margin-top:6px}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(13,31,92,.25)}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(13,31,92,.25)}
+  .slider-ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:600;margin-top:8px}
+
+  /* ---------------- phone field ---------------- */
+  .phone-row{display:flex;gap:10px}
+  .phone-row select{flex:0 0 128px}
+  .phone-row input{flex:1}
+  .disclaimer{font-size:12px;color:var(--muted);font-weight:500;line-height:1.6;margin-top:-6px;margin-bottom:20px}
+
+  /* ---------------- loading overlay ---------------- */
+  .loading-overlay{position:absolute;inset:0;background:#fff;border-radius:26px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;z-index:5}
+  .loading-overlay.on{display:flex;animation:stepIn .3s var(--ease)}
+  .spinner{width:40px;height:40px;border-radius:50%;border:3.5px solid rgba(13,31,92,.12);border-top-color:var(--blue);animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading-msg{font-size:14.5px;font-weight:700;color:var(--muted)}
+
+  /* ---------------- nav buttons ---------------- */
+  .stepnav{display:flex;justify-content:space-between;align-items:center;margin-top:34px}
+  .btn-primary{background:var(--cyan);color:var(--navy);font-weight:800;font-size:15px;padding:14px 28px;border:none;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,212,255,.4)}
+  .btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-ghost{background:none;border:none;color:var(--muted);font-weight:700;font-size:14px;cursor:pointer;padding:10px 6px}
+  .btn-ghost:hover{color:var(--navy)}
+  .err{font-size:12.5px;color:#d1445c;font-weight:700;margin-top:8px;display:none}
+  .err.on{display:block}
+
+  /* ---------------- range reveal ---------------- */
+  .range-box{text-align:center;padding:34px 20px;background:var(--navy);border-radius:20px;color:#fff;margin-bottom:24px}
+  .range-box .lbl{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+  .range-box .num{font-size:clamp(30px,6vw,46px);font-weight:800;letter-spacing:-.02em;margin-top:10px}
+  .range-box .num .sep{color:var(--mid);margin:0 10px}
+  .range-box .sub{font-size:13.5px;color:rgba(255,255,255,.7);font-weight:600;margin-top:12px}
+  .assumptions{font-size:12.5px;color:var(--muted);font-weight:500;line-height:1.7;background:var(--ice);border-radius:14px;padding:16px 18px}
+  .assumptions b{color:var(--navy)}
+
+  /* ---------------- thank you ---------------- */
+  .thanks-icon{width:64px;height:64px;border-radius:50%;background:rgba(26,86,255,.1);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+  .thanks-icon svg{width:28px;height:28px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brandmark">
+      <div class="dot"></div>
+      <div><b>Valentino Scicolone</b><span>vales.ae</span></div>
+    </div>
+    <a class="backlink" href="/">&larr; Back to site</a>
+  </div>
+</header>
+
+<div class="progress-wrap wrap">
+  <div class="progress-label"><span>Step <b id="stepNow">1</b> of 5</span><span id="stepName">The problem</span></div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+</div>
+
+<main class="wrap">
+  <div class="card">
+
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="spinner"></div>
+      <p class="loading-msg" id="loadingMsg">Reading your brief...</p>
+    </div>
+
+    <!-- STEP 1 — the problem -->
+    <section class="step on" data-step="1">
+      <p class="eyebrow">Start here</p>
+      <h2>What's the problem?</h2>
+      <p class="lede">Tell me what's not working. I'll figure out which services apply, you don't need to know that part.</p>
+
+      <div class="field"><label>The challenge</label><textarea id="f_challenge" placeholder="What's not working right now?"></textarea></div>
+      <div class="field"><label>What does success look like?</label><textarea id="f_outcome" placeholder="What has to be true for this to have worked?"></textarea></div>
+
+      <p class="err" id="err1">Tell me at least what the challenge is.</p>
+      <div class="stepnav">
+        <span></span>
+        <button class="btn-primary" onclick="goNext(1)">Continue <span>&rarr;</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 2 — AI-suggested services -->
+    <section class="step" data-step="2">
+      <p class="eyebrow">Based on what you told me</p>
+      <h2>Here's what I think you need</h2>
+      <p class="lede">Pre-selected from your answer. Adjust anything that's off.</p>
+      <p class="badge">&check; Select all that apply</p>
+      <div class="svc-grid" id="svcGrid"></div>
+      <p class="err" id="err2">Pick at least one service.</p>
+      <div class="stepnav">
+        <button class="btn-ghost" onclick="goBack(2)">&larr; Back</button>
+        <button class="btn-primary" onclick="goNext(2)">Continue <span>&rarr;</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 3 — about you -->
+    <section class="step" data-step="3">
+      <p class="eyebrow">Almost there</p>
+      <h2>Tell me about you</h2>
+      <p class="lede">So I can size this properly.</p>
+
+      <div class="row2">
+        <div class="field"><label>First name</label><input type="text" id="f_firstname" /></div>
+        <div class="field"><label>Last name</label><input type="text" id="f_lastname" /></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Business email</label><input type="email" id="f_email" placeholder="you@company.com" /></div>
+        <div class="field"><label>Company name</label><input type="text" id="f_company" /></div>
+      </div>
+      <div class="field">
+        <label>Phone <span class="hint" style="display:inline">(optional)</span></label>
+        <div class="phone-row">
+          <select id="f_dialcode"></select>
+          <input type="tel" id="f_phone" placeholder="50 123 4567" />
+        </div>
+      </div>
+      <p class="disclaimer">By submitting this form you agree to be contacted by Valentino Scicolone about your inquiry.</p>
+      <div class="row2">
+        <div class="field"><label>Where are you based?</label><input type="text" id="f_location" placeholder="City, country" /></div>
+        <div class="field">
+          <label>Industry</label>
+          <select id="f_industry">
+            <option value="">Select one</option>
+            <option>Tourism & Hospitality</option>
+            <option>Banking & Finance</option>
+            <option>Retail & E-commerce</option>
+            <option>Technology & SaaS</option>
+            <option>FMCG</option>
+            <option>Government & Public Sector</option>
+            <option>Automotive</option>
+            <option>Healthcare & Pharma</option>
+            <option>Real Estate</option>
+            <option>Telecom</option>
+            <option>Education</option>
+            <option>Energy & Utilities</option>
+            <option>Fashion & Luxury</option>
+            <option>Consumer Electronics</option>
+            <option>Media & Entertainment</option>
+            <option>Professional Services</option>
+            <option>Non-profit</option>
+            <option>Logistics & Supply Chain</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Team size</label>
+        <div class="opt-3" id="sizeGrid"></div>
+      </div>
+
+      <div class="field"><label>Current stack <span class="hint" style="display:inline">(optional)</span></label><input type="text" id="f_stack" placeholder="CRM, ad platforms, analytics tools already in place" /></div>
+
+      <div class="field">
+        <label>Ideal timeline</label>
+        <span class="slider-val" id="timelineLabel">ASAP</span>
+        <input type="range" id="f_timeline" min="0" max="12" step="1" value="4" oninput="updateTimelineLabel(this.value)" />
+        <div class="slider-ticks"><span>ASAP</span><span>12+ weeks</span></div>
+      </div>
+
+      <div class="field"><label>Anything else? <span class="hint" style="display:inline">(optional)</span></label><textarea id="f_notes" placeholder="Notes"></textarea></div>
+
+      <p class="err" id="err3">Fill in your first name, last name and business email.</p>
+      <div class="stepnav">
+        <button class="btn-ghost" onclick="goBack(3)">&larr; Back</button>
+        <button class="btn-primary" onclick="goNext(3)">Continue <span>&rarr;</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 4 — payment terms -->
+    <section class="step" data-step="4">
+      <p class="eyebrow">Almost there</p>
+      <h2>How do you want to structure payment?</h2>
+      <p class="lede">This changes the effective rate, not the scope.</p>
+      <div class="opt-list" id="paymentGrid"></div>
+      <div class="stepnav">
+        <button class="btn-ghost" onclick="goBack(4)">&larr; Back</button>
+        <button class="btn-primary" onclick="goNext(4)">See my range <span>&rarr;</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 5 — range reveal -->
+    <section class="step" data-step="5">
+      <p class="eyebrow">Your range</p>
+      <h2>Here's an honest number</h2>
+      <p class="lede">Not a final quote. A range built from real scope, so nobody wastes time.</p>
+
+      <div class="range-box">
+        <div class="lbl">Estimated investment</div>
+        <div class="num"><span id="rangeLow">$0</span><span class="sep">&ndash;</span><span id="rangeHigh">$0</span></div>
+        <div class="sub" id="rangeSub"></div>
+      </div>
+
+      <div class="assumptions" id="assumptions"></div>
+
+      <div class="stepnav">
+        <button class="btn-ghost" onclick="goBack(5)">&larr; Adjust something</button>
+        <button class="btn-primary" onclick="goNext(5)">This works for me <span>&rarr;</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 6 — thank you -->
+    <section class="step" data-step="6">
+      <div class="thanks-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1A56FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h2 id="thanksHeadline">Thanks.</h2>
+      <p class="lede" id="thanksBody" style="margin-bottom:0"></p>
+    </section>
+
+  </div>
+</main>
+
+<script>
+/* =========================================================
+   PRICING ENGINE — pure function, no DOM dependency.
+   Kept client-side here ONLY for local preview/iteration.
+   BEFORE THIS GOES LIVE: move this block (unchanged) into
+   the Apps Script doPost handler and delete it from the
+   client, so the real rate card / hours never ship to the
+   browser. See proposal-engine/activity-library.md.
+   ========================================================= */
+// Apps Script web app (proposal-engine/apps-script-backend.gs), deployed 2026-07-09.
+const PROPOSAL_STORAGE_URL = 'https://script.google.com/macros/s/AKfycbwGK-ivVTsG7aP-LQsXi888lUm5GxUjphaCv51QEl3zsMVxSF1G_S2fQnGuDQYw1tsSYQ/exec';
+
+const RATE_BASE = 180; // $/hour, standard (50/50) terms
+const PAYMENT_MODIFIERS = { advance: -0.05, standard: 0, postpaid: 0.15 };
+const SIZE_MULTIPLIERS = { small: 0.8, medium: 1.0, large: 1.4 };
+const RANGE_BUFFER = 0.20;
+const COMPLEXITY_MULTIPLIERS = { simple: 0.85, standard: 1.0, complex: 1.25 };
+const WEEKLY_CAPACITY_HOURS = 15; // realistic solo-consultant hours/week on one engagement
+const RUSH_CAP = 0.25;            // max rush premium
+const RUSH_PER_WEEK = 0.02;       // premium per week of compression vs natural pace
+
+const SERVICES = [
+  { key:'aiResearch',        label:'AI Research',            tagline:'Findings into direction',           hours:44 },
+  { key:'marketingStrategy', label:'Marketing Strategy',     tagline:'Options into a plan',                hours:53 },
+  { key:'dataTechnology',    label:'Data & Technology',      tagline:'Tools into a stack that works',      hours:41 },
+  { key:'marketingOps',      label:'Marketing Operations',   tagline:'Volume into a system',                hours:34 },
+  { key:'measurement',       label:'Measurement & Analytics',tagline:'Numbers into KPIs that matter',       hours:38 },
+  { key:'aiFluency',         label:'AI Fluency',             tagline:'Training into a habit',               hours:34 },
+];
+
+const SIZE_OPTIONS = [
+  { key:'small',  label:'Small',  hint:'Under 20 people' },
+  { key:'medium', label:'Medium', hint:'20-200 people' },
+  { key:'large',  label:'Large',  hint:'200+ people' },
+];
+
+const PAYMENT_OPTIONS = [
+  { key:'advance',  label:'Pay 100% upfront',      hint:'Locks the lowest rate',     tag:'-5%' },
+  { key:'standard', label:'Split 50/50',           hint:'Half now, half on delivery', tag:'Standard' },
+  { key:'postpaid', label:'Pay 100% on completion',hint:'Full amount when it\'s done',tag:'+15%' },
+];
+
+const DIAL_CODES = [
+  { flag:'🇦🇪', code:'+971', country:'UAE' },
+  { flag:'🇸🇦', code:'+966', country:'Saudi Arabia' },
+  { flag:'🇶🇦', code:'+974', country:'Qatar' },
+  { flag:'🇰🇼', code:'+965', country:'Kuwait' },
+  { flag:'🇧🇭', code:'+973', country:'Bahrain' },
+  { flag:'🇴🇲', code:'+968', country:'Oman' },
+  { flag:'🇪🇬', code:'+20',  country:'Egypt' },
+  { flag:'🇯🇴', code:'+962', country:'Jordan' },
+  { flag:'🇱🇧', code:'+961', country:'Lebanon' },
+  { flag:'🇮🇹', code:'+39',  country:'Italy' },
+  { flag:'🇬🇧', code:'+44',  country:'United Kingdom' },
+  { flag:'🇫🇷', code:'+33',  country:'France' },
+  { flag:'🇩🇪', code:'+49',  country:'Germany' },
+  { flag:'🇪🇸', code:'+34',  country:'Spain' },
+  { flag:'🇳🇱', code:'+31',  country:'Netherlands' },
+  { flag:'🇨🇭', code:'+41',  country:'Switzerland' },
+  { flag:'🇮🇪', code:'+353', country:'Ireland' },
+  { flag:'🇸🇪', code:'+46',  country:'Sweden' },
+  { flag:'🇺🇸', code:'+1',   country:'United States' },
+  { flag:'🇨🇦', code:'+1',   country:'Canada' },
+  { flag:'🇮🇳', code:'+91',  country:'India' },
+  { flag:'🇸🇬', code:'+65',  country:'Singapore' },
+  { flag:'🇭🇰', code:'+852', country:'Hong Kong' },
+  { flag:'🇯🇵', code:'+81',  country:'Japan' },
+  { flag:'🇨🇳', code:'+86',  country:'China' },
+  { flag:'🇦🇺', code:'+61',  country:'Australia' },
+  { flag:'🇿🇦', code:'+27',  country:'South Africa' },
+  { flag:'🇧🇷', code:'+55',  country:'Brazil' },
+  { flag:'🇹🇷', code:'+90',  country:'Turkey' },
+  { flag:'🇵🇰', code:'+92',  country:'Pakistan' },
+];
+
+const FREE_EMAIL_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','icloud.com','aol.com','msn.com','protonmail.com','gmx.com','yandex.com','mail.com'];
+function emailCheck(email){
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'invalid';
+  const domain = email.split('@')[1].toLowerCase();
+  if(FREE_EMAIL_DOMAINS.includes(domain)) return 'free';
+  return 'ok';
+}
+
+/* ---------------------------------------------------------
+   TEMPORARY HEURISTIC STAND-IN for the free-text brief.
+   Before going live: replace both functions below with one
+   call to the Apps Script backend (type: 'proposal_infer'),
+   which calls the Claude API server-side with the challenge
+   + outcome text and returns { services, complexity }. Doing
+   this with keyword matching is honest-but-crude; an LLM call
+   is what actually reads the brief instead of pattern-matching it.
+   --------------------------------------------------------- */
+const SERVICE_KEYWORDS = {
+  aiResearch:        ['research','market landscape','competitor','trend','understand the market','discovery','don\'t know where to start','which direction','opportunity'],
+  marketingStrategy: ['strategy','budget','channel mix','go-to-market','gtm','audience','segment','media plan','funnel','positioning','plan'],
+  dataTechnology:    ['crm','martech','integration','platform','stack','tool','salesforce','data architecture','systems don\'t talk','disconnected'],
+  marketingOps:      ['process','workflow','sow','efficiency','bottleneck','too slow','handoff','operations','scale','resourcing'],
+  measurement:       ['dashboard','report','kpi','measure','track','attribution','analytics','don\'t know what\'s working','roi','data isn\'t'],
+  aiFluency:         ['train','upskill','ai adoption','team doesn\'t know','afraid of ai','habit','learn how to use ai','confidence with ai'],
+};
+const COMPLEX_SIGNALS = ['multiple markets','multi-country','multi market','global','enterprise','legacy','several teams','multiple stakeholders','regulated','compliance','multi-brand'];
+const SIMPLE_SIGNALS = ['simple','small team','just need','quick','one channel','single market','straightforward'];
+
+function inferServices(text){
+  const t = text.toLowerCase();
+  return SERVICES.map(s => s.key).filter(key => SERVICE_KEYWORDS[key].some(kw => t.includes(kw)));
+}
+function inferComplexity(text){
+  const t = text.toLowerCase();
+  if(COMPLEX_SIGNALS.some(kw => t.includes(kw))) return 'complex';
+  if(SIMPLE_SIGNALS.some(kw => t.includes(kw))) return 'simple';
+  return 'standard';
+}
+
+function calculateQuote({ serviceKeys, size, payment, complexity, timelineWeeks }){
+  const hoursLib = Object.fromEntries(SERVICES.map(s => [s.key, s.hours]));
+  const totalHours = serviceKeys.reduce((sum, k) => sum + (hoursLib[k] || 0), 0);
+  const sizedHours = totalHours * SIZE_MULTIPLIERS[size];
+  const complexityMult = COMPLEXITY_MULTIPLIERS[complexity] || 1.0;
+  const naturalWeeks = sizedHours / WEEKLY_CAPACITY_HOURS;
+  const requestedWeeks = timelineWeeks === 0 ? 1 : timelineWeeks; // ASAP floors at 1 week
+  const compressionWeeks = Math.max(0, naturalWeeks - requestedWeeks);
+  const rushMult = 1 + Math.min(RUSH_CAP, compressionWeeks * RUSH_PER_WEEK);
+  const rate = RATE_BASE * (1 + PAYMENT_MODIFIERS[payment]);
+  const midpoint = sizedHours * complexityMult * rushMult * rate;
+  return {
+    hours: Math.round(sizedHours),
+    rate: Math.round(rate),
+    complexityMult, rushMult,
+    naturalWeeks: Math.round(naturalWeeks * 10) / 10,
+    low: Math.round(midpoint * (1 - RANGE_BUFFER) / 50) * 50,
+    high: Math.round(midpoint * (1 + RANGE_BUFFER) / 50) * 50,
+  };
+}
+
+/* ========================= UI STATE ========================= */
+const state = { services: [], size: 'medium', payment: 'standard', complexity: 'standard' };
+const TOTAL_STEPS = 5;
+const STEP_NAMES = ['The problem','What you need','About you','Payment terms','Your range'];
+
+function fmt(n){ return '$' + n.toLocaleString('en-US'); }
+
+function updateTimelineLabel(v){
+  v = +v;
+  document.getElementById('timelineLabel').textContent = v === 0 ? 'ASAP' : (v === 12 ? '12+ weeks' : `${v} week${v > 1 ? 's' : ''}`);
+}
+
+function renderServiceGrid(){
+  const grid = document.getElementById('svcGrid');
+  grid.innerHTML = SERVICES.map(s => {
+    const sel = state.services.includes(s.key);
+    return `
+    <div class="svc${sel ? ' sel' : ''}${sel ? ' suggested-tag' : ''}" data-key="${s.key}" onclick="toggleService('${s.key}')">
+      <span class="suggested">Suggested</span>
+      <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <b>${s.label}</b><span>${s.tagline}</span>
+    </div>`;
+  }).join('');
+}
+function toggleService(key){
+  const i = state.services.indexOf(key);
+  if(i === -1) state.services.push(key); else state.services.splice(i,1);
+  const el = document.querySelector(`.svc[data-key="${key}"]`);
+  el.classList.toggle('sel');
+  el.classList.remove('suggested-tag'); // manual toggle clears the "suggested" ribbon either way
+}
+
+function renderSizeGrid(){
+  const grid = document.getElementById('sizeGrid');
+  grid.innerHTML = SIZE_OPTIONS.map(o => `
+    <div class="opt${o.key===state.size?' sel':''}" data-key="${o.key}" onclick="selectSize('${o.key}')">
+      <div><b>${o.label}</b><span>${o.hint}</span></div>
+    </div>`).join('');
+}
+function selectSize(key){
+  state.size = key;
+  document.querySelectorAll('#sizeGrid .opt').forEach(el => el.classList.toggle('sel', el.dataset.key === key));
+}
+
+function renderPaymentGrid(){
+  const grid = document.getElementById('paymentGrid');
+  grid.innerHTML = PAYMENT_OPTIONS.map(o => `
+    <div class="opt${o.key===state.payment?' sel':''}" data-key="${o.key}" onclick="selectPayment('${o.key}')">
+      <div><b>${o.label}</b><span>${o.hint}</span></div>
+      <div class="tag">${o.tag}</div>
+    </div>`).join('');
+}
+function selectPayment(key){
+  state.payment = key;
+  document.querySelectorAll('#paymentGrid .opt').forEach(el => el.classList.toggle('sel', el.dataset.key === key));
+}
+
+function renderDialCodes(){
+  const sel = document.getElementById('f_dialcode');
+  sel.innerHTML = DIAL_CODES.map(d => `<option value="${d.code}">${d.flag} ${d.code}</option>`).join('');
+  sel.value = '+971'; // Valentino is Dubai-based, most first clients will be regional
+}
+
+/* Shows the overlay for as long as asyncWorkFn takes - real network time for
+   the step 1 AI call, a short fixed delay for step 4's pure arithmetic (see
+   the two call sites below). */
+async function withLoading(message, asyncWorkFn){
+  const overlay = document.getElementById('loadingOverlay');
+  document.getElementById('loadingMsg').textContent = message;
+  overlay.classList.add('on');
+  try {
+    await asyncWorkFn();
+  } finally {
+    overlay.classList.remove('on');
+  }
+}
+
+function wait(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+/* Real inference call: Apps Script (type: 'proposal_infer') reads the brief
+   with Claude Haiku and returns { services, complexity }. Not mode:'no-cors'
+   here - unlike the confirm step, this one needs a readable response. Falls
+   back to null on any failure (missing API key server-side, network error,
+   bad response) so the caller can drop back to the local keyword heuristic
+   instead of leaving the client with nothing. */
+async function inferFromBriefAPI(challenge, outcome){
+  if(!PROPOSAL_STORAGE_URL) return null;
+  try {
+    const res = await fetch(PROPOSAL_STORAGE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ type: 'proposal_infer', challenge, outcome }),
+    });
+    if(!res.ok) return null;
+    const data = await res.json();
+    if(!data || !Array.isArray(data.services)) return null;
+    return data;
+  } catch(e){
+    return null;
+  }
+}
+
+function showStep(n){
+  document.querySelectorAll('.step').forEach(el => el.classList.toggle('on', +el.dataset.step === n));
+  const done = n > TOTAL_STEPS;
+  document.getElementById('stepNow').textContent = done ? 'Done' : n;
+  document.getElementById('stepName').textContent = done ? 'Confirmed' : (STEP_NAMES[n - 1] || '');
+  document.querySelector('.progress-label span:first-child').style.display = done ? 'none' : '';
+  document.getElementById('progressFill').style.width = (Math.min(n, TOTAL_STEPS) / TOTAL_STEPS * 100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack(from){ showStep(from - 1); }
+
+async function goNext(from){
+  if(from === 1){
+    const challenge = document.getElementById('f_challenge').value.trim();
+    if(!challenge){ document.getElementById('err1').classList.add('on'); return; }
+    document.getElementById('err1').classList.remove('on');
+    const outcome = document.getElementById('f_outcome').value.trim();
+    const combined = challenge + ' ' + outcome;
+    // Real Claude call first (Apps Script, type: 'proposal_infer'). Falls
+    // back to the local keyword heuristic if the call fails for any reason
+    // (no API key set yet, network hiccup, unexpected response) so a brief
+    // still gets a usable, if cruder, suggestion instead of nothing.
+    await withLoading('Reading your brief...', async () => {
+      const apiResult = await inferFromBriefAPI(challenge, outcome);
+      if(apiResult && apiResult.configured){
+        // configured:true means Claude actually answered - even an empty
+        // services list (found nothing that clearly applies) is a real
+        // answer, not a failure. configured:false (no API key set server
+        // side yet, or the call failed) is what should fall back to the
+        // cruder local heuristic below.
+        state.services = apiResult.services;
+        state.complexity = apiResult.complexity || 'standard';
+      } else {
+        state.services = inferServices(combined);
+        state.complexity = inferComplexity(combined);
+      }
+      renderServiceGrid();
+      showStep(2);
+    });
+    return;
+  }
+  if(from === 2){
+    if(state.services.length === 0){ document.getElementById('err2').classList.add('on'); return; }
+    document.getElementById('err2').classList.remove('on');
+  }
+  if(from === 3){
+    const fn = document.getElementById('f_firstname').value.trim();
+    const ln = document.getElementById('f_lastname').value.trim();
+    const email = document.getElementById('f_email').value.trim();
+    const errEl = document.getElementById('err3');
+    if(!fn || !ln || !email){
+      errEl.textContent = 'Fill in your first name, last name and business email.';
+      errEl.classList.add('on'); return;
+    }
+    const check = emailCheck(email);
+    if(check === 'invalid'){
+      errEl.textContent = 'Enter a valid email address.';
+      errEl.classList.add('on'); return;
+    }
+    if(check === 'free'){
+      errEl.textContent = 'Please use your business email, not a personal address.';
+      errEl.classList.add('on'); return;
+    }
+    errEl.classList.remove('on');
+  }
+  if(from === 4){
+    // No second API call here - the range is pure arithmetic on numbers
+    // already known (services, size, payment, complexity from step 1). The
+    // brief delay is just a UX pause, not masking real network time.
+    await withLoading('Calculating your range...', async () => {
+      await wait(700);
+      const timelineWeeks = +document.getElementById('f_timeline').value;
+      const q = calculateQuote({ serviceKeys: state.services, size: state.size, payment: state.payment, complexity: state.complexity, timelineWeeks });
+      document.getElementById('rangeLow').textContent = fmt(q.low);
+      document.getElementById('rangeHigh').textContent = fmt(q.high);
+      document.getElementById('rangeSub').textContent = `~${q.hours}h at $${q.rate}/h`;
+      const sizeLabel = SIZE_OPTIONS.find(s => s.key === state.size).label;
+      const paymentLabel = PAYMENT_OPTIONS.find(p => p.key === state.payment).label.toLowerCase();
+      const svcLabels = state.services.map(k => SERVICES.find(s => s.key === k).label).join(', ');
+      const rushNote = q.rushMult > 1
+        ? `Timeline is tighter than the natural ~${q.naturalWeeks}-week pace, so a rush premium is baked in.`
+        : `Timeline fits the natural ~${q.naturalWeeks}-week pace, no rush premium.`;
+      document.getElementById('assumptions').innerHTML =
+        `<b>Based on:</b> ${svcLabels} &middot; ${sizeLabel} team &middot; ${state.complexity} complexity &middot; ${paymentLabel}.<br>` +
+        `${rushNote}<br>` +
+        `This is a wide range on purpose. The real scope gets locked in the proposal, not here.`;
+      showStep(5);
+    });
+    return;
+  }
+  if(from === 5){
+    const fn = document.getElementById('f_firstname').value.trim() || 'there';
+    const email = document.getElementById('f_email').value.trim();
+    document.getElementById('thanksHeadline').textContent = `Thanks, ${fn}.`;
+    document.getElementById('thanksBody').textContent =
+      `I'll follow up within 2 business days with an end-to-end proposal and a full statement of work` +
+      (email ? ` at ${email}.` : '.');
+    const phone = document.getElementById('f_phone').value.trim();
+    const leadPayload = {
+      type: 'proposal_confirm',
+      firstName: document.getElementById('f_firstname').value,
+      lastName: document.getElementById('f_lastname').value,
+      company: document.getElementById('f_company').value,
+      email: document.getElementById('f_email').value,
+      phone: phone ? `${document.getElementById('f_dialcode').value} ${phone}` : '',
+      location: document.getElementById('f_location').value,
+      industry: document.getElementById('f_industry').value,
+      timelineWeeks: document.getElementById('f_timeline').value,
+      size: state.size,
+      challenge: document.getElementById('f_challenge').value,
+      outcome: document.getElementById('f_outcome').value,
+      stack: document.getElementById('f_stack').value,
+      notes: document.getElementById('f_notes').value,
+      services: state.services,
+      complexity: state.complexity,
+      payment: state.payment,
+      range: { low: document.getElementById('rangeLow').textContent, high: document.getElementById('rangeHigh').textContent },
+    };
+    console.log('CONFIRMED LEAD', leadPayload);
+    // PROPOSAL_STORAGE_URL is a placeholder until the Apps Script backend
+    // (proposal-engine/apps-script-backend.gs) is deployed and its real
+    // /exec URL is pasted in below. mode:'no-cors' means the response can't
+    // be read, same fire-and-forget pattern as the AMMF form (see
+    // ammf-forms-backend memory) — the thank-you screen above already shows
+    // optimistically regardless of whether this call succeeds.
+    if (PROPOSAL_STORAGE_URL) {
+      fetch(PROPOSAL_STORAGE_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(leadPayload),
+      });
+    }
+  }
+  showStep(from + 1);
+}
+
+renderServiceGrid();
+renderSizeGrid();
+renderPaymentGrid();
+renderDialCodes();
+updateTimelineLabel(document.getElementById('f_timeline').value);
+</script>
+</body>
+</html>
