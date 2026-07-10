@@ -310,8 +310,6 @@
         <div class="sub" id="rangeSub"></div>
       </div>
 
-      <div class="assumptions" id="assumptions"></div>
-
       <div class="stepnav">
         <button class="btn-ghost" onclick="goBack(5)">&larr; Adjust something</button>
         <button class="btn-primary" onclick="goNext(5)">Let's move on! <span>&rarr;</span></button>
@@ -726,28 +724,6 @@ async function goNext(from){
       document.getElementById('rangeLow').textContent = fmt(q.low);
       document.getElementById('rangeHigh').textContent = fmt(q.high);
       document.getElementById('rangeSub').textContent = `~${q.hours}h at $${q.rate}/h`;
-      const sizeLabel = SIZE_OPTIONS.find(s => s.key === state.size).label;
-      const paymentLabel = PAYMENT_OPTIONS.find(p => p.key === state.payment).label.toLowerCase();
-      const svcLabels = state.services.map(k => SERVICES.find(s => s.key === k).label).join(', ');
-      const rushNote = q.rushMult > 1
-        ? `Timeline is tighter than the natural ~${q.naturalWeeks}-week pace, so a rush premium is baked in.`
-        : `Timeline fits the natural ~${q.naturalWeeks}-week pace, no rush premium.`;
-      const challengeTxt = document.getElementById('f_challenge').value.trim();
-      const outcomeTxt = document.getElementById('f_outcome').value.trim();
-      const cx = COMPLEXITY_INFO[state.complexity] || COMPLEXITY_INFO.standard;
-      document.getElementById('assumptions').innerHTML =
-        (challengeTxt ? `<div class="assump-row"><b>The problem:</b> "${escapeHtml(truncate(challengeTxt, 90))}"</div>` : '') +
-        (outcomeTxt ? `<div class="assump-row"><b>Success looks like:</b> "${escapeHtml(truncate(outcomeTxt, 90))}"</div>` : '') +
-        `<div class="assump-chips">` +
-          `<span class="chip">${svcLabels}</span>` +
-          `<span class="chip">${sizeLabel} team</span>` +
-          `<span class="chip ${cx.chip}">${cx.label}</span>` +
-          `<span class="chip">${paymentLabel}</span>` +
-        `</div>` +
-        `<div class="fit-note">${cx.fit}</div>` +
-        `<div class="assump-row">${rushNote}</div>` +
-        `<div class="assump-row">Scoped to the specific work described, not a full service package - that is what keeps this range grounded in what you actually asked for.</div>` +
-        `<div class="assump-row">This is a wide range on purpose. The real scope gets locked in the proposal, not here.</div>`;
       showStep(5);
     });
     return;
