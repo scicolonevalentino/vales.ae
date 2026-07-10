@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Video Compressor · vales.ae</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel-2:#1d212b; --line:#2a2f3a;
+    --text:#e7e9ee; --muted:#8b93a3; --accent:#5b8cff; --accent-2:#3f6fe0;
+    --danger:#e0556b; --ok:#3fb27f; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:radial-gradient(1200px 600px at 50% -10%, #1a1f2b 0%, var(--bg) 60%);
+    color:var(--text);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    display:flex;flex-direction:column;align-items:center;min-height:100%;padding:40px 20px 80px;
+  }
+  .wrap{width:100%;max-width:680px}
+  h1{font-size:24px;margin:0 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin:0 0 28px;font-size:14px}
+  .sub b{color:var(--text);font-weight:600}
+
+  .drop{
+    border:1.5px dashed var(--line);border-radius:var(--radius);
+    background:var(--panel);padding:44px 24px;text-align:center;cursor:pointer;
+    transition:.18s border-color,.18s background,.18s transform;
+  }
+  .drop:hover{border-color:#3a4252}
+  .drop.over{border-color:var(--accent);background:var(--panel-2);transform:translateY(-1px)}
+  .drop .icon{font-size:30px;opacity:.85}
+  .drop .big{font-size:16px;margin:10px 0 2px;font-weight:600}
+  .drop .small{color:var(--muted);font-size:13px}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:20px;display:none}
+  .card.show{display:block}
+  .fmeta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .fmeta .name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .fmeta .dim{color:var(--muted);font-size:13px}
+  video{width:100%;border-radius:10px;margin-top:14px;background:#000;max-height:340px}
+
+  .opts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .opts .lbl{color:var(--muted);font-size:13.5px;margin-right:2px}
+  .chip{
+    border:1px solid var(--line);background:var(--panel-2);color:var(--text);
+    border-radius:999px;padding:7px 15px;font-size:13.5px;font-weight:600;cursor:pointer;
+    transition:.13s border-color,.13s background;
+  }
+  .chip:hover{border-color:#3a4252}
+  .chip.sel{border-color:var(--accent);background:#1e2a45;color:#cdd9ff}
+  .chip input{
+    width:52px;background:transparent;border:0;color:inherit;font:inherit;outline:none;text-align:right;
+  }
+  .est{color:var(--muted);font-size:13px;margin-top:12px;line-height:1.6}
+  .est b{color:var(--text)}
+  .warn{color:#d9a441}
+
+  .bar{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+  button.act{
+    border:0;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:600;cursor:pointer;
+    background:var(--accent);color:#fff;transition:.15s background,.15s opacity;
+  }
+  button.act:hover{background:var(--accent-2)}
+  button.act:disabled{opacity:.45;cursor:not-allowed;background:var(--accent)}
+  button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  button.ghost:hover{color:var(--text);background:var(--panel)}
+  .status{color:var(--muted);font-size:13.5px;margin-left:auto}
+  .status.ok{color:var(--ok)}
+  .status.err{color:var(--danger)}
+
+  .prog{display:none;margin-top:16px}
+  .prog.show{display:block}
+  .prog .track{height:8px;border-radius:99px;background:var(--panel-2);border:1px solid var(--line);overflow:hidden}
+  .prog .fill{height:100%;width:0%;background:var(--accent);border-radius:99px;transition:width .3s linear}
+  .prog .txt{color:var(--muted);font-size:12.5px;margin-top:7px}
+
+  .result{display:none;margin-top:18px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .result.show{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .result .nums{flex:1;min-width:180px;font-size:14px}
+  .result .nums b{color:var(--ok)}
+
+  .foot{margin-top:34px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.7}
+  .foot b{color:#aab2c2}
+  a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Video Compressor</h1>
+    <p class="sub">Shrink a video to a target size, e.g. 100MB down to 5MB. <b>Nothing is uploaded</b> — compression happens entirely in your browser.</p>
+
+    <div class="drop" id="drop">
+      <div class="icon">⤓</div>
+      <div class="big">Drop a video here</div>
+      <div class="small">or click to choose a file — MP4, MOV, WebM…</div>
+      <input type="file" id="file" accept="video/*" hidden>
+    </div>
+
+    <div class="card" id="card">
+      <div class="fmeta">
+        <span class="name" id="fname"></span>
+        <span class="dim" id="fdim"></span>
+      </div>
+      <video id="vid" controls muted playsinline></video>
+
+      <div class="opts" id="opts">
+        <span class="lbl">Target size:</span>
+        <button class="chip" data-mb="5">5 MB</button>
+        <button class="chip" data-mb="10">10 MB</button>
+        <button class="chip sel" data-mb="25">25 MB</button>
+        <button class="chip" data-mb="50">50 MB</button>
+        <button class="chip" id="customChip"><input id="customMb" type="number" min="1" step="1" placeholder="…"> MB</button>
+      </div>
+      <div class="est" id="est"></div>
+
+      <div class="bar">
+        <button class="act" id="go">Compress</button>
+        <button class="ghost" id="cancel" style="display:none">Cancel</button>
+        <button class="ghost" id="clear">Clear</button>
+        <span class="status" id="status"></span>
+      </div>
+
+      <div class="prog" id="prog">
+        <div class="track"><div class="fill" id="fill"></div></div>
+        <div class="txt" id="progTxt"></div>
+      </div>
+
+      <div class="result" id="result">
+        <div class="nums" id="nums"></div>
+        <a class="act" id="dl" style="text-decoration:none;display:inline-block">Download</a>
+      </div>
+    </div>
+
+    <div class="foot">
+      Compression runs in real time — a 2 minute video takes about 2 minutes.<br>
+      Runs entirely on <b>your device</b>. Files never touch a server.
+    </div>
+  </div>
+
+<script>
+const dropEl = document.getElementById('drop');
+const fileEl = document.getElementById('file');
+const cardEl = document.getElementById('card');
+const vid = document.getElementById('vid');
+const fnameEl = document.getElementById('fname');
+const fdimEl = document.getElementById('fdim');
+const estEl = document.getElementById('est');
+const goBtn = document.getElementById('go');
+const cancelBtn = document.getElementById('cancel');
+const clearBtn = document.getElementById('clear');
+const statusEl = document.getElementById('status');
+const progEl = document.getElementById('prog');
+const fillEl = document.getElementById('fill');
+const progTxt = document.getElementById('progTxt');
+const resultEl = document.getElementById('result');
+const numsEl = document.getElementById('nums');
+const dlEl = document.getElementById('dl');
+const customChip = document.getElementById('customChip');
+const customMb = document.getElementById('customMb');
+
+let file = null, srcUrl = null, outUrl = null;
+let duration = 0, vw = 0, vh = 0;
+let targetMB = 25;
+let running = false, aborted = false;
+let recorder = null, audioCtx = null, rafId = null;
+
+const AUDIO_BPS = 96000;
+
+function setStatus(msg, cls=''){ statusEl.textContent = msg; statusEl.className = 'status ' + cls; }
+function fmtMB(bytes){ return (bytes/1048576).toFixed(bytes < 10485760 ? 1 : 0) + ' MB'; }
+
+function pickMime(){
+  const c = [
+    'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+    'video/mp4',
+    'video/webm;codecs=vp9,opus',
+    'video/webm;codecs=vp8,opus',
+    'video/webm'
+  ];
+  for(const m of c){ if(MediaRecorder.isTypeSupported(m)) return m; }
+  return '';
+}
+
+function calc(){
+  // budget: target bytes minus ~4% container overhead, minus audio
+  const targetBits = targetMB * 1048576 * 8 * 0.96;
+  const videoBps = Math.max(150000, targetBits / duration - AUDIO_BPS);
+  // scale down when the bitrate can't sustain the resolution
+  let scale = 1;
+  const pxPerSec = vw * vh * 30;
+  const bpp = videoBps / pxPerSec; // bits per pixel at 30fps
+  if(bpp < 0.04) scale = Math.sqrt(bpp / 0.04);
+  scale = Math.min(1, Math.max(scale, 240 / Math.max(vh, 1)));
+  const ow = Math.round(vw * scale / 2) * 2;
+  const oh = Math.round(vh * scale / 2) * 2;
+  return { videoBps, ow, oh, scale };
+}
+
+function refreshEst(){
+  if(!file || !duration) return;
+  const { videoBps, ow, oh, scale } = calc();
+  let html = 'Original: <b>' + fmtMB(file.size) + '</b> · ' + vw + '×' + vh +
+    ' &nbsp;→&nbsp; Target: <b>' + targetMB + ' MB</b> · ~' + Math.round(videoBps/1000) + ' kbps' +
+    (scale < 0.999 ? ' · resized to ' + ow + '×' + oh : '');
+  if(targetMB * 1048576 >= file.size) html += '<br><span class="warn">Target is larger than the original, the file will not get bigger but there is nothing to gain.</span>';
+  if(videoBps <= 150001) html += '<br><span class="warn">Very low bitrate for this length, expect visibly reduced quality.</span>';
+  estEl.innerHTML = html;
+}
+
+async function loadFile(f){
+  if(!f || !f.type.startsWith('video/') && !/\.(mp4|mov|m4v|webm|mkv|avi)$/i.test(f.name)){
+    setStatus('That wasn’t a video file.', 'err'); return;
+  }
+  resetOutput();
+  file = f;
+  if(srcUrl) URL.revokeObjectURL(srcUrl);
+  srcUrl = URL.createObjectURL(f);
+  vid.src = srcUrl;
+  setStatus('Reading…');
+  await new Promise((res, rej) => {
+    vid.onloadedmetadata = res;
+    vid.onerror = () => rej(new Error('cannot decode'));
+  }).catch(() => { setStatus('Your browser can’t decode this video format.', 'err'); file = null; return; });
+  if(!file) return;
+  duration = vid.duration; vw = vid.videoWidth; vh = vid.videoHeight;
+  if(!duration || !vw){ setStatus('Couldn’t read video metadata.', 'err'); return; }
+  fnameEl.textContent = f.name;
+  const m = Math.floor(duration/60), s = Math.round(duration%60);
+  fdimEl.textContent = fmtMB(f.size) + ' · ' + m + ':' + String(s).padStart(2,'0');
+  cardEl.classList.add('show');
+  refreshEst();
+  setStatus('Ready.');
+}
+
+function resetOutput(){
+  resultEl.classList.remove('show');
+  progEl.classList.remove('show');
+  fillEl.style.width = '0%';
+  if(outUrl){ URL.revokeObjectURL(outUrl); outUrl = null; }
+}
+
+async function compress(){
+  if(!file || running) return;
+  running = true; aborted = false;
+  resetOutput();
+  goBtn.disabled = true;
+  cancelBtn.style.display = '';
+  progEl.classList.add('show');
+  setStatus('Compressing…');
+
+  const { videoBps, ow, oh } = calc();
+  const canvas = document.createElement('canvas');
+  canvas.width = ow; canvas.height = oh;
+  const ctx = canvas.getContext('2d');
+
+  const canvasStream = canvas.captureStream(30);
+  const tracks = [canvasStream.getVideoTracks()[0]];
+
+  // route audio through WebAudio so it records without being audible
+  try{
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = audioCtx.createMediaElementSource(vid);
+    const dest = audioCtx.createMediaStreamDestination();
+    src.connect(dest);
+    if(dest.stream.getAudioTracks().length) tracks.push(dest.stream.getAudioTracks()[0]);
+  }catch(e){ /* video already wired to a context from a previous run, or no audio */ }
+
+  const mime = pickMime();
+  const chunks = [];
+  recorder = new MediaRecorder(new MediaStream(tracks), {
+    mimeType: mime || undefined,
+    videoBitsPerSecond: videoBps,
+    audioBitsPerSecond: AUDIO_BPS
+  });
+  recorder.ondataavailable = e => { if(e.data.size) chunks.push(e.data); };
+  const done = new Promise(res => recorder.onstop = res);
+
+  vid.muted = true;
+  vid.currentTime = 0;
+  await new Promise(r => { vid.onseeked = r; if(vid.currentTime === 0) r(); });
+
+  recorder.start(1000);
+  await vid.play();
+
+  const draw = () => {
+    if(vid.ended || aborted) return;
+    ctx.drawImage(vid, 0, 0, ow, oh);
+    const pct = Math.min(100, vid.currentTime / duration * 100);
+    fillEl.style.width = pct + '%';
+    const left = Math.max(0, Math.round(duration - vid.currentTime));
+    progTxt.textContent = Math.round(pct) + '% — about ' + (left >= 60 ? Math.ceil(left/60) + ' min' : left + 's') + ' left';
+    rafId = requestAnimationFrame(draw);
+  };
+  draw();
+
+  await new Promise(res => {
+    vid.onended = res;
+    const poll = setInterval(() => { if(aborted || vid.ended){ clearInterval(poll); res(); } }, 200);
+  });
+
+  cancelAnimationFrame(rafId);
+  vid.pause();
+  recorder.stop();
+  await done;
+  tracks.forEach(t => t.stop());
+  recorder = null;
+
+  goBtn.disabled = false;
+  cancelBtn.style.display = 'none';
+  running = false;
+
+  if(aborted){ progEl.classList.remove('show'); setStatus('Cancelled.'); return; }
+
+  const type = (mime || 'video/webm').split(';')[0];
+  const ext = type.includes('mp4') ? 'mp4' : 'webm';
+  const blob = new Blob(chunks, { type });
+  outUrl = URL.createObjectURL(blob);
+  dlEl.href = outUrl;
+  dlEl.download = file.name.replace(/\.[^.]+$/, '') + '-compressed.' + ext;
+  const saved = Math.max(0, Math.round((1 - blob.size / file.size) * 100));
+  numsEl.innerHTML = fmtMB(file.size) + ' → <b>' + fmtMB(blob.size) + '</b> (' + saved + '% smaller)';
+  fillEl.style.width = '100%';
+  progTxt.textContent = 'Done.';
+  resultEl.classList.add('show');
+  setStatus('Done.', 'ok');
+}
+
+// ---- UI wiring ----
+document.getElementById('opts').addEventListener('click', e => {
+  const chip = e.target.closest('.chip'); if(!chip) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+  chip.classList.add('sel');
+  if(chip === customChip){ customMb.focus(); targetMB = Math.max(1, +customMb.value || targetMB); }
+  else targetMB = +chip.dataset.mb;
+  refreshEst();
+});
+customMb.addEventListener('input', () => {
+  if(+customMb.value >= 1){ targetMB = +customMb.value; refreshEst(); }
+});
+
+['dragenter','dragover'].forEach(ev => dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.add('over'); }));
+['dragleave','drop'].forEach(ev => dropEl.addEventListener(ev, e => { e.preventDefault(); if(ev==='dragleave' && dropEl.contains(e.relatedTarget)) return; dropEl.classList.remove('over'); }));
+dropEl.addEventListener('drop', e => { if(e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]); });
+dropEl.addEventListener('click', () => fileEl.click());
+fileEl.addEventListener('change', () => { if(fileEl.files.length) loadFile(fileEl.files[0]); fileEl.value=''; });
+
+goBtn.onclick = () => compress().catch(e => {
+  console.error(e);
+  running = false; goBtn.disabled = false; cancelBtn.style.display = 'none';
+  setStatus('Compression failed: ' + (e.message || e), 'err');
+});
+cancelBtn.onclick = () => { aborted = true; };
+clearBtn.onclick = () => {
+  if(running){ aborted = true; }
+  file = null; cardEl.classList.remove('show');
+  if(srcUrl){ URL.revokeObjectURL(srcUrl); srcUrl = null; }
+  vid.removeAttribute('src'); vid.load();
+  resetOutput(); setStatus('');
+};
+</script>
+</body>
+</html>
