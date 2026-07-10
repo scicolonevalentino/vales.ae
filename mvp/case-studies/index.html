@@ -103,7 +103,7 @@ const PID="7fvx0718",DS="production";
 const Q=`*[_type=="caseStudy"]|order(featured desc, date desc){title,subtitle,"slug":slug.current,"year":string(date),date,featured,market,engagementType,"industry":industry->title,"services":services[]->title,competencies,cardMetric,metrics,takeaway,challenge,angle,actions,"img":coverImage.asset->url}`;
 const CTA="The strategy is different every time. The starting point never is: know where you stand.";
 const CMAP={"curiosity":"Curiosity","creativity":"Creativity","critical-thinking":"Critical thinking","empathy":"Empathy"};
-let DATA=[],F={industry:"",service:"",year:""};
+let DATA=[],F={industry:"",year:""};
 const yr=d=>(d||"").slice(0,4);
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const flow=t=>esc(t).split(/(?<=\.)\s+(?=[A-Z"'])/).map(s=>`<span class="s">${s}</span>`).join("");
@@ -116,10 +116,9 @@ function route(){ (location.hash.slice(1)) ? detail(decodeURIComponent(location.
 /* ---------- GRID ---------- */
 function gridView(){
   const inds=uniq(DATA.map(d=>d.industry).filter(Boolean)).sort();
-  const svcs=uniq(DATA.flatMap(d=>d.services||[]).filter(Boolean)).sort();
   const years=uniq(DATA.map(d=>yr(d.year))).sort((a,b)=>b-a);
   const opt=(v,cur)=>`<option value="${esc(v)}"${v===cur?" selected":""}>${esc(v)}</option>`;
-  let items=DATA.filter(d=>(!F.industry||d.industry===F.industry)&&(!F.service||(d.services||[]).includes(F.service))&&(!F.year||yr(d.year)===F.year));
+  let items=DATA.filter(d=>(!F.industry||d.industry===F.industry)&&(!F.year||yr(d.year)===F.year));
   const active=v=>v?" act":"";
   document.getElementById("app").innerHTML=`
    <header class="head wrap">
@@ -129,16 +128,14 @@ function gridView(){
    <div class="filters wrap">
      <span class="lbl">Filter by</span>
      <div class="sel${active(F.industry)}"><select id="fi"><option value="">Industry</option>${inds.map(i=>opt(i,F.industry)).join("")}</select></div>
-     <div class="sel${active(F.service)}"><select id="fs"><option value="">Service</option>${svcs.map(s=>opt(s,F.service)).join("")}</select></div>
      <div class="sel${active(F.year)}"><select id="fy"><option value="">Year</option>${years.map(y=>opt(y,F.year)).join("")}</select></div>
-     ${(F.industry||F.service||F.year)?`<button class="reset" id="fr">Reset ✕</button>`:""}
+     ${(F.industry||F.year)?`<button class="reset" id="fr">Reset ✕</button>`:""}
    </div>
    <div class="count wrap">${items.length} case ${items.length===1?"study":"studies"}</div>
    <div class="grid wrap">${items.map(card).join("")||`<div class="empty">No case studies match these filters.</div>`}</div>`;
   document.getElementById("fi").onchange=e=>{F.industry=e.target.value;gridView();};
-  document.getElementById("fs").onchange=e=>{F.service=e.target.value;gridView();};
   document.getElementById("fy").onchange=e=>{F.year=e.target.value;gridView();};
-  const fr=document.getElementById("fr"); if(fr) fr.onclick=()=>{F={industry:"",service:"",year:""};gridView();};
+  const fr=document.getElementById("fr"); if(fr) fr.onclick=()=>{F={industry:"",year:""};gridView();};
   document.querySelectorAll("[data-slug]").forEach(c=>c.onclick=()=>{location.hash=encodeURIComponent(c.dataset.slug);});
 }
 function card(d){
