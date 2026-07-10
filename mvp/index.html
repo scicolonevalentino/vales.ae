@@ -71,12 +71,16 @@
   .li{display:inline-flex;align-items:center;justify-content:center;color:var(--muted);transition:color .2s,transform .2s}
   .li svg{width:16px;height:16px;fill:currentColor}
   .li:hover{color:#0A66C2;transform:translateY(-1px)}
-  @media(max-width:640px){
-    .nav .wrap{flex-wrap:wrap;gap:9px;min-height:0;padding:10px 20px 12px}
+  @media(max-width:1024px){
+    .nav .wrap{flex-wrap:wrap;gap:12px;min-height:0;padding:16px 28px 18px}
     .brand{flex:1 1 100%}
+    .nav-pill{margin-left:0 !important}
+  }
+  @media(max-width:640px){
+    .nav .wrap{gap:9px;padding:10px 20px 12px}
     .brand .id .sub{display:none}
     .nav .hb-li{display:none}
-    .nav-pill{margin-left:0 !important;font-size:13px !important;padding:8px 14px !important}
+    .nav-pill{font-size:13px !important;padding:8px 14px !important}
   }
 
   /* ================= HERO ================= */
