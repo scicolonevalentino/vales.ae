@@ -1,28 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Valentino Scicolone · Independent Advisor | Marketing &amp; AI</title>
-<meta name="description" content="AI accelerates. But the four things it can't replace stay with us. Independent Advisor | Marketing &amp; AI | Based in Dubai, present globally." />
+<title>Valentino Scicolone · مستشار مستقل | التسويق والذكاء الاصطناعي</title>
+<meta name="description" content="الذكاء الاصطناعي يُسرّع. لكن الأشياء الأربعة التي لا يستطيع استبدالها تبقى معنا. مستشار مستقل | التسويق والذكاء الاصطناعي | مقرّه دبي، وحضوره عالمي." />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="vales.ae" />
-<meta property="og:url" content="https://vales.ae/" />
-<meta property="og:title" content="Valentino Scicolone · Independent Advisor | Marketing &amp; AI" />
-<meta property="og:description" content="AI accelerates. But the four things it can't replace stay with us. Independent Advisor | Marketing &amp; AI | Based in Dubai, present globally." />
+<meta property="og:url" content="https://vales.ae/ar/" />
+<meta property="og:locale" content="ar_AE" />
+<meta property="og:title" content="Valentino Scicolone · مستشار مستقل | التسويق والذكاء الاصطناعي" />
+<meta property="og:description" content="الذكاء الاصطناعي يُسرّع. لكن الأشياء الأربعة التي لا يستطيع استبدالها تبقى معنا. مستشار مستقل | التسويق والذكاء الاصطناعي | مقرّه دبي، وحضوره عالمي." />
 <meta property="og:image" content="https://vales.ae/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="AI accelerates. But the four things it can't replace stay with us." />
+<meta property="og:image:alt" content="الذكاء الاصطناعي يُسرّع. لكن الأشياء الأربعة التي لا يستطيع استبدالها تبقى معنا." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Valentino Scicolone · Independent Advisor | Marketing &amp; AI" />
-<meta name="twitter:description" content="AI accelerates. But the four things it can't replace stay with us. Independent Advisor | Marketing &amp; AI | Based in Dubai, present globally." />
+<meta name="twitter:title" content="Valentino Scicolone · مستشار مستقل | التسويق والذكاء الاصطناعي" />
+<meta name="twitter:description" content="الذكاء الاصطناعي يُسرّع. لكن الأشياء الأربعة التي لا يستطيع استبدالها تبقى معنا. مستشار مستقل | التسويق والذكاء الاصطناعي | مقرّه دبي، وحضوره عالمي." />
 <meta name="twitter:image" content="https://vales.ae/assets/og-image.png" />
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --blue:#1A56FF; --cyan:#00D4FF; --navy:#0D1F5C; --mid:#4D7BFF; --ice:#F4F7FF;
@@ -32,7 +33,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     background:var(--ice);color:var(--navy);
     -webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;overflow-x:clip;
   }
@@ -212,10 +213,29 @@
     .feat-text,.feat-card{opacity:1!important;transform:none!important}
   }
 
+  /* ============ Arabic / RTL — Camille standard ============ */
+  *{letter-spacing:normal !important}
+  body{line-height:1.75}
+  .sec-head .eyebrow,.slide .kicker,.feat-text .num,.lane .lbl{text-transform:none}
+  .hero h1{line-height:1.42}
+  .slide h3{line-height:1.25}
+  .slide p{line-height:1.5}
+  .sec-head h2{line-height:1.32}
+  .sec-head h2 .exp{line-height:1.55}
+  .feat-text h3{line-height:1.38}
+  .feat-text p{line-height:1.75}
+  .f-cta h2{line-height:1.5}
+  .brand .id b{line-height:1.3}
+  .brand .id .sub{line-height:1.7}
+  .lane .val{line-height:1.45}
+  /* mirroring */
+  .lane.me{border-left:0;border-right:3px solid var(--accent,var(--cyan))}
+  .nav .hb-li{margin-left:0}
+  .feat-card .ghost{right:auto;left:6px}
+  .mq-track{animation-direction:reverse}
   /* language toggle */
-  .langtoggle{margin-left:14px;font-family:'Segoe UI',Tahoma,system-ui,sans-serif;font-weight:700;font-size:14px;color:var(--muted);border:1px solid var(--line);padding:8px 14px;border-radius:999px;transition:color .2s,border-color .2s,transform .2s;white-space:nowrap}
+  .langtoggle{margin-inline-start:14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:999px;transition:color .2s,border-color .2s,transform .2s}
   .langtoggle:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-1px)}
-  @media(max-width:640px){.langtoggle{font-size:13px;padding:7px 12px}}
 
   /* ===== language switcher (dropdown) ===== */
   .langswitch{position:relative;display:inline-block;font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,sans-serif}
@@ -241,29 +261,29 @@
 <!-- ============ HELLO BAR ============ -->
 <div class="hellobar">
   <div class="wrap">
-    <p>Where does your marketing stand on AI?</p>
-    <a class="hb-cta" href="https://vales.ae/aimarketingmaturity">Start free assessment →</a>
+    <p>أين يقف تسويقك من الذكاء الاصطناعي؟</p>
+    <a class="hb-cta" href="/ar/aimarketingmaturity">ابدأ التقييم المجاني ←</a>
   </div>
 </div>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="/">
+    <a class="brand" href="/ar/">
       <span class="avatar">
         <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAyKADAAQAAAABAAAAyAAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8IAEQgAyADIAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAMCBAEFAAYHCAkKC//EAMMQAAEDAwIEAwQGBAcGBAgGcwECAAMRBBIhBTETIhAGQVEyFGFxIweBIJFCFaFSM7EkYjAWwXLRQ5I0ggjhU0AlYxc18JNzolBEsoPxJlQ2ZJR0wmDShKMYcOInRTdls1V1pJXDhfLTRnaA40dWZrQJChkaKCkqODk6SElKV1hZWmdoaWp3eHl6hoeIiYqQlpeYmZqgpaanqKmqsLW2t7i5usDExcbHyMnK0NTV1tfY2drg5OXm5+jp6vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAQIAAwQFBgcICQoL/8QAwxEAAgIBAwMDAgMFAgUCBASHAQACEQMQEiEEIDFBEwUwIjJRFEAGMyNhQhVxUjSBUCSRoUOxFgdiNVPw0SVgwUThcvEXgmM2cCZFVJInotIICQoYGRooKSo3ODk6RkdISUpVVldYWVpkZWZnaGlqc3R1dnd4eXqAg4SFhoeIiYqQk5SVlpeYmZqgo6SlpqeoqaqwsrO0tba3uLm6wMLDxMXGx8jJytDT1NXW19jZ2uDi4+Tl5ufo6ery8/T19vf4+fr/2wBDAAICAgICAgMCAgMEAwMDBAUEBAQEBQcFBQUFBQcIBwcHBwcHCAgICAgICAgKCgoKCgoLCwsLCw0NDQ0NDQ0NDQ3/2wBDAQICAgMDAwYDAwYNCQcJDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ3/2gAMAwEAAhEDEQAAAfEQvi+Z2VArmGWndW1tz9dDwfu/jpPBF9N6prwTew1G2HnFh6B1Bz8gP9ATy9fgMeo0vZxUlX6/zfT5vBPz2XoeZWEtSNlX99zfdFeJV6VzXx/33IjetzklyzKrueA9V5Ps42vX+dXOHodExWvLUVmyPtyXc1Zt8AM7VPbxUlN1lBriG7ddS/icuX1OtOPF9u27Dsw7/wAX9A5D81+84ZoJt7bwQNi2d1xvo3CHy/NugrugPrPOc5rltduiT0Ydh23TfMH0nly2Cb4XEed5jv8AjtcrD07jXWHi9559yK/R5eo7zyr0r1+VtR39D8N9zzAHCPSAHzd0+HVeed9wj+TzJ4q72OA+8fOPW0+i6Wv6jxmbxblfo/5MPH9Nt0A8bmFyPS81rjfUzQXf8wFq2F1t1XeeF9J6ufr/ACnUcZ8f9GySgXpxnVe6fn9A86v/ACv1vFINp1Hm+30fHe+L9H6HzWq+guc5hxvE/TfnnO/HoqBN85Ycw95917ZL+uz8ajFVpbeq6XiOv7ur0qqe0vzHpDEKO8HfVVppy+qfO/1N8w+l4lLZVk83rfWc+EfRvF9OwremK/S48U9O8quDkmr9n6PhM+f6Tn3Ha6msfK8nhGV/zWvpV3b8B3fdt7/5KsXi9LSWM9LvHVM515Pob5l93+fPU8Vlm6OX07r0o3rnZlwfN9h7z5f0tB0/fVv1Pyfw3U/dHlXLh8zUfS8dyP6WPn+54cePHz9Xejy3def+gbdV/wA83beb3WM1cbLaNWLbXnvGVc56vLZ9nxf3B06eg+CfQfzj7nJ9A9JyVCh9XINDI8zheG3mvwN+n/xzwdPEXfmoeDznPI2dYe2j9C889D125kcK4/UFhDCuBiQc3j6n+hu7y/XPajR7nKH5w+lPM7Wn9vpOk15UkY2vP0LUlGTi8S9q8PdPjqobJ4+J0z67mJqT0Os7PV/CFsHfJ7l2NQfP61JSsoT9Ivnv7C9rymdYFx6nn3DZTrPVyPcbm3UXPm/peW5G5Rorfxn135r3w+MXLVzx8zgy7V0H6DQ97svyVY2/Mef9J1gGzrg6xehee/f/AEc3rfL+hc173k+X+jdUvDauTdTpnznPd6/y0bupDlZhNH05E+CPtn83Masfsuh58AnsRyG9A4zv3Hi3mH6mkw9n82Xf6ds+fX8zf0yB3O+b5Qh+t59Wu+qmV8quKmlqSY53GyJzequiWTnfD52+Dv044vyPS/P8f6HOUx/P93+gFCcvi/0LsfYCv1jtsfQ22qBlwPMV1ldTec2zMP0vhq5PovHfM9P1l94n6h6Xm3NqK1wJx2DXl1Km48E8n1voA2z57bG8xpfaMy//2gAIAQEAAQUCMKHyUPkxswIfuyGmwycmzrTDLb0i940ALJAdUsFDEYLEL93DNuABboI/R8Jju7WGGGCN4PlvBxI+l6u1A8WlLQrBz3H8Ryyt9s2JF+1eFRG5dmEbNikNFjGXDtFuto8PWRcmxWSBNZRRsxgNO9Txo3XdZ7+3hTUiN8t8txI+lo6MjsFqYWXNL9BXTbrlUD9+WpqlKmWKholUGm7WGq5WWolTxZS5hpboq0RacliFxQfSK8Pqdzt1zbNQZHZKSs/oe8ljn2a8gTBxt6lIdHiwlhLxeDwakO5TRFmhHKRBlHb7OuRM9tFbOPl8yZFlOi+SuF+8lqktlMi2cUEUq/prRN/cTrSkdFqKoxc+62kBn3la3a73JFJHe2q2I3y3y2qN3aOi2quOws4Y0X24+7O63BV27f8AeX88KTeU90LIdHbfvZY8neLAaEVRYx/RbnuS5VWm1X+4Kj8DbvILrwRe28SPeLdWyTe97dgyhqS9wT9FBtssFrzz7uqVajVPLsVEyXajWY/Ql0dHb/vZ+E6TIuEdMspt9s2axl3K72nZ4LSEQppPaxqR4s2HBHhC6+koyGt30fMjtrw+5yqASvhWpgWEyXqwtawPd+8H725BxXIpIt+G6KptXhS1ht9rh3bZkqrCI5vGmyc24lt9ztNhjktt/wCYzI1Ld1LimwVR3C83V5EOaUmW/h5UsqujvB+9XNEiO6urdSbY63cXP260uY5ds3C1XKqJe/r2VNpvMCootxRc2+2XH6d5jK2pbvFfR2e23PLms120f0a2oAO4NLi9nEqJCKVdXVwn6W8KqTKpJbqOe34qubXbs4JLVUT26O0t9utbOdKFWhhQQI7bJlbUp3Kui2uMrW4uve7VHSrmILlVW5lUFLUCBVkurt9ZhYc+K5RSe30lglMc23XUMr3ncfdE28NstKppPe58jb324LkiLLLu/wB3a9dtJZRRWKyS9WTW4uLe5ga5chV1dXaKHOjQuS0mqFW2tzWkuy7gLK858ciQlNFTojF1d5x3thc2iVMsu8/d2/OTDNc/QyUAXx/4EGXnW6oZI3k6vJ2xrPDAtVrcn6W3P8ZJ+mSp7VcXOBvJUOXeyZfD+x3SE7/t/wCkNvuoJ7SarJd2ei2sjNbXm1LWr9D3jXs6sOF0JlJMs9U5PJ5O3V9N1m2nPXbn+MlVZvD/AIXn3IX0UMEf6Nmvl7F4YsNkBesi7vatvv3feB7NSb20ubCe6PRYk8qOKC6tJbiaNS7qQtP79SsoOYS8nk61a1lL96uluZOIgP8AGNgsxf78FoVF4kuEwCwtx+jrW75rkNWHxdH4g2OPd7K7SpD23abyaBG3bhaO9s7rmrjkcf74XCscw+azM+c1Lq0qNblai7OGe5u9i8Lw7GEW2u82xuvFeyTph2420niC5SmgqVygOjL+sLaRBLb3NxFEd0vloN3OXJdSkR/viXV1dXV1aD1S0L8F+Hotqs6dCTyhuh/4llvAq8mQgISekIDAdGovxyFHw/BJGqIgJaI8o0JSqOP99VypwLq6urRTLwdsXvm4eyEUIuIxLbq2+JV5t1mLaMNRzlGjq1Kp28dKSPD8BjwBojLbv0ZaiIy+6WXO5i2hSyol1dXVxpXJJ4d2YbPtK1YPbio2yycI4MOy14JSoIUO6n43i5nhuOtAdKmiAA4f3urg/eadqsE18BeG5Li4Jo724RG7daREnqV51d9dUk273ozpZZci6P6w9zXBtkSqMOOuMa0ocN59IaO1/eHsX4Y2c77uyIo4I9zu12MW3bJc7m7TZLayCLdSFUkBnWuKK3s5pxHElAZa10alZPxlfx7hu8QaQwFBpU4f3q9i3KPZopiDb/umX4A2ePb9lAe5WEd2gUArXvjkvzZLXIEiqpXud2LDblqzMZo7ZFuUY2NOXbOCODmbn4putx8PR6LgKeXWN1jfhWSM+Gwp6FyQyROCeNZV0qYTQ+ZLWsJH71hOA8e7p7hsyl6RUURim4AiYRG4Y4+b/spPCDH1S+DwZPq38KSD/ZY+E2fqy8Kh2Wx221Wq5DExcpfSpJtE05miVNJqy1qCXNDJcyJjo6Ue7+HbDf3/ALLbw2po+rHw4/8AZVeGlK/2Vfht7h9X/hXarext/qyurz7pSC5+m5lsCHkuMpWlYvMI7eG6jlSnc7eJ++IlYClOKJ8trTi0wNMlpzQgD7m6eDfDW8Tf/9oACAEDEQE/AT00X9NFw9Jj9Xr+mxwyREPyLj+Nzzju/wB8uXoMoY9BlLH4vJXI/wBi9RgEDRD7fPhkeUlEkxSGMqeryE5B/gcHVSH8tlO/LkzGPhPX5PFuTIZeW+WQJLkhKPJDuQWTuepyHeHGfvbyTO3GLT0PVT/sPsfdSemZ9PtFoAH+FyCUjy7NJJep/GEH7npawYa9S/qxE8l+R/iRyj1TIO+Pq1cyyijpd3KGZT4epkN4cf3zER6v6cnjJz/mcfSV5t/SQlH7v8Lk3WyB2uKI3JgwHGk2Z4eqHILGXL0vV+/Gz5Zyh+b1vVe3AD82WYPvOE3Ni0iJBZORzD7g+rDrhhzRr83r+oxdN4/E5+onllvn5cm4+GEJbLL017mp/m3oWYepH3Bz5Noeh6CXV5o4y/KbsPVSgOZXpT05H4C4fxFjll4fc1k9VxIMpbjy9P18ujy+4BbiE5Slmzfikx0JrlHBfcRlYm5VpJ6mQJb/AJjVm0n0HlngniO3J50yyZPLul+TA82iYIt6jJUWePd6sttbYjh9sOCZxy3x8pkTyWU6ceH3HY07WIphKg9RCUh9rvriTyDcUTGli6JaemjUH2DynBJ9mWtuXFGYG5EiJU9N00MsJGTlmY5PbDBk+Bw3ptD/AP/aAAgBAhEBPwH9QX9SWfVz9HpeoySid35s+vwxO0lh1kD4ZddjDLr+eJPT5ZyF2iWX1QS20ku5L08fsLlxRJ3F4DCAl5Y9PBhQ8Iky67DHglh1+AmgWM4yFh6X7ZABjJLhzz8OWX2uPp4RjvzmkdT0Y+23qz7Ud48I65xdZcwHKf5lejCvAcR+1w+QhJcMTywG6QH9XqCc+XxwH9IZCgHEL6fJil6IiWMJg/b5TBhbinUXF5DEadNORiQn7Puel6vDDEajz/hZdWf7IH+t/vH+8F6rqLnUfypj08XHhHuAuTqpnikdTK+AxlYtxhCfD0vFpizjsNejI/bw4MRmTL8mMUDlzWPH5uM2x8OKGOPAQEAOKWMx+0IDj+LllxmUno+ln1Hn8Lh6bHDH7YHD+kr8Ka9ynNl6SB8F/wBTnwChjhpEWIcXjh6LpzkmPyes6uPTYZZA/HCOXphIig/0TJ63ET/Nj6Obp8GQchjgx+IvttNID00DLgOOIhGg5ejHVYzAmnNKMQMWL8MWXAeUi4EJxhGF9osxUToA9Hh2i2v5bZAoMY/n4ZZIyG6CGvtvQU1H83IOGcNp2vS4t82GQR9GO4HcTy+6fVz1OOwoDjx+pesy7AIpKC8spguUbpbno8kYS+52WN0UEEVJ9stG0QIFoL1kt2Sn3B4QQ1rT0/UTxyO0pgDDc5uqninER9WEIyjvcsiwkbbs67y//9oACAEBAAY/Au3m/N+b0q1S10SKtco8nitWvlo65F6qP4P2y/bP4P2y/aU/aU6kqdarYVyrk1HozKIZ0HyKxQNP3Ef2h/D21+7KP5LUg+ZdOalHzD/xlJ+x/vAe2peshD1nV+p6TK/U+lVeyYwhNEij5EiUgfBp+4j+0PvrHwZHxehfH7vH7w+4j+0H9FPGr9TotNfiNfuUD6cfxapF0oPi019f5xKi0mLX1Dyk6HSuRq0Y6ioeVEjEUZKa0/U/pEJX8w9YafJ6IUPteIqGUxnRqRJShY+fbV0rkfg/olYD4MJmVzEqY6uP3oURAfF8yVfDycaozkkjg+rTH2fk0fY6ReyVVa9ajy+4H9jkRiGPmw1W9saIGhPr/oP+LIJ/lFjmSIT+P9xlaZAsjyZQrpWjyca/MdJ+FPuFx3aFZZCujorQvi6jyaSfUPGtaMj1+4HVykMf2nLKn2sSB8y+SgEj8x9A0pAAoGexv7cap4uazPmOYPs0P3ClxwA/B4q1fSXRo8tQzXRqKjr5fcD09HKFfJj+01f2g45MUoKk5qVwfLN9DmfLMMyV6QK1+DNtCmWVXqlIp+NWtCajmIOh4tUB4x8wH7lXzVa4gsLB0I7xa/mH8L6+CuDx+4l9bkSBq0/2nNENTQkfMOygB6PduZJQpJOAAxpqeJ8wwU7byhocyONfKvr83d0uU+72p5RRhVRQAK6/AFgbbIIU6U09r4nTVxeyFyCQy00SpIpRRFPa/he4bipICR0fDI0Jp9n3UmoAUmvH1aVTcC6B0cQ+Kf4WhBI6Rx83UfcS0/JqHxaKftNCF8M2mOIJTJbrWEelK8D8CGVCzJV/KIp/CXLCuWNZJUZfQqOqvsYghkjlhBpEpdahPkPsapZSFyFIFQKAAcAA7xRGhkzB+OITT9X3Y9fZRRpiPtI4M5M6tH9pP8LOLP3EvP0cnwU4/wC2808Urr+BfOtlVz6lDzB82JJkSGPQfRJy9rzPoHkJbZNf2puP6mi2s4hJFQqlmQohKKcOI6iX1HXEVL9zSKJCjX46/c+0OJI0BT+t8+quaDSj4OrR/aT/AAvmLTQfdSzyjQ0LlC+OTiH8tr/tFha/YV0ljgQfXg6xgJ+x0Ony82Ujg457hGHPyIB46Hz+Y1+59rj1qOIeFdVcXQa1dGj+2n+FrikI1aieH3Ejhq9JQlygmvUXF/ba/mey00UqFPn5JekqsWIbcLmlUaAJ1JLF5vFOadUQjUI/teqv4GuNH7xHWj5j+6zBcoKFp8j9yFaVpT0NItl5imqj6vUp/FnLH51YHpIP4XrwdBw+4n5vNK8UAatfzcX9tr/tFi8vKxWvl+1J8vh8WLaFIiiSNEhps7RHWr2j5AepL5oHNuT7UpHD4J9B2H7Af8bhTJTgTxH2sqsZlxr8gvqT/dara6RgtP6/iPh2T/ZZES+XIPXzZQpWoNH7TR/bH8Ly/Z+7po+XzVU9GXH/AG3FAoBScytQIqCEa0Pz4PTSnl6PBZ+kUKoj81f8Of7rt5IaVUhK1EcSun918qYYSjy/a+IePl5v+rupIFLiMExK+Pp8izGsYqSaEHyIccqUihRpq8lR1B+LWtSPNmqS0f20/wALKfI/e0YDhgtkGSRawAkPnlXNupNZFflA/ZH2vM6/wOcrNY4IYsR8S1cw0TGo8fLSrTdSZxWcKqxYnFUih+b5duWngBVR/q+4jdYR0zHCQfy/X7Q0YyKHS6KkLqVaspq0f20/w/zGnFo3CeNSby4T1cz8gJ4AeVewEnD1c8EQqqWGNX8OrRYJNYIzVf8ALV/cYSngBQfdo56U0VGTX0yaUqUOD0NWqTIdPl5uRR4gaNH9tP8AD2Ar5V+7q7fcVYrjhOSgf2qdP211dCKhmnq1oPmGq8pWZUSYlrPony/Hi6n2lcXVpjHl1H7s+ScupAH8k14vXjqy8MVe8evk8JypMauOPFx8mRR6h7Q+L4lj+v7qY4wVKUQlIHEkuK0V+9PXKf5Z/ucGK8CyVceZIPwVT+p6Pq1Parw4yK1P+36fdu/VGMn+CoOverR/aH8PYfc0Y32/R9HH/i4/aX+18h5fF0aEV6iagOg/aP6ywn7XTskDgg5H7GVFVZJOuao9lOuIH3UWCP8AgUrr9cUa/wAPej9gFoGA9odhT7kdkSUxDrlI4hCf7vBotLdOKI0hKRrQBPxZWTQevFm73KaXAn6NJOoSym3XIAo1oVVFWVBVagD8GaDL5f6LKiHmrTI/m8w9Px+5l5ORcCyqOMCMV8injT7e1O6P7Q/haN/mhwspJOUhf7SteA9NOLIj6dDr5sEmtde6L4is96OYT6I/Kn+vsmvGNQWmvCo9WAngO1O2p+f3a/g7i8V/eo1Kp8fL9bJPE9jJcTcv0SBkovpuFfbH/ovS4H2pLR/GE+0PJXq9v8OqjQiGwNap4rOoFfxYYy77coHT3dH6h3K7f/AJ0+z0ZTXrQepJ4jufj9ypfDR+7p9u8PKH9n83bEHiWqNan7b9sNH0g9ofwv2Lj/cv+g68uc/8KloT7spIQnEYrIf7iT/chf7iT/chabOxyTEipSlRypV0kQ9UF5p1entca/F8uXiOBdPuJGeMSeIH5j/c7x/pBKiIicAlWPF+xN/uR6Ccf8Kf6DCybiv+7P8AQft3P+GP+SWbi4F/IjzMQ5hT9iUtNuncLuBeQpz6ITX0qU/figUKomCv8JP+hV1i/B0UPn2knVwjQpf+CKsKQsHz0LxlUAWcK/g607/Hy7cjnR8z9jIZfh90XN/YRqmBrzE1jUfmU0r9r//EADMQAQADAAICAgICAwEBAAACCwERACExQVFhcYGRobHB8NEQ4fEgMEBQYHCAkKCwwNDg/9oACAEBAAE/IfCa+JrZ06m4a7qkutCzLaDJMOJifdUJ+gvAOv8A41k3f6hoP+qiVVxZYBgpOAkxp/FljQEbQDZl80mr7pUb/i/SzLm5E1JxYXSzCLPj12Uaqv0q8nF8Gq5aH6qcSfisxB9FjfrApM/gVKkR6ptE+VzCrTA0vVRz/MynLqOrlSiv8R7P+XP/AA04oO6qJqM3lUhYSGDmvLrlmya6ce0KhYW85X/nEpZajwoqvivwf/Wr/CLTOJ8KqOkf8IpyKXzZlnEs/eexRDpTn91lmj/kpKlHZV/4Jhoeepm5uJkU/EEu44Bg4L5CfQzY3knAJjzZdiWMzChEBU4t+WKugInJ2tIQY5Zq1rQsSXCtIE4Dzf69T83J+AE/l/1ZhECXkn3/ALvEJiXoW4f8NZUZUIGxFTCDyljcOcI8V8IDMDX2rznuX5rLL7Aa4hsIdk0f9Bi4MlwlF1gnB7LCrgK7leLlnO1FgPKxVgp55NEHqcJPxdUch+D+Sh5NLycR+IrYUaA3soSsYWk9UJuoRE8WMqQ48VJNEqsMz/MWJcHBomlVNFf+BiqgnkKQTHPHj/jMFB+BClGhITA5/NjLBkWCJnBW3n3QJOn6u24QvTD9Cfiv/EKpLGj+LPREr8lVNJZmwh3dWc0+af8AD+8uYWcRdMaNixR+WwQGpktx6sEfNQf/AC2pcAjGImVo9xA52/dmkrHLIWBm5Ke/RY+6QcCc9j80E4eX4Mr/AN0TverIiBCKzKZSHV81s/eDxTE/+FZOYhKK6JYV/wCuPmsCGpUhTwsJtsUxH7LwIzbIiUV5iImJ5MQLLJkgllD7FdQSyng5vsEbDxYhBS4hFYFJ81h8kgO48mGI9svLJaMhGMq8Pzdd0fN91nXyVvBH9iiwAc3mi1+i0hMsmhJP6GomVpX/AB+asIPKzBUT5XlhUEeH1TwFQhzcW4vhh6sWxJEs/SJH1UZO/PTnlKHOQWLnQSjkjmGdTUxifYkEAq8rLZRSInzDjy//AAR2fJZbz1/BZ2B+VXrRYM+F5nP+hU4c9e7mXH/UUft13ESXnxX9mP3X/id3xqH5koxAR8BgH8VZ2s/A7U4dvVdmN4Ly38LCpJiYgBwCcgju4k48EtXTvuZ8Xwf8OqtoEjlJrYqS6x5rTNEBH3TWf5C6Ok5LKQ88/wD4IKTzWcMCXlivga5+ZqPIH+bgf4TWUgfhnh+rJZOSNKerBCjqEXN3gA1ZkQJmvfL4cMPRghzDu2FhQUfqplMCB0VAyOAei/m0qR8KP+B0pmZlDPFhhIef+rSTeuVnUIPdQmDm87fxn+b/AJF3/wAHsAk7k8T/AFTcHOJ4pC3HLnR8+qHwgwjyK/8AD2bDo7nObJ9FLy7G/mHhPZUUKP5lkIAneKXIDNClsi+rHygTC09WPxS/mr5yH/RoR2mHKlHbRnmd3YfH+bM4j/Zew79fvmf/AC8kO2WUHy+V8tNo7wfiAsJw4GmXIf8Ao93BUiMWV8vj4sbMhAQD4EJ+byO0s+GQB87UZdZ4HSdrpsn2KyRycbX1bhXI6q4py2lJL8tct5/hUkBvauV/4aKLi5eaFnl4LEVGM9WNfT+aDk7+0w8Q5Zt4TQjrE6D1VMoXAkUJ8GB6npVujPvlN1yUHVeW/wCuAf4J1XcWOw5+D3cAcHQsQ1+KetKtwDvtf8XbN1A9CiETyXTgijs3IPGzzcc1Sg8UfQHi/wCM8KZLPkvZTUhZmYuOCj1pY5m75IBNFpUsqz/B29UnuPRUMPMYVdY64uRRu5ysL4HjBWxyw5wCCqOaMOISN9Pz8RxrBBLOHt2+Il8jj+z6jzYeLAvGwQBiMAKfW32e6WGzgnKCaD2/7rihXLZVdIb/AJTw/wCD/wAW3/kcZrmPBndShUIDUOZACzvxxTeff88WcWkBcC8H+qhIVD4SrwAa9VcEp6HavodfFDeAAdFhK14nzrUuLt6U2YPKwHHuYpciM54oCQDsspgY1qvJyxT/AInS8qAgZGPdX/o04ZRTTvNaJOHhAfFZ4hQtnHD/AFKZUj03vmNLrH0qfJjxU4d69c0dr1g/R4/dQIp4i1fl0Vw3nup0hd8h/hJ93qu6jR20N6JOSoOwhiaQ9FZ4VoG0z+Wf/hQQU4pQgA8rSdII/jJB8cHxU7GNVmZj7rSjt4PmiTHo4PVICki+jy0t4+Ojy+BePu9bUJn/AJHcgFDB5HkjrzfiNqYosCanLW6hH4/SrPkve3mtT1ZWKgTYwjaZA9Y+V38KWlnv7CBj/NeOd8eZH+aviV/TFwi4/wCVf4YO/C+pGgL/AAMH22UbfC4KBlsLwzr0sHhhUEc83jVJ0vOL8t41+n2Vy5fzYJaxp2K1bRPA9WEx7SD5mxu3QhUBCDiqbjdcH15up5yhIk5PzPfWWV1yCRyhGTe7hA41/M3YDXnh+UV+oxYe8xZGmx9XJNwVyx5rBVTNTpfCw9NpAh+ry7sz9t3K4LizY3/D+FbJJqB+4cnhlIrX4jzZ6YeVYopwAO303qNe31Uaix/HQw7K+OCD4Lse2KMr6f8AJwSA49JxYAVY/wCDBWyUsGUOr1OZB+jCzhlVX22R9tJaRhlPxgHtawlz2JR0T4f+7LX+tnqsqUCYAjXQ5zXapcxvNmCiScMvta+VsqOB9wJ9JRcqcl5kyyql/Z+qcYQPkH8X8mjlmXysf8DJW6uivhL05K7asTxGV+M+7BIYixEjgeqetknz3X9a22R+T9L/APc0WxPP+qx8aDM8vl91u/EW57xQxJKC7E7f2bOG9XHk2spIUpRHJ2VrSBzo9p/F5H/PabU4kSbfEv8Ah/5IjT/2xxrVgMZWOXLEiL7f6ubyWUCQidh3avAVF+XJEO1bHtIvC3JIDmKb5j/8aRFwYvqQ+/0V9ePb+qPsHiphNEWyh9J/SlGkggn5rI0cE60AuDjRPxX9PlsEFANEQ70fNjNr4E8X8xP/AOGQ4Y0kM7X+a//aAAwDAQACEQMRAAAQDVh+v787jTLImWZOfCLIn9ytR79moQqO/wDlFocqrExBjt+Wns9UnIhGaBKNnYw6N+19uWfkfaySclNvVF9mouUXojmXe8ZKiW2fVi6jjK91q8skvPN7SG9j0TXrc9Hlc4qrCtcK8cf0XsUxT/oE9jdJ+eFXKwAIjNynV+0wwIf/xAAzEQEBAQADAAECBQUBAQABAQkBABEhMRBBUWEgcfCRgaGx0cHh8TBAUGBwgJCgsMDQ4P/aAAgBAxEBPxCh9CY5flgb+dMuOVH7JHH+8zgf1uWlwo/ztnKP+Uf9RCs+pTywljj9xH4eM2TkrkFYoTVRD/CGMQxiUQOpSwcsT+dgPyuYa+0Mv9x/mDpmP0ZfiRPptRT/AItxXD1PGKeFwzN/s39DA6c5F/1BzlAel4P5/wDkXuWR6QwNuZYuU1BZJ8vKh7Rw/du66Ou3GBmc5zuvbxza100+V0e+NfvnH0LSWhr23MM/6/f63Q20dYC/K1ZQkJvHjJNgYlCnd8Cjhz+/5N8jp+X/AFf3JFHsn8SnbCZaIfa5RxuPdMOLo3EM/wBt9ZAH6YvMIcH4Hz+b9P1lpTfh9vy+hLlVtRgs74jDjh+VmOJ7I3T/AHiZO0nLw3X8jl/n4mgLLjez6r8YfP8AEccvbE1vW9fnA4IHLLMtpDdLP8mbXtEtQHD6qZz9jhZ8tbV/1/FhX7WnzOiLRPmG8s6bOCZJZfkOC9+h/rn+LGz4nAPU4B8rYSztnHA9b9/n9b4GZBQnHxEMjDRj4u2UZwX5+hJggOuDfpq9q/LcHHEr+0F+Pqn3+/xMq63UO5tP62VqfSzH6ZBAEXIS8ksPoZPgP0/xIsCHOQ+vf6/XVjt7kJzl5u8ncTlf7X6eP8+iOrLnOd/PbOT1awCZifzLk4P3uXLEyeqKe/PsX//aAAgBAhEBPxDO+5dSOfwH7XC4n2f8R+q41X9v+WvS/htO3/T/ADJQXH5v+bBDe5iHPjk7fAfJPC5joPGb9yz5BUJLjvXT3Nuj9mILxbVcdTzE6iaXTSHb97iFfnkJg/s/3yzV1W5zckfJLhHLf3ev4mTDuyIMEQO7jcDZGfUtR+RN3lwB/uENUvezp/H/AE/rP6IJj7Pzjwfnf62RhIYkDgtYM5kMHX0hrHw7+1hUL5cc889cjpx8Z/KREGP0AnBzhzmKb9VtEYjWZvO/8PsRDQhQ5YTHOvvFQGflKS7bnE5jvEeUkcvgtNf18zUEcUYRQGv5s2YXFI9zjX97DgcQAEGk8/l5YtSQGThvjwbAKfVc4/ie3R9X1/L6zDFnn7/9sN1p/WwCsC9zvPG24pPyY4TbE8xiixOT07/xc0CHH5vBA6M4fo/QPnWwzHRfQhDu7fl9f4tw33ihpxDmZuaQfmhB8FnyKb+Qjx9+yC7AwP8AcUPqwJh+xP8AaxYSDm9yXUCA+LDLRybf2/2l887f7b/nwglV4OV+gWmNPr9f+fS+2MJdW86Wzy5fplzT7TOrvOjlmMdYdfVgxSu+XPyDoPpcm8pA6O3Pn6D9vn73UBhafQs4+ef4hwbTkt+FzGwqP1xL+okvJ0+yTvt+v+ZA5tOVxjtq4HEaa4OP83XriTwWPr/f/HqHu6NB6+Ohi6OUP7WcyaEf4/KIs5bpSiStX5gDwH5v/9oACAEBAAE/EJ75/N/97VckvmpOF+aLj82kwMtlg4Ho+qYinkgklDgog8sfSKWIcsHfqoR89n+KKx+M/wCrAD4/8RYSNSePH4vHL8D/AFe4vo/1YIFliJj4iysETrD/ABV4GScPqNHi54vTkcKnmwxhC9tpwnKpeKeOnMFQDUiwokXuC+AmhBSkkGs7UxyMzyUYmEWPNNrnKRK/9oSHoGUdPUv9iopMdg/1SYJ+P9ViEhH/ANRSIE+P9Vfvxw/0FEjngWS0D1TYjmaxCWH1SasQ2deVKshsCfgrODtqdlk6u7HF7n9/8MbV5jUcqQPji8cRo+apjyX9VY3Dz5alKonM/wDtPZGtXytcEsLIRQoL91en8tfVTNZlSkzldMV8iRWnV7P81vVl8t9VLeRx61JlekJ/JdHTR5z5LD2R0kWCsGoGEAVATV7L4iX8FJreeVg5ggmzFjmOOKVnKYfFRIaS6qTxeY3vFiGfq+Y5qxxVhy5Vwl4KUid8Usq+RN7+K7cwh3j6sQmbknkf/tAeDNYhg5WLUkELsgKSxJk/yMqpq8U/kswvPa0/ofarOdHA/FlWqW6Z+61bBAR462oPyP8AuuNs903YBK4AOVfFi1zQ5/dz9DZCTCA75KznqoYyEBKAYdHYJLHXGInOQvJ8oFnx9PqzOr6LAsrBWBTbJfIe3kVrYpyGg/GFESc1MniIPJZJOUhVwI5SiIm5jzGloz04JnHopBiOzOj9XdvJZzZdexNHw0qUbBOPVcw5Z/NLnoXWzmTDpFECY6B3y+KqR2Ede5D37pleIQYTvBnuuzU4QAuo9VPKMFicNOF7H/5jNKblQCmXItpeKLYsVIvErs47p+8+JPUQcfNF4BiGOZ3mrFcklQePFYwtBdnyVDCgr4smReEOSaxEDB4ApUnf+AX7ssYkgdxUpF8RDdshh3/uqjJXuPP4WfqyBGIUDSCEmCg5oBEzBMwG+W4hjRDSBk5zY2OKgAKzHXdN02MiQqzBomI0WEdoyCeZT9nuinFiGhtBJOQ+FNhCYHkBhN4qxsxyH3QA5P5XkATw4ihGIwVibG5YQiBsEEpApl/6ZdMlSeh3RMSZTNG0I/8AFaE1DAfVNf2DJCSDA80LxIqFACHlm+amrEBIFWeMLOo7JJOWIDtePminDRwWhIAvCT83zFDQd9OVI+r7aiO2UdKGyJwc7lGKAQTDsL1Ss0FhZ5s1YILHupqo7P0qLINhiiq5e5Eyg+6EQ5kEWEw1irGUZXFAGqUgmhppIhzR4Yr+WouEpy4g9sR91gSeKhsUwIAjiiyiiMQISUT4UpoIJdohEoAE9ATiVN3kLwWMRNASZOFFkoMvazS0oYTUknKMZvAQlLGo6lh/wAYe1h4//ektAkhAUyLr0fJAOYuN1mOua5nt2RlIkE2ezXQ2eY8fNVkl4SybUd0UbY49bUEyh/NTlzqyCJGJ45bHscJOnI7FyO+LLCCs+oBE3hIRsBLc1CIGDUeyTjrq87QJrQnKoW4OkWIdkJA99YmzhsstKMIOesklBKEliAgKrq4CkZShBoRMzFUd1h5rpz1XZnn+amEiKQgLZ9WZRNLoMe7EzwkTH2VAQEo3ssvwDN6oiQlv7LJsuS+K3gApcDeq5Dxqk6g7w6zmkgQfi0U0s4eKlt2n0E/ZtOKdFGCmMiA155JKFyJCgoyhWQLDhkr0nVEYKQakGHElXJxb7pkJDgQ+kgklDCwWDo/3eQR6ikg/InbD8lBqbX2zMMd33VPcoNIRz7sH9lBdfKn6cqPEXn4HBuBJw0FkWRofdfDvAPN3xYvP/LP47FnkIGjLwgu4U/uovgX5oJ7gH4V2QvvEwr6RvgWiCRCBoPKRHqsc0TET4H/yLE1pgdJ3jvlaA2JOQnOvV56UqYwMQBMIABCUSmoTlMx/m3Y07AJsoRCMRdlSolBUcTSlgd3Lm+KBJ1khVGUaSLPCDj/xxoFJxQEuCqgHHRoc2LxAz5C375sSynYVCI//AGWOC5dMhJSC2BRk5ESZYjyiinTlMfmfzVEOS9gMeVkB+LLep0NCCQXo9XIb8UdAhC1weECi8XgGJeR4BKukR6a5l/3dUeLAkf8A2riicTPKc83dfqquQA4KjGxBQ1O9seZQElY8VW2dM7hKh46AzJ8VZ9xM+bhmuOb7Ls6AW5k1TyFQLRBe9pnGE9OkpQj8qzIkgMyMFBO2M8F2kHI3ymS895FXVXa8FZyCMMRineV4BULwh/EASRLPLMXKIBiLhSTYS+NyHY5XNA3acZ3KJlHatzlY36VyYYQ31pnhrzJ3RqkHEXDH5EHg/wApoGDiiGSfdJEMigG4e2sXkI8RTzQRHoz/ALqjLKufNjMz72RqYmH8XTE1Bh6opFwJqsx0HNmYODJPCBoBAXl3NFrgema8zDmEGPyAMzC6Di4ACAEADCCIsPAHUSmOgeaHEyx0S2RK5gDDoETMzLkgOPBTxM88nw2h1SeQP5Hno3xQKgIHQPFwsfgbP+eqsa9OysoikARc6zYnBDps/d0Dgg0QRHhoEWJCJRnugIyAGC+7g5yDqns0ysoguqh3Px2+rGs4jj3RAZDpuKJPhqpPJ7u4qfm88QiTmrz4C8RWQBLc5QcBqYBVAWv/ABBrPQ4IdG6Yp8iWeDDnmepoBtEIWCaSbHiXyyWnwvsUYIFX7aanBJfhAAc5AJ0pQycGyOCAkV7VVdWaIk+EcvP2g+D6HEz5g3882Rrv5oJ5Q2RCaIkI0Et11UFw6y8EwG1SPSDzHDT9R0VX5VqgYYDMf+MNG4stkPPNgigEV7l9pNV1oAOT0Byq1BH1nORImKcwkEeXsmOXVH9Gx5GIScL4Fz6HZUNAw8r4cHrYBWkmOSSQl7iaDIOrQqlCAEgIM2p3Wb79fbZAQLU4lf8AzPgCiyfxn+7AfPNbLgb8vVJ+YwEhE05VkqDl0CS4MJoFJyLJ6oOxKyaJkPFhVZhMyk2e4Mk+7NselMPSwElaV3cOYqsQLtWoSpyvIRhh9m8ACIJmPJztmisyzsJh9fmxSiJ8j+yoAklftyh8kONHNEewJkfK8+/i7PJW10ngDIfch+qCHHl5sv5yKBoLwPPvwUrKlavK3KedPCpnEDwrHumKVwU6Z7oCYYJfHqu129gWYWZj6rRoy0HUDlgjieB4OK5dN80TyLuvZG8+LKRV13VVfbhi45qgA7WvSlgGcSCRBPEuVrbehp5jf1v01gwtrLP4qjGwyHngcT5qDmj43Q++fPmkIXeBwDlMA+Wq2TSYosSdjBeXgloYMB2U7/qzM8JUsnGVwJ3ZN3IRoPMTHYEaUQS5fzaAy683SwiM4umF9cXcWdKik5htbIjEI+KTMrREwHxNScgvDIe6f9xPILng7EnYHOqPgydkrMVBeqx+fjQpEcw5jMdrJ+bqbsOxgCflowABLn+ebp9VSUSbWpPshTgOzcJzGUGB2GDgII7w3YHzL8eKijXq4PdlHGh5aAcJMvIJ2wcIDz3lahDAUkHTPFPIRsM0AJoyIWEp5mpcKcObElic1Rx1Q0ET1eXxHxAtEGQkDyRC/o6eI5wAOVXm8ya0455aHs5MTKviR8DEJAZnQccDV1jzzpQyhoITsStdAoWCCUzPbXxXhVAQJ8C/U0duUcML5RQPuigkTEhIETK8XJSZJogkZBM0EgOOujqgM80ea8VinkBjCUfmfPzTNPbAshWU14fQKgz2J+W8on28UCEPgWVHoxPVhZABcTaC2Z48aROUG7LHZiSOnHVDWgJSsuaqssU0CkebDnkco1EScH3vML6UOWmo98zmYGBMxGIPUMT0CHiCCmQ9Ch1hwomQU0lg4JKCPQYvavjKGwg2hKP+cTaKyDovyefx+KWkxxSXERwC+OYqTALOqKr7VuycH8tg9AwLmAhdg3CzYEkFD4kU1MiTDOt9FKd3jCfssMNHE0kgcUJJXgNDwmPp5PNYyUQi0uB4qDv46BI/HQJHPkmBk7QPxQgCT1xNEYzlgdFveH2m9beSdq/D4QVjoojoRZKkZcOPmbN/jzT75yfZAfoKrT7vUWMtFDabYGvFJkXgHCHezWAIZMn8vnJ8M+q6TEN8UFpMJJqwIQDagGAWMw+a9B9zF1BioOxXy0TIyEImfAraBmNCuLqurWo4rc0vmopyuhLISbCYFY5sVNeDf4l/jmuRW95H5JLHos/JBMJ0+mkykR5oC8sv4pSAsQdHE/7ozG3JUiPZcr5Sylinxp9d3FEAUzE8E5Ald5YGEQj9PNIVJ5iDHpr4lgCBEMgDeNjlsxEvj+93mgGDqPq+4tZz2mXNE0fTfzR/zUIiU7QNgO2k9QMfskhcQ/8A8JB528sVBmqpjBfneb8gf1fC/p/NMaCCEn5O4p6AXpzfG2EQhWAQK+I16o8DIGOiBiE4mLkNti/ECrQbyx+5RZCJTl0+An+bojs6p0SJI/NZ6iAcrwsWCYNXz20Vx5Iy+P8ADSoDf/wJuE4jDrjdV//Z" alt="Valentino Scicolone">
         <span class="ini">VS</span>
       </span>
       <span class="id">
         <b>Valentino Scicolone</b>
-        <span class="sub">Independent Advisor | Marketing &amp; AI <span class="nowrap">| Based in Dubai, present globally</span></span>
+        <span class="sub">مستشار مستقل | التسويق والذكاء الاصطناعي <span class="nowrap">| مقرّه دبي، وحضوره عالمي</span></span>
       </span>
     </a>
-    <a class="nav-pill" href="/how-i-work" style="margin-left:auto;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">How I work</a>
-    <a class="nav-pill" href="/case-studies" style="margin-left:10px;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">Case studies</a>
-    <a class="nav-pill nav-pill-cta" href="/quote" style="margin-left:10px;font-weight:700;font-size:15px;color:#fff;background:#1A56FF;padding:10px 19px;border:1px solid #1A56FF;border-radius:100px;transition:background .15s,box-shadow .15s;text-decoration:none" onmouseover="this.style.background='#1444cc';this.style.boxShadow='0 8px 22px rgba(26,86,255,.35)'" onmouseout="this.style.background='#1A56FF';this.style.boxShadow=''">Send a brief</a>
-    <a class="hb-li" style="margin-left:16px" href="https://www.linkedin.com/in/valentinoscicolone" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M8.34 18.34H5.67V9.75h2.67v8.59zM7 8.58a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1zm11.34 9.76h-2.66v-4.18c0-1-.02-2.28-1.39-2.28-1.39 0-1.6 1.08-1.6 2.2v4.26h-2.66V9.75h2.55v1.17h.04c.36-.67 1.22-1.39 2.52-1.39 2.7 0 3.2 1.78 3.2 4.09v4.72z"/></svg></a>
-    <div class="langswitch" data-lang="en"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div>
+    <a class="nav-pill" href="/ar/how-i-work" style="margin-inline-start:auto;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">كيف أعمل</a>
+    <a class="nav-pill" href="/ar/case-studies" style="margin-inline-start:10px;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">دراسات الحالة</a>
+    <a class="nav-pill nav-pill-cta" href="/ar/quote" style="margin-inline-start:10px;font-weight:700;font-size:15px;color:#fff;background:#1A56FF;padding:10px 19px;border:1px solid #1A56FF;border-radius:100px;transition:background .15s,box-shadow .15s;text-decoration:none" onmouseover="this.style.background='#1444cc';this.style.boxShadow='0 8px 22px rgba(26,86,255,.35)'" onmouseout="this.style.background='#1A56FF';this.style.boxShadow=''">أرسل موجزاً</a>
+    <a class="hb-li" style="margin-inline-start:16px" href="https://www.linkedin.com/in/valentinoscicolone" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M8.34 18.34H5.67V9.75h2.67v8.59zM7 8.58a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1zm11.34 9.76h-2.66v-4.18c0-1-.02-2.28-1.39-2.28-1.39 0-1.6 1.08-1.6 2.2v4.26h-2.66V9.75h2.55v1.17h.04c.36-.67 1.22-1.39 2.52-1.39 2.7 0 3.2 1.78 3.2 4.09v4.72z"/></svg></a>
+    <div class="langswitch" data-lang="ar"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">العربية</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item" href="/" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item active" href="/ar/" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div>
   </div>
 </header>
 
@@ -272,60 +292,60 @@
   <div class="wrap">
     <div>
       <h1>
-        <span class="h-line"><span>AI accelerates.</span></span>
-        <span class="h-line"><span>But the four things it can't replace</span></span>
-        <span class="h-line"><span class="h-grad">stay with us.</span></span>
+        <span class="h-line"><span>الذكاء الاصطناعي يُسرّع.</span></span>
+        <span class="h-line"><span>لكن الأشياء الأربعة التي لا يستطيع استبدالها</span></span>
+        <span class="h-line"><span class="h-grad">تبقى معنا.</span></span>
       </h1>
       <div class="hero-ctas">
-        <a class="btn-primary" href="#services">Discover how <span class="arr">↓</span></a>
+        <a class="btn-primary" href="#services">اكتشف كيف <span class="arr">↓</span></a>
       </div>
     </div>
 
-    <div class="show" aria-label="The four things AI can't replace">
+    <div class="show" aria-label="الأشياء الأربعة التي لا يستبدلها الذكاء الاصطناعي">
       <div class="stage" id="stage">
 
         <div class="slide s-cyan on">
-          <span class="kicker">AI can't replace</span>
+          <span class="kicker">ما لا يستبدله الذكاء الاصطناعي</span>
           <div class="icon"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3.8,3.8)" d="M3.3 0 C1.2 0.1 0 1.7 0.1 3.4 C0.2 5.1 1.6 6.5 3.4 6.4 C5.2 6.3 6.5 4.8 6.3 3.1 C6.1 1.3 5.1 0.1 3.3 0 Z M5.6 5.6 L9.4 9.4 M1.5 2.5 C2.1 2 3 1.8 3.7 2.1"/></svg></div>
-          <div><h3>Curiosity</h3><p>The questions worth asking.</p></div>
+          <div><h3>الفضول</h3><p>الأسئلة التي تستحقّ أن تُطرح.</p></div>
         </div>
 
         <div class="slide s-blue">
-          <span class="kicker">AI can't replace</span>
+          <span class="kicker">ما لا يستبدله الذكاء الاصطناعي</span>
           <div class="icon"><svg viewBox="0 0 17 17" fill="none" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3,3.75)" d="M0 7 C1.4 2 3.5 0 5 1.4 C6.4 2.8 5 7 7 5.6 C9 4.2 9.7 0 11 2.8 M0.7 9.5 C2.8 7 5.6 7.7 7.7 5.6"/></svg></div>
-          <div><h3>Creativity</h3><p>The idea AI can't guess.</p></div>
+          <div><h3>الإبداع</h3><p>الفكرة التي لا يخمّنها الذكاء الاصطناعي.</p></div>
         </div>
 
         <div class="slide s-navy">
-          <span class="kicker">AI can't replace</span>
+          <span class="kicker">ما لا يستبدله الذكاء الاصطناعي</span>
           <div class="icon"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3.5,3.9)" d="M0 5.5 L3.5 9.2 L10 0"/></svg></div>
-          <div><h3>Critical thinking</h3><p>The judgment call.</p></div>
+          <div><h3>التفكير النقدي</h3><p>حُسن التقدير.</p></div>
         </div>
 
         <div class="slide s-mid">
-          <span class="kicker">AI can't replace</span>
+          <span class="kicker">ما لا يستبدله الذكاء الاصطناعي</span>
           <div class="icon"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3,3.65)" d="M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z"/></svg></div>
-          <div><h3>Empathy</h3><p>Reading the room. And the why.</p></div>
+          <div><h3>التعاطف</h3><p>قراءة ما بين السطور. وفهم الدوافع.</p></div>
         </div>
 
       </div>
       <div class="dots" id="dots">
-        <button aria-label="Curiosity" class="on"><span class="fill"></span></button>
-        <button aria-label="Creativity"><span class="fill"></span></button>
-        <button aria-label="Critical thinking"><span class="fill"></span></button>
-        <button aria-label="Empathy"><span class="fill"></span></button>
+        <button aria-label="الفضول" class="on"><span class="fill"></span></button>
+        <button aria-label="الإبداع"><span class="fill"></span></button>
+        <button aria-label="التفكير النقدي"><span class="fill"></span></button>
+        <button aria-label="التعاطف"><span class="fill"></span></button>
       </div>
     </div>
   </div>
 
   <div class="mq">
     <div class="mq-track" id="mqtrack">
-      <a href="#s1">AI Research</a>
-      <a href="#s2">Marketing Strategy</a>
-      <a href="#s3">Data &amp; Technology</a>
-      <a href="#s4">Marketing Operations</a>
-      <a href="#s5">Measurement &amp; Analytics</a>
-      <a href="#s6">AI Fluency</a>
+      <a href="#s1">أبحاث الذكاء الاصطناعي</a>
+      <a href="#s2">استراتيجية التسويق</a>
+      <a href="#s3">البيانات والتقنية</a>
+      <a href="#s4">عمليات التسويق</a>
+      <a href="#s5">القياس والتحليلات</a>
+      <a href="#s6">إتقان الذكاء الاصطناعي</a>
     </div>
   </div>
 </section>
@@ -334,23 +354,23 @@
 <section class="services" id="services">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">My value proposition</p>
-      <h2>Six ways in.<br>One standard.<span class="exp"><span class="u">AI accelerates.</span> <span class="u">You own the call.</span> <span class="u">I turn it into results.</span></span></h2>
+      <p class="eyebrow">القيمة التي أقدّمها</p>
+      <h2>ستّة مداخل.<br>معيار واحد.<span class="exp"><span class="u">الذكاء الاصطناعي يُسرّع.</span> <span class="u">القرار قرارك.</span> <span class="u">وأنا أُحوّله إلى نتائج.</span></span></h2>
     </div>
 
     <!-- 1 -->
     <div class="feat" id="s1" style="--accent:#00b8e0;--tint:rgba(0,212,255,.09)">
       <div class="feat-text">
-        <span class="num">01 · Research</span>
-        <h3>AI Research</h3>
-        <p>Market, customer and competitive research that used to take weeks, done in days. AI does the digging. You decide what it means.</p>
+        <span class="num">01 · الأبحاث</span>
+        <h3>أبحاث الذكاء الاصطناعي</h3>
+        <p>أبحاث السوق والعملاء والمنافسين التي كانت تستغرق أسابيع، تُنجَز في أيام. الذكاء الاصطناعي يتولّى التنقيب، وأنت تقرّر المعنى.</p>
       </div>
       <div class="feat-card">
         <span class="ghost">01</span>
         <div class="lanes">
-          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Reading everything, fast</span></div>
-          <div class="lane you"><span class="lbl">You own</span><span class="val">The right questions</span></div>
-          <div class="lane me"><span class="lbl">I turn</span><span class="val">Findings into direction</span></div>
+          <div class="lane ai"><span class="lbl">الذكاء الاصطناعي يُسرّع</span><span class="val">قراءة كل شيء، بسرعة</span></div>
+          <div class="lane you"><span class="lbl">أنت تملك</span><span class="val">الأسئلة الصحيحة</span></div>
+          <div class="lane me"><span class="lbl">أنا أُحوّل</span><span class="val">من النتائج إلى وجهة واضحة</span></div>
         </div>
       </div>
     </div>
@@ -358,16 +378,16 @@
     <!-- 2 -->
     <div class="feat rev" id="s2" style="--accent:#1A56FF;--tint:rgba(26,86,255,.07)">
       <div class="feat-text">
-        <span class="num">02 · Strategy</span>
-        <h3>Marketing Strategy</h3>
-        <p>Where AI belongs in your marketing, which use cases are worth funding, and in what order. Built around outcomes, not trends.</p>
+        <span class="num">02 · الاستراتيجية</span>
+        <h3>استراتيجية التسويق</h3>
+        <p>أين يكون مكان الذكاء الاصطناعي في تسويقك، وأيّ الاستخدامات تستحقّ الاستثمار، وبأيّ ترتيب. مبنيّة على النتائج لا على الرائج.</p>
       </div>
       <div class="feat-card">
         <span class="ghost">02</span>
         <div class="lanes">
-          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Options at speed</span></div>
-          <div class="lane you"><span class="lbl">You own</span><span class="val">The bet</span></div>
-          <div class="lane me"><span class="lbl">I turn</span><span class="val">Options into a plan</span></div>
+          <div class="lane ai"><span class="lbl">الذكاء الاصطناعي يُسرّع</span><span class="val">خيارات بسرعة</span></div>
+          <div class="lane you"><span class="lbl">أنت تملك</span><span class="val">الرهان</span></div>
+          <div class="lane me"><span class="lbl">أنا أُحوّل</span><span class="val">من الخيارات إلى خطة</span></div>
         </div>
       </div>
     </div>
@@ -375,16 +395,16 @@
     <!-- 3 -->
     <div class="feat" id="s3" style="--accent:#3358a8;--tint:rgba(13,31,92,.07)">
       <div class="feat-text">
-        <span class="num">03 · Data</span>
-        <h3>Data &amp; Technology</h3>
-        <p>Your marketing data and tools, connected and usable. AI wired in only where it pulls its weight.</p>
+        <span class="num">03 · البيانات</span>
+        <h3>البيانات والتقنية</h3>
+        <p>بيانات تسويقك وأدواتك، مترابطة وجاهزة للاستخدام. والذكاء الاصطناعي مدمج حيث يُثبت جدواه فقط.</p>
       </div>
       <div class="feat-card">
         <span class="ghost">03</span>
         <div class="lanes">
-          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Wiring it together</span></div>
-          <div class="lane you"><span class="lbl">You own</span><span class="val">What good looks like</span></div>
-          <div class="lane me"><span class="lbl">I turn</span><span class="val">Tools into a stack that works</span></div>
+          <div class="lane ai"><span class="lbl">الذكاء الاصطناعي يُسرّع</span><span class="val">ربط الأدوات معاً</span></div>
+          <div class="lane you"><span class="lbl">أنت تملك</span><span class="val">كيف يبدو العمل الجيّد</span></div>
+          <div class="lane me"><span class="lbl">أنا أُحوّل</span><span class="val">من الأدوات إلى منظومة تعمل</span></div>
         </div>
       </div>
     </div>
@@ -392,16 +412,16 @@
     <!-- 4 -->
     <div class="feat rev" id="s4" style="--accent:#3358a8;--tint:rgba(13,31,92,.07)">
       <div class="feat-text">
-        <span class="num">04 · Operations</span>
-        <h3>Marketing Operations</h3>
-        <p>How the work gets done: clear workflows, owners and review, with AI inside the process. Less rework, more shipped.</p>
+        <span class="num">04 · العمليات</span>
+        <h3>عمليات التسويق</h3>
+        <p>كيف يُنجَز العمل: مسارات واضحة، ومسؤوليات محدّدة، ومراجعة، مع الذكاء الاصطناعي داخل العملية. أخطاء أقل، وإنجاز أكثر.</p>
       </div>
       <div class="feat-card">
         <span class="ghost">04</span>
         <div class="lanes">
-          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">The volume</span></div>
-          <div class="lane you"><span class="lbl">You own</span><span class="val">The bar for quality</span></div>
-          <div class="lane me"><span class="lbl">I turn</span><span class="val">Volume into a system</span></div>
+          <div class="lane ai"><span class="lbl">الذكاء الاصطناعي يُسرّع</span><span class="val">حجم العمل</span></div>
+          <div class="lane you"><span class="lbl">أنت تملك</span><span class="val">معيار الجودة</span></div>
+          <div class="lane me"><span class="lbl">أنا أُحوّل</span><span class="val">من الكمّ إلى نظام</span></div>
         </div>
       </div>
     </div>
@@ -409,16 +429,16 @@
     <!-- 5 -->
     <div class="feat" id="s5" style="--accent:#3358a8;--tint:rgba(13,31,92,.07)">
       <div class="feat-text">
-        <span class="num">05 · Measurement</span>
-        <h3>Measurement &amp; Analytics</h3>
-        <p>Know what your marketing actually drove. KPIs, attribution and reporting you can act on and defend to finance.</p>
+        <span class="num">05 · القياس</span>
+        <h3>القياس والتحليلات</h3>
+        <p>اعرف ما حقّقه تسويقك فعلاً. مؤشّرات أداء وإسناد وتقارير يمكنك التصرّف بناءً عليها والدفاع عنها أمام الإدارة المالية.</p>
       </div>
       <div class="feat-card">
         <span class="ghost">05</span>
         <div class="lanes">
-          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Crunching the numbers</span></div>
-          <div class="lane you"><span class="lbl">You own</span><span class="val">What they actually mean</span></div>
-          <div class="lane me"><span class="lbl">I turn</span><span class="val">Numbers into KPIs that matter</span></div>
+          <div class="lane ai"><span class="lbl">الذكاء الاصطناعي يُسرّع</span><span class="val">معالجة الأرقام</span></div>
+          <div class="lane you"><span class="lbl">أنت تملك</span><span class="val">ماذا تعني فعلاً</span></div>
+          <div class="lane me"><span class="lbl">أنا أُحوّل</span><span class="val">من الأرقام إلى مؤشّرات تهمّ</span></div>
         </div>
       </div>
     </div>
@@ -426,16 +446,16 @@
     <!-- 6 -->
     <div class="feat rev" id="s6" style="--accent:#4D7BFF;--tint:rgba(77,123,255,.1)">
       <div class="feat-text">
-        <span class="num">06 · Fluency</span>
-        <h3>AI Fluency</h3>
-        <p>Your team gets genuinely good with AI without outsourcing their thinking. The skills stay after I leave.</p>
+        <span class="num">06 · الإتقان</span>
+        <h3>إتقان الذكاء الاصطناعي</h3>
+        <p>يُتقن فريقك الذكاء الاصطناعي حقّاً دون أن يتخلّى عن تفكيره. وتبقى المهارة بعد أن أرحل.</p>
       </div>
       <div class="feat-card">
         <span class="ghost">06</span>
         <div class="lanes">
-          <div class="lane ai"><span class="lbl">AI accelerates</span><span class="val">Showing the how</span></div>
-          <div class="lane you"><span class="lbl">You own</span><span class="val">The judgment to use it</span></div>
-          <div class="lane me"><span class="lbl">I turn</span><span class="val">Training into a habit</span></div>
+          <div class="lane ai"><span class="lbl">الذكاء الاصطناعي يُسرّع</span><span class="val">عرض الطريقة</span></div>
+          <div class="lane you"><span class="lbl">أنت تملك</span><span class="val">حُسن استخدامه</span></div>
+          <div class="lane me"><span class="lbl">أنا أُحوّل</span><span class="val">من التدريب إلى عادة</span></div>
         </div>
       </div>
     </div>
@@ -459,13 +479,13 @@
         <path transform="translate(26,26.65)" stroke="#FFFFFF" d="M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z"/>
       </g>
     </svg>
-    <h2>Start your free<br>AI Marketing Maturity<br>assessment <em>today.</em></h2>
-    <a class="btn-primary" href="https://vales.ae/aimarketingmaturity">See where you stand <span class="arr">→</span></a>
+    <h2>ابدأ تقييمك المجاني لنضج التسويق بالذكاء الاصطناعي <em>اليوم.</em></h2>
+    <a class="btn-primary" href="/ar/aimarketingmaturity">اعرف أين تقف <span class="arr">←</span></a>
   </div>
   <div class="foot-bottom">
     <div class="id">
       <b>Valentino Scicolone</b>
-      <span class="sub"><span class="u">Independent Advisor</span> <span class="sep">|</span> <span class="u">Marketing &amp; AI</span> <span class="sep">|</span> <span class="u">Based in Dubai, present globally</span></span>
+      <span class="sub"><span class="u">مستشار مستقل</span> <span class="sep">|</span> <span class="u">التسويق والذكاء الاصطناعي</span> <span class="sep">|</span> <span class="u">مقرّه دبي، وحضوره عالمي</span></span>
       <div class="id-social">
         <a class="li-btn" href="https://www.linkedin.com/in/valentinoscicolone" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.07c.63-1.2 2.17-2.47 4.47-2.47 4.78 0 5.66 3.15 5.66 7.24V24h-5v-6.4c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V24h-5V8z"/></svg></a>
         <span class="copy">© 2026 vales.ae</span>
@@ -473,7 +493,7 @@
     </div>
     <a class="wa-cta" href="https://wa.me/971554150304" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.11.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 01-1.44-5A9.42 9.42 0 0118.7 5.4a9.36 9.36 0 012.76 6.66 9.42 9.42 0 01-9.42 9.44zm8.02-17.46A11.32 11.32 0 0012.04.5C5.8.5.73 5.57.72 11.81c0 2 .53 3.95 1.52 5.67L.63 23.5l6.16-1.61a11.32 11.32 0 005.25 1.34h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.32-8.01z"/></svg>
-      Talk to Valentino
+      تحدّث إلى Valentino
     </a>
   </div>
 </footer>

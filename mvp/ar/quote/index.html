@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Get a price range · vales.ae</title>
-<meta name="description" content="Tell me what you need. Get an honest price range in two minutes." />
+<title>احصل على نطاق سعري · vales.ae</title>
+<meta name="description" content="أخبرني بما تحتاجه، واحصل على نطاق سعري صادق في دقيقتين." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --blue:#1A56FF; --cyan:#00D4FF; --navy:#0D1F5C; --mid:#4D7BFF; --ice:#F4F7FF;
@@ -17,7 +17,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     background:var(--ice);color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.5;
     min-height:100vh;
   }
@@ -154,7 +154,19 @@
   .restart-btn{display:inline-flex;align-items:center;gap:8px;margin-top:28px;background:none;border:1.5px solid var(--line);color:var(--navy);font-weight:700;font-size:13.5px;padding:10px 18px;border-radius:999px;cursor:pointer;transition:border-color .2s,color .2s;font-family:inherit}
   .restart-btn:hover{border-color:var(--blue);color:var(--blue)}
   .restart-btn svg{width:15px;height:15px}
-  .langtoggle{font-family:'Segoe UI',Tahoma,system-ui,sans-serif;font-weight:700;font-size:13.5px;color:var(--muted);border:1px solid var(--line);padding:8px 13px;border-radius:999px;text-decoration:none;transition:color .2s,border-color .2s}
+
+  /* ============ Arabic / RTL — Camille standard ============ */
+  *{letter-spacing:normal !important}
+  body{line-height:1.7}
+  .eyebrow,.range-box .lbl,.svc .suggested,.opt .tag{text-transform:none}
+  .step h2{line-height:1.3}
+  .svc b{line-height:1.3}
+  .svc .chk{right:auto;left:16px}
+  .svc .suggested{left:auto;right:16px}
+  .opt-3 .opt{text-align:right}
+  .range-box .num{direction:ltr}
+  input[type=email],input[type=tel]{direction:ltr;text-align:left}
+  .langtoggle{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;color:var(--muted);border:1px solid var(--line);padding:7px 13px;border-radius:999px;text-decoration:none;transition:color .2s,border-color .2s}
   .langtoggle:hover{color:var(--blue);border-color:var(--blue)}
 
   /* ===== language switcher (dropdown) ===== */
@@ -184,14 +196,14 @@
       <div><b>Valentino Scicolone</b><span>vales.ae</span></div>
     </div>
     <div style="display:flex;align-items:center;gap:14px">
-      <div class="langswitch" data-lang="en"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/quote" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/quote" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div>
-      <a class="backlink" href="/">&larr; Back to site</a>
+      <div class="langswitch" data-lang="ar"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">العربية</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item" href="/quote" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item active" href="/ar/quote" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div>
+      <a class="backlink" href="/ar/">&rarr; العودة إلى الموقع</a>
     </div>
   </div>
 </header>
 
 <div class="progress-wrap wrap">
-  <div class="progress-label"><span>Step <b id="stepNow">1</b> of 5</span><span id="stepName">The problem</span></div>
+  <div class="progress-label"><span>الخطوة <b id="stepNow">1</b> من 5</span><span id="stepName">المشكلة</span></div>
   <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
 </div>
 
@@ -200,142 +212,142 @@
 
     <div class="loading-overlay" id="loadingOverlay">
       <div class="spinner"></div>
-      <p class="loading-msg" id="loadingMsg">Reading your brief...</p>
+      <p class="loading-msg" id="loadingMsg">أقرأ موجزك...</p>
     </div>
 
     <!-- STEP 1 — the problem -->
     <section class="step on" data-step="1">
-      <p class="eyebrow">Start here</p>
-      <h2>What's the problem?</h2>
-      <p class="lede">Tell me what's not working. I'll figure out which services apply, you don't need to know that part.</p>
+      <p class="eyebrow">ابدأ من هنا</p>
+      <h2>ما المشكلة؟</h2>
+      <p class="lede">أخبرني بما لا يعمل. سأحدّد الخدمات المناسبة، ولا داعي لأن تعرف هذا الجزء.</p>
 
-      <div class="field"><label>The challenge</label><textarea id="f_challenge" placeholder="What's not working right now?"></textarea></div>
-      <div class="field"><label>What does success look like?</label><textarea id="f_outcome" placeholder="What has to be true for this to have worked?"></textarea></div>
+      <div class="field"><label>التحدّي</label><textarea id="f_challenge" placeholder="ما الذي لا يعمل الآن؟"></textarea></div>
+      <div class="field"><label>كيف يبدو النجاح؟</label><textarea id="f_outcome" placeholder="ما الذي يجب أن يتحقّق لنعدّ هذا نجاحاً؟"></textarea></div>
 
-      <p class="err" id="err1">Tell me at least what the challenge is.</p>
+      <p class="err" id="err1">أخبرني على الأقل بما هو التحدّي.</p>
       <div class="stepnav">
         <span></span>
-        <button class="btn-primary" onclick="goNext(1)">Continue <span>&rarr;</span></button>
+        <button class="btn-primary" onclick="goNext(1)">متابعة <span>&larr;</span></button>
       </div>
     </section>
 
     <!-- STEP 2 — AI-suggested services -->
     <section class="step" data-step="2">
-      <p class="eyebrow">Based on what you told me</p>
-      <h2>Here's what I think you need</h2>
-      <p class="lede">Pre-selected from your answer. Adjust anything that's off.</p>
-      <p class="badge">&check; Select all that apply</p>
+      <p class="eyebrow">بناءً على ما أخبرتني به</p>
+      <h2>هذا ما أظنّك تحتاجه</h2>
+      <p class="lede">محدّد مسبقاً من إجابتك. عدّل ما لا يناسبك.</p>
+      <p class="badge">&check; اختر كل ما ينطبق</p>
       <div class="svc-grid" id="svcGrid"></div>
-      <p class="err" id="err2">Pick at least one service.</p>
+      <p class="err" id="err2">اختر خدمة واحدة على الأقل.</p>
       <div class="stepnav">
-        <button class="btn-ghost" onclick="goBack(2)">&larr; Back</button>
-        <button class="btn-primary" onclick="goNext(2)">Continue <span>&rarr;</span></button>
+        <button class="btn-ghost" onclick="goBack(2)">&rarr; رجوع</button>
+        <button class="btn-primary" onclick="goNext(2)">متابعة <span>&larr;</span></button>
       </div>
     </section>
 
     <!-- STEP 3 — about you -->
     <section class="step" data-step="3">
-      <p class="eyebrow">Almost there</p>
-      <h2>Tell me about you</h2>
-      <p class="lede">So I can size this properly.</p>
+      <p class="eyebrow">اقتربنا</p>
+      <h2>أخبرني عنك</h2>
+      <p class="lede">لأقدّر حجم العمل بدقّة.</p>
 
       <div class="row2">
-        <div class="field"><label>First name</label><input type="text" id="f_firstname" /></div>
-        <div class="field"><label>Last name</label><input type="text" id="f_lastname" /></div>
+        <div class="field"><label>الاسم الأول</label><input type="text" id="f_firstname" /></div>
+        <div class="field"><label>اسم العائلة</label><input type="text" id="f_lastname" /></div>
       </div>
       <div class="row2">
-        <div class="field"><label>Business email</label><input type="email" id="f_email" placeholder="you@company.com" /></div>
-        <div class="field"><label>Company name</label><input type="text" id="f_company" /></div>
+        <div class="field"><label>البريد الإلكتروني للعمل</label><input type="email" id="f_email" placeholder="you@company.com" /></div>
+        <div class="field"><label>اسم الشركة</label><input type="text" id="f_company" /></div>
       </div>
       <div class="field">
-        <label>Phone <span class="hint" style="display:inline">(optional)</span></label>
+        <label>الهاتف <span class="hint" style="display:inline">(اختياري)</span></label>
         <div class="phone-row">
           <select id="f_dialcode"></select>
           <input type="tel" id="f_phone" placeholder="50 123 4567" />
         </div>
       </div>
-      <p class="disclaimer">By submitting this form you agree to be contacted by Valentino Scicolone about your inquiry.</p>
+      <p class="disclaimer">بإرسالك هذا النموذج فإنك توافق على أن يتواصل معك Valentino Scicolone بخصوص استفسارك.</p>
       <div class="row2">
-        <div class="field"><label>Where are you based?</label><input type="text" id="f_location" placeholder="City, country" /></div>
+        <div class="field"><label>أين مقرّك؟</label><input type="text" id="f_location" placeholder="المدينة، الدولة" /></div>
         <div class="field">
-          <label>Industry</label>
+          <label>القطاع</label>
           <select id="f_industry">
-            <option value="">Select one</option>
-            <option>Tourism & Hospitality</option>
-            <option>Banking & Finance</option>
-            <option>Retail & E-commerce</option>
-            <option>Technology & SaaS</option>
-            <option>FMCG</option>
-            <option>Government & Public Sector</option>
-            <option>Automotive</option>
-            <option>Healthcare & Pharma</option>
-            <option>Real Estate</option>
-            <option>Telecom</option>
-            <option>Education</option>
-            <option>Energy & Utilities</option>
-            <option>Fashion & Luxury</option>
-            <option>Consumer Electronics</option>
-            <option>Media & Entertainment</option>
-            <option>Professional Services</option>
-            <option>Non-profit</option>
-            <option>Logistics & Supply Chain</option>
-            <option>Other</option>
+            <option value="">اختر واحداً</option>
+            <option>السياحة والضيافة</option>
+            <option>المصارف والتمويل</option>
+            <option>التجزئة والتجارة الإلكترونية</option>
+            <option>التقنية والبرمجيات كخدمة</option>
+            <option>السلع الاستهلاكية سريعة الدوران</option>
+            <option>الحكومة والقطاع العام</option>
+            <option>السيارات</option>
+            <option>الرعاية الصحية والأدوية</option>
+            <option>العقارات</option>
+            <option>الاتصالات</option>
+            <option>التعليم</option>
+            <option>الطاقة والمرافق</option>
+            <option>الأزياء والرفاهية</option>
+            <option>الإلكترونيات الاستهلاكية</option>
+            <option>الإعلام والترفيه</option>
+            <option>الخدمات المهنية</option>
+            <option>القطاع غير الربحي</option>
+            <option>الخدمات اللوجستية وسلسلة التوريد</option>
+            <option>أخرى</option>
           </select>
         </div>
       </div>
 
       <div class="field">
-        <label>Team size</label>
+        <label>حجم الفريق</label>
         <div class="opt-3" id="sizeGrid"></div>
       </div>
 
-      <div class="field"><label>Current stack <span class="hint" style="display:inline">(optional)</span></label><input type="text" id="f_stack" placeholder="CRM, ad platforms, analytics tools already in place" /></div>
+      <div class="field"><label>الأدوات الحالية <span class="hint" style="display:inline">(اختياري)</span></label><input type="text" id="f_stack" placeholder="أنظمة CRM ومنصّات الإعلانات وأدوات التحليل الموجودة لديك" /></div>
 
       <div class="field">
-        <label>Ideal timeline</label>
-        <span class="slider-val" id="timelineLabel">ASAP</span>
+        <label>الجدول الزمني المثالي</label>
+        <span class="slider-val" id="timelineLabel">في أقرب وقت</span>
         <input type="range" id="f_timeline" min="0" max="12" step="1" value="4" oninput="updateTimelineLabel(this.value)" />
-        <div class="slider-ticks"><span>ASAP</span><span>12+ weeks</span></div>
+        <div class="slider-ticks"><span>في أقرب وقت</span><span>12+ أسبوعاً</span></div>
       </div>
 
-      <div class="field"><label>Anything else? <span class="hint" style="display:inline">(optional)</span></label><textarea id="f_notes" placeholder="Notes"></textarea></div>
+      <div class="field"><label>شيء آخر؟ <span class="hint" style="display:inline">(اختياري)</span></label><textarea id="f_notes" placeholder="ملاحظات"></textarea></div>
 
-      <p class="err" id="err3">Fill in your first name, last name and business email.</p>
+      <p class="err" id="err3">أدخل اسمك الأول واسم العائلة والبريد الإلكتروني للعمل.</p>
       <div class="stepnav">
-        <button class="btn-ghost" onclick="goBack(3)">&larr; Back</button>
-        <button class="btn-primary" onclick="goNext(3)">Continue <span>&rarr;</span></button>
+        <button class="btn-ghost" onclick="goBack(3)">&rarr; رجوع</button>
+        <button class="btn-primary" onclick="goNext(3)">متابعة <span>&larr;</span></button>
       </div>
     </section>
 
     <!-- STEP 4 — payment terms -->
     <section class="step" data-step="4">
-      <p class="eyebrow">Almost there</p>
-      <h2>How do you want to structure payment?</h2>
-      <p class="lede">This changes the effective rate, not the scope.</p>
+      <p class="eyebrow">اقتربنا</p>
+      <h2>كيف تريد تنظيم الدفع؟</h2>
+      <p class="lede">هذا يغيّر السعر الفعلي، لا نطاق العمل.</p>
       <div class="opt-list" id="paymentGrid"></div>
       <div class="stepnav">
-        <button class="btn-ghost" onclick="goBack(4)">&larr; Back</button>
-        <button class="btn-primary" onclick="goNext(4)">See my range <span>&rarr;</span></button>
+        <button class="btn-ghost" onclick="goBack(4)">&rarr; رجوع</button>
+        <button class="btn-primary" onclick="goNext(4)">شاهد نطاقي <span>&larr;</span></button>
       </div>
     </section>
 
     <!-- STEP 5 — range reveal -->
     <section class="step" data-step="5">
-      <p class="eyebrow">Your range</p>
-      <h2>Here's an estimated range</h2>
-      <p class="lede">Not a final quote. A range built from real scope, so nobody wastes time.</p>
+      <p class="eyebrow">نطاقك</p>
+      <h2>هذا نطاق تقديري</h2>
+      <p class="lede">ليس عرضاً نهائياً. نطاق مبنيّ على نطاق عمل حقيقي، حتى لا يضيّع أحد وقته.</p>
 
       <div class="range-box">
-        <div class="lbl">Estimated investment</div>
+        <div class="lbl">الاستثمار التقديري</div>
         <div class="num"><span id="rangeLow">$0</span><span class="sep">&ndash;</span><span id="rangeHigh">$0</span></div>
         <div class="sub" id="rangeSub"></div>
       </div>
 
       <div class="stepnav">
-        <button class="btn-ghost" onclick="goBack(5)">&larr; Adjust something</button>
+        <button class="btn-ghost" onclick="goBack(5)">&rarr; عدّل شيئاً</button>
         <div class="range-actions">
-          <a class="talk-cta" href="mailto:valentino.scicolone@gmail.com">Let's talk</a>
-          <button class="btn-primary" onclick="goNext(5)">Let's move on! <span>&rarr;</span></button>
+          <a class="talk-cta" href="mailto:valentino.scicolone@gmail.com">لنتحدّث</a>
+          <button class="btn-primary" onclick="goNext(5)">هيّا بنا! <span>&larr;</span></button>
         </div>
       </div>
     </section>
@@ -343,11 +355,11 @@
     <!-- STEP 6 — thank you -->
     <section class="step" data-step="6">
       <div class="thanks-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#1A56FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h2 id="thanksHeadline">Thanks.</h2>
+      <h2 id="thanksHeadline">شكراً.</h2>
       <p class="lede" id="thanksBody" style="margin-bottom:0"></p>
       <button class="restart-btn" onclick="resetForm()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 1 2.6 6.4M3 12V6m0 6h6"/></svg>
-        Send another brief
+        أرسل موجزاً آخر
       </button>
     </section>
 
@@ -376,12 +388,12 @@ const RUSH_CAP = 0.25;            // max rush premium
 const RUSH_PER_WEEK = 0.02;       // premium per week of compression vs natural pace
 
 const SERVICES = [
-  { key:'aiResearch',        label:'AI Research',            tagline:'Findings into direction',           hours:44 },
-  { key:'marketingStrategy', label:'Marketing Strategy',     tagline:'Options into a plan',                hours:53 },
-  { key:'dataTechnology',    label:'Data & Technology',      tagline:'Tools into a stack that works',      hours:41 },
-  { key:'marketingOps',      label:'Marketing Operations',   tagline:'Volume into a system',                hours:34 },
-  { key:'measurement',       label:'Measurement & Analytics',tagline:'Numbers into KPIs that matter',       hours:38 },
-  { key:'aiFluency',         label:'AI Fluency',             tagline:'Training into a habit',               hours:34 },
+  { key:'aiResearch',        label:'أبحاث الذكاء الاصطناعي',            tagline:'من النتائج إلى وجهة واضحة',           hours:44 },
+  { key:'marketingStrategy', label:'استراتيجية التسويق',     tagline:'من الخيارات إلى خطة',                hours:53 },
+  { key:'dataTechnology',    label:'البيانات والتقنية',      tagline:'من الأدوات إلى منظومة تعمل',      hours:41 },
+  { key:'marketingOps',      label:'عمليات التسويق',   tagline:'من الكمّ إلى نظام',                hours:34 },
+  { key:'measurement',       label:'القياس والتحليلات',tagline:'من الأرقام إلى مؤشّرات تهمّ',       hours:38 },
+  { key:'aiFluency',         label:'إتقان الذكاء الاصطناعي',             tagline:'من التدريب إلى عادة',               hours:34 },
 ];
 
 // Mirrors apps-script-backend.gs's ACTIVITY_LIBRARY - same keys/hours on
@@ -418,15 +430,15 @@ function hoursForActivities(activityKeys){
 }
 
 const SIZE_OPTIONS = [
-  { key:'small',  label:'Small',  hint:'Under 20 people' },
-  { key:'medium', label:'Medium', hint:'20-200 people' },
-  { key:'large',  label:'Large',  hint:'200+ people' },
+  { key:'small',  label:'صغير',  hint:'أقل من 20 شخصاً' },
+  { key:'medium', label:'متوسط', hint:'20–200 شخص' },
+  { key:'large',  label:'كبير',  hint:'أكثر من 200 شخص' },
 ];
 
 const PAYMENT_OPTIONS = [
-  { key:'advance',  label:'Pay 100% upfront',      hint:'Locks the lowest rate',     tag:'-5%', tagClass:'tag-good' },
-  { key:'standard', label:'Split 50/50',           hint:'Half now, half on delivery', tag:'Standard', tagClass:'' },
-  { key:'postpaid', label:'Pay 100% on completion',hint:'Full amount when it\'s done',tag:'+15%', tagClass:'tag-bad' },
+  { key:'advance',  label:'الدفع 100% مقدّماً',      hint:'يضمن أدنى سعر',     tag:'-5%', tagClass:'tag-good' },
+  { key:'standard', label:'تقسيم 50/50',           hint:'نصف الآن، ونصف عند التسليم', tag:'قياسي', tagClass:'' },
+  { key:'postpaid', label:'الدفع 100% عند الإنجاز',hint:'المبلغ كاملاً عند الانتهاء',tag:'+15%', tagClass:'tag-bad' },
 ];
 
 const DIAL_CODES = [
@@ -531,7 +543,7 @@ function calculateQuote({ serviceKeys, size, payment, complexity, timelineWeeks,
 /* ========================= UI STATE ========================= */
 const state = { services: [], activityHours: {}, size: 'medium', payment: 'standard', complexity: 'standard' };
 const TOTAL_STEPS = 5;
-const STEP_NAMES = ['The problem','What you need','About you','Payment terms','Your range'];
+const STEP_NAMES = ['المشكلة','ما تحتاجه','عنك','شروط الدفع','نطاقك'];
 
 function fmt(n){ return '$' + n.toLocaleString('en-US'); }
 
@@ -543,17 +555,17 @@ function escapeHtml(s){
 }
 
 const COMPLEXITY_INFO = {
-  simple:   { label: 'Simple scope', chip: 'cx-simple',
-              fit: "A contained, well-defined ask - squarely routine scope for senior-level marketing consulting." },
-  standard: { label: 'Standard scope', chip: 'cx-standard',
-              fit: "A fairly typical scope for this kind of engagement - matches the complexity handled day to day at director level." },
-  complex:  { label: 'Complex scope', chip: 'cx-complex',
-              fit: "A multi-layered ask with real complexity - the kind of engagement senior, multi-market experience is built for." },
+  simple:   { label: 'نطاق بسيط', chip: 'cx-simple',
+              fit: "طلب محدّد وواضح المعالم — نطاق روتيني تماماً لاستشارات تسويقية على مستوى رفيع." },
+  standard: { label: 'نطاق قياسي', chip: 'cx-standard',
+              fit: "نطاق نموذجي إلى حدٍّ كبير لهذا النوع من المشاريع — يوازي التعقيد الذي يُدار يومياً على مستوى المديرين." },
+  complex:  { label: 'نطاق معقّد', chip: 'cx-complex',
+              fit: "طلب متعدّد الطبقات بتعقيد حقيقي — النوع الذي صُقلت له الخبرة الرفيعة متعدّدة الأسواق." },
 };
 
 function updateTimelineLabel(v){
   v = +v;
-  document.getElementById('timelineLabel').textContent = v === 0 ? 'ASAP' : (v === 12 ? '12+ weeks' : `${v} week${v > 1 ? 's' : ''}`);
+  document.getElementById('timelineLabel').textContent = v === 0 ? 'في أقرب وقت' : (v === 12 ? '12+ أسبوعاً' : (v === 1 ? 'أسبوع واحد' : (v === 2 ? 'أسبوعان' : (v <= 10 ? `${v} أسابيع` : `${v} أسبوعاً`))));
 }
 
 function renderServiceGrid(){
@@ -562,7 +574,7 @@ function renderServiceGrid(){
     const sel = state.services.includes(s.key);
     return `
     <div class="svc${sel ? ' sel' : ''}${sel ? ' suggested-tag' : ''}" data-key="${s.key}" onclick="toggleService('${s.key}')">
-      <span class="suggested">Suggested</span>
+      <span class="suggested">مقترح</span>
       <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
       <b>${s.label}</b><span>${s.tagline}</span>
     </div>`;
@@ -649,8 +661,8 @@ async function inferFromBriefAPI(challenge, outcome){
 function showStep(n){
   document.querySelectorAll('.step').forEach(el => el.classList.toggle('on', +el.dataset.step === n));
   const done = n > TOTAL_STEPS;
-  document.getElementById('stepNow').textContent = done ? 'Done' : n;
-  document.getElementById('stepName').textContent = done ? 'Confirmed' : (STEP_NAMES[n - 1] || '');
+  document.getElementById('stepNow').textContent = done ? 'تمّ' : n;
+  document.getElementById('stepName').textContent = done ? 'مؤكّد' : (STEP_NAMES[n - 1] || '');
   document.querySelector('.progress-label span:first-child').style.display = done ? 'none' : '';
   document.getElementById('progressFill').style.width = (Math.min(n, TOTAL_STEPS) / TOTAL_STEPS * 100) + '%';
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -663,7 +675,7 @@ async function goNext(from){
     const err1 = document.getElementById('err1');
     const challenge = document.getElementById('f_challenge').value.trim();
     if(!challenge){
-      err1.textContent = 'Tell me at least what the challenge is.';
+      err1.textContent = 'أخبرني على الأقل بما هو التحدّي.';
       err1.classList.add('on'); return;
     }
     err1.classList.remove('on');
@@ -674,7 +686,7 @@ async function goNext(from){
     // (no API key set yet, network hiccup, unexpected response) so a brief
     // still gets a usable, if cruder, suggestion instead of nothing.
     let unclear = false;
-    await withLoading('Reading your brief...', async () => {
+    await withLoading('أقرأ موجزك...', async () => {
       const apiResult = await inferFromBriefAPI(challenge, outcome);
       if(apiResult && apiResult.configured){
         // configured:true means Claude actually answered - even an empty
@@ -705,7 +717,7 @@ async function goNext(from){
       }
     });
     if(unclear){
-      err1.textContent = "That doesn't read like a clear brief yet. Try describing the actual problem in a sentence or two.";
+      err1.textContent = 'لا يبدو هذا موجزاً واضحاً بعد. حاول وصف المشكلة الفعلية في جملة أو جملتين.';
       err1.classList.add('on');
       return;
     }
@@ -723,16 +735,16 @@ async function goNext(from){
     const email = document.getElementById('f_email').value.trim();
     const errEl = document.getElementById('err3');
     if(!fn || !ln || !email){
-      errEl.textContent = 'Fill in your first name, last name and business email.';
+      errEl.textContent = 'أدخل اسمك الأول واسم العائلة والبريد الإلكتروني للعمل.';
       errEl.classList.add('on'); return;
     }
     const check = emailCheck(email);
     if(check === 'invalid'){
-      errEl.textContent = 'Enter a valid email address.';
+      errEl.textContent = 'أدخل بريداً إلكترونياً صالحاً.';
       errEl.classList.add('on'); return;
     }
     if(check === 'free'){
-      errEl.textContent = 'Please use your business email, not a personal address.';
+      errEl.textContent = 'من فضلك استخدم بريد عملك، لا بريداً شخصياً.';
       errEl.classList.add('on'); return;
     }
     errEl.classList.remove('on');
@@ -741,24 +753,24 @@ async function goNext(from){
     // No second API call here - the range is pure arithmetic on numbers
     // already known (services, size, payment, complexity from step 1). The
     // brief delay is just a UX pause, not masking real network time.
-    await withLoading('Calculating your range...', async () => {
+    await withLoading('أحسب نطاقك...', async () => {
       await wait(700);
       const timelineWeeks = +document.getElementById('f_timeline').value;
       const q = calculateQuote({ serviceKeys: state.services, size: state.size, payment: state.payment, complexity: state.complexity, timelineWeeks, activityHours: state.activityHours });
       document.getElementById('rangeLow').textContent = fmt(q.low);
       document.getElementById('rangeHigh').textContent = fmt(q.high);
-      document.getElementById('rangeSub').textContent = `~${q.hours}h at $${q.rate}/h`;
+      document.getElementById('rangeSub').textContent = `~${q.hours} ساعة · ${q.rate}$ للساعة`;
       showStep(5);
     });
     return;
   }
   if(from === 5){
-    const fn = document.getElementById('f_firstname').value.trim() || 'there';
+    const fn = document.getElementById('f_firstname').value.trim() || 'صديقي';
     const email = document.getElementById('f_email').value.trim();
-    document.getElementById('thanksHeadline').textContent = `Thanks, ${fn}.`;
+    document.getElementById('thanksHeadline').textContent = `شكراً، ${fn}.`;
     document.getElementById('thanksBody').textContent =
-      `I'll follow up within 2 business days with an end-to-end proposal and a full statement of work` +
-      (email ? ` at ${email}.` : '.');
+      `سأتواصل معك خلال يومَي عمل بعرضٍ متكامل وبيان عمل كامل` +
+      (email ? ` على ${email}.` : '.');
     const phone = document.getElementById('f_phone').value.trim();
     const leadPayload = {
       type: 'proposal_confirm',

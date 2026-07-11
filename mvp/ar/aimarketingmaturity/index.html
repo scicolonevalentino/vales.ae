@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تقييم نضج التسويق بالذكاء الاصطناعي</title>
+<link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/aimarketingmaturity/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{
+  --blue:#1A56FF; --blue-dark:#0A2EB8; --blue-mid:#4D7BFF; --navy:#0D1F5C;
+  --cyan:#00D4FF; --ice:#F4F7FF; --border:#DCE3FF; --muted:#8896B8;
+  --body:#3D5080; --red:#E5484D; --white:#fff;
+  --grad:linear-gradient(120deg,var(--blue-dark),var(--blue) 55%,var(--cyan));
+  --shadow:0 18px 50px rgba(13,31,92,.12);
+  --font:'Plus Jakarta Sans','IBM Plex Sans Arabic',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--body);background:var(--ice);line-height:1.55;
+  -webkit-font-smoothing:antialiased;}
+h1,h2,h3{color:var(--navy);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+.screen{display:none;animation:fade .4s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* top bar */
+/* hero */
+.hero{padding-top:40px;padding-bottom:64px}
+.brand-row{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.brand-logo{width:60px;height:60px;display:block;flex:none;border-radius:14px;
+  filter:drop-shadow(0 8px 18px rgba(13,31,92,.16))}
+.eyebrow{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blue);background:#fff;border:1px solid var(--border);
+  padding:7px 14px;border-radius:999px}
+.hero h1{font-size:clamp(34px,6vw,56px);margin-bottom:20px}
+.hero h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(18px,2.4vw,22px);max-width:660px;margin-bottom:18px}
+.hero p.lead b{color:var(--navy);font-weight:800}
+.hero p.sub{color:var(--body);font-size:clamp(16px,2vw,18px);font-weight:500;max-width:640px;margin-bottom:34px}
+.meta-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;color:var(--muted);font-size:14px;font-weight:600}
+.meta-row b{color:var(--navy)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);font-weight:700;
+  font-size:16px;border:none;border-radius:12px;padding:15px 26px;cursor:pointer;transition:.18s;
+  text-decoration:none}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 24px rgba(26,86,255,.32)}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--border)}
+.btn-ghost:hover{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-1px)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+
+/* dimensions strip */
+.dimstrip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:46px}
+@media(max-width:720px){.dimstrip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){.dimstrip{grid-template-columns:1fr}}
+.dimchip{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;font-size:14px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;cursor:pointer;position:relative}
+.dimchip:hover{border-color:var(--blue-mid);box-shadow:0 12px 28px rgba(13,31,92,.10);transform:translateY(-4px)}
+.dimchip .more{display:block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--blue);letter-spacing:.02em}
+.dimchip b{display:block;color:var(--navy);font-weight:800;font-size:16px;margin-bottom:6px}
+.dimchip span{color:var(--body);font-size:14px;line-height:1.5}
+
+/* assessment */
+.assess{padding-top:30px;padding-bottom:70px;max-width:760px;margin:0 auto}
+.progress{height:8px;background:var(--border);border-radius:99px;overflow:hidden;margin:8px 0 6px}
+.progress > i{display:block;height:100%;width:0;background:var(--grad);border-radius:99px;transition:.35s}
+.progress-meta{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:30px}
+.q-dim{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.q-text{font-size:clamp(22px,3.4vw,30px);margin-bottom:26px}
+.options{display:flex;flex-direction:column;gap:12px}
+.opt{display:flex;align-items:flex-start;gap:14px;text-align:left;background:#fff;border:1.5px solid var(--border);
+  border-radius:14px;padding:17px 18px;cursor:pointer;font-family:var(--font);font-size:15.5px;color:var(--body);
+  transition:.15s;width:100%}
+.opt:hover{border-color:var(--blue-mid);background:#fbfcff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(13,31,92,.07)}
+.opt.sel{border-color:var(--blue);background:#f3f7ff;box-shadow:0 0 0 3px rgba(26,86,255,.12)}
+.opt .dot{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid var(--border);margin-top:1px;transition:.15s}
+.opt.sel .dot{border-color:var(--blue);background:var(--blue);box-shadow:inset 0 0 0 4px #fff}
+.nav{display:flex;justify-content:space-between;margin-top:34px}
+
+/* gate / card */
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:40px;box-shadow:var(--shadow)}
+.gate{max-width:540px;margin:40px auto 80px}
+.gate h2{font-size:28px;margin-bottom:8px}
+.gate p.sub{color:var(--muted);margin-bottom:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.field input{width:100%;font-family:var(--font);font-size:15px;color:var(--navy);padding:13px 15px;
+  border:1.5px solid var(--border);border-radius:11px;background:var(--ice);transition:.15s}
+.field input:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(26,86,255,.12)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gate .btn-primary{width:100%;justify-content:center;margin-top:8px}
+.gate .privacy{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
+
+/* results */
+.results{padding-top:30px;padding-bottom:80px}
+.res-head{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:space-between;
+  background:var(--grad);color:#fff;border-radius:22px;padding:38px 40px;margin-bottom:26px}
+.res-head .stagebig{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.res-head h2{color:#fff;font-size:clamp(34px,6vw,50px);margin:6px 0}
+.res-head p{max-width:420px;opacity:.92;font-size:15px}
+.res-head-l{flex:1;min-width:240px}
+.scorebadge{text-align:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);
+  border-radius:18px;padding:20px 26px;min-width:130px}
+.scorebadge .num{font-size:46px;font-weight:800;line-height:1}
+.scorebadge .den{opacity:.8;font-size:14px}
+.scorebadge .bandtag{margin-top:10px;font-size:11px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;opacity:.9;border-top:1px solid rgba(255,255,255,.25);padding-top:9px}
+.res-grid{display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:stretch;margin-bottom:18px}
+.rstack{display:flex;flex-direction:column;gap:18px}
+.rstack .panel{flex:1}
+@media(max-width:760px){.res-grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+  .res-head{padding:26px 24px}.scorebadge{align-self:flex-start}}
+.panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:18px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.panel:hover{border-color:var(--blue-mid);box-shadow:0 12px 28px rgba(13,31,92,.08);transform:translateY(-3px)}
+.panel:last-child{margin-bottom:0}
+.panel h3{font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.panel-sub{font-size:13.5px;color:var(--muted);margin:-3px 0 16px}
+.radarpanel{display:flex;align-items:center;justify-content:center;margin-bottom:0}
+#r_meaning{font-size:15px;color:var(--body)}
+#r_meaning .lead-line{color:var(--navy);font-weight:700;margin-top:10px;display:block}
+.gap-call{border-left:4px solid var(--cyan);background:#f5fdff;border-radius:0 12px 12px 0;padding:14px 18px;margin-top:6px}
+.gap-call b{color:var(--navy)}
+/* priority moves */
+.move{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+.move:last-child{border-bottom:none;padding-bottom:0}
+.move:first-child{padding-top:4px}
+.move .rank{flex:0 0 30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;
+  font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.move .mbody{flex:1}
+.move .mhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.move .mname{font-weight:800;color:var(--navy);font-size:15.5px}
+.move .mstage{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--blue);background:var(--ice);border:1px solid var(--border);padding:2px 9px;border-radius:99px}
+.move .mtext{font-size:14.5px;color:var(--body)}
+.dimrow{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border)}
+.dimrow:last-child{border-bottom:none}
+.dimrow .nm{flex:0 0 124px;font-weight:700;color:var(--navy);font-size:14px}
+.dimrow .bar{flex:1;height:9px;background:var(--ice);border-radius:99px;overflow:hidden}
+.dimrow .bar > i{display:block;height:100%;border-radius:99px;background:var(--grad)}
+.dimrow .sc{flex:0 0 40px;text-align:right;font-size:14px;font-weight:800;color:var(--navy)}
+.dimrow .st{flex:0 0 88px;text-align:right;font-size:12px;font-weight:700;color:var(--blue)}
+@media(max-width:760px){.dimrow .nm{flex-basis:96px}.dimrow .st{display:none}}
+.res-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center}
+
+/* footer */
+footer{border-top:1px solid var(--border);background:#fff}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding-top:26px;padding-bottom:26px}
+.foot .who{display:flex;align-items:center;gap:14px}
+.foot .who .av{width:58px;height:58px;border-radius:50%;object-fit:cover;display:block;
+  border:2px solid #fff;box-shadow:0 6px 16px rgba(13,31,92,.16)}
+.foot .who b{color:var(--navy);display:flex;align-items:center;gap:8px;font-size:15px}
+.foot .who .li{display:inline-flex;color:var(--blue);transition:.15s}
+.foot .who .li:hover{color:var(--blue-dark);transform:translateY(-1px)}
+.foot .who span{font-size:13px;color:var(--muted)}
+.foot .who span .u{white-space:nowrap}
+@media(max-width:520px){.foot .who span .u{display:block}.foot .who span .sep{display:none}}
+.foot .copy{font-size:12.5px;color:var(--muted)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(13,31,92,.5);display:none;align-items:center;justify-content:center;
+  padding:24px;z-index:50;backdrop-filter:blur(3px)}
+.modal.open{display:flex;animation:fade .25s ease}
+.modal .card{max-width:440px;width:100%;position:relative}
+.modal h3{font-size:22px;color:var(--navy);margin-bottom:4px}
+.modal p.s{color:var(--muted);font-size:14px;margin-bottom:20px}
+.modal textarea{width:100%;font-family:var(--font);font-size:15px;color:var(--navy);padding:13px 15px;
+  border:1.5px solid var(--border);border-radius:11px;background:var(--ice);resize:vertical;min-height:90px}
+.modal textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+.x{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;line-height:1}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(160%);background:var(--navy);
+  color:#fff;padding:14px 22px;border-radius:12px;font-weight:600;font-size:14px;transition:.35s;z-index:60;
+  opacity:0;visibility:hidden;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+.demo-note{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+/* small phones (iPhone SE / 5 and similar) */
+@media(max-width:520px){
+  .res-cta{flex-direction:column;align-items:stretch}
+  .res-cta .btn{width:100%;justify-content:center}
+  .foot{flex-direction:column;align-items:flex-start;gap:14px}
+  .hero h1{font-size:clamp(30px,8.5vw,40px)}
+}
+.dm-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.modal .card #dm_about{margin-bottom:0}
+.dm-goal{margin-top:16px;border-left:4px solid var(--cyan);background:#f5fdff;border-radius:0 12px 12px 0;
+  padding:12px 16px;font-size:14px;color:var(--body);line-height:1.5}
+.dm-goal b{color:var(--navy)}
+
+  /* ===== Arabic / RTL — Camille standard ===== */
+  *{letter-spacing:normal !important;text-transform:none !important}
+  body{line-height:1.7}
+  .opt{text-align:right}
+  .bandtag{direction:ltr}
+  .scorebadge .num{direction:ltr}
+  #langFixed{position:fixed;top:14px;left:16px;z-index:600}
+  #langFixed .langswitch-btn{background:#fff;box-shadow:0 4px 16px rgba(13,31,92,.10)}
+
+  /* ===== language switcher (dropdown) ===== */
+  .langswitch{position:relative;display:inline-block;font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,sans-serif}
+  .langswitch-btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:14px;line-height:1;color:var(--navy);background:none;padding:9px 14px;border:1px solid var(--line);border-radius:100px;cursor:pointer;transition:border-color .15s,color .15s,background .15s;white-space:nowrap}
+  .langswitch-btn:hover{border-color:var(--blue);color:var(--blue)}
+  .langswitch-btn .globe{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+  .langswitch-btn .chev{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4;transition:transform .2s;flex-shrink:0}
+  .langswitch.open .langswitch-btn{border-color:var(--blue);color:var(--blue)}
+  .langswitch.open .langswitch-btn .chev{transform:rotate(180deg)}
+  .langswitch-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:184px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(13,31,92,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease,ease),transform .18s var(--ease,ease),visibility .18s;z-index:300}
+  .langswitch.open .langswitch-menu{opacity:1;visibility:visible;transform:none}
+  .langswitch-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 13px;border-radius:10px;font-size:14.5px;font-weight:700;color:var(--navy);text-decoration:none;transition:background .15s,color .15s}
+  .langswitch-item:hover{background:var(--ice)}
+  .langswitch-item.active{color:var(--blue)}
+  .langswitch-item[lang=ar]{font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif}
+  .langswitch-item .chk{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.6;opacity:0;flex-shrink:0}
+  .langswitch-item.active .chk{opacity:1}
+  [dir=rtl] .langswitch-menu{right:auto;left:0}
+</style>
+</head>
+<body>
+<div id="langFixed"><div class="langswitch" data-lang="ar"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">العربية</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item" href="/aimarketingmaturity" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item active" href="/ar/aimarketingmaturity" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div></div>
+
+<!-- ===== LANDING ===== -->
+<section class="screen active" id="screen-landing">
+  <div class="wrap hero">
+    <div class="brand-row">
+      <span class="eyebrow">إطار نضج التسويق بالذكاء الاصطناعي</span>
+      <img class="brand-logo" src="/aimarketingmaturity/assets/logo.svg" alt="AI Marketing Maturity Framework logo" width="60" height="60">
+    </div>
+    <h1>معظم فرق التسويق لا تعاني مشكلة استراتيجية.<br><span class="grad">بل تعاني مشكلة مسافة.</span></h1>
+    <p class="lead">المسافة بين <b>طموح الذكاء الاصطناعي</b> و<b>التنفيذ التسويقي</b>.<br>
+      بين ما تريد <b>القيادة</b> تحويله، وما <b>الفرق</b> مؤهّلة فعلاً لتبنّيه، وما يصبح جزءاً من <b>العمل اليومي</b>.</p>
+    <p class="sub">يقيس هذا التقييم المجاني نضج فريقك في التسويق بالذكاء الاصطناعي عبر ستّة أبعاد، ويحدّد أين تتّسع الفجوة أكثر، ويُظهر ما يجب تغييره لسدّها.</p>
+    <button class="btn btn-primary" onclick="startAssessment()">ابدأ التقييم ←</button>
+    <div class="meta-row">
+      <div><b>5</b> دقائق فقط</div>
+      <div><b>6</b> أبعاد مُقيَّمة</div>
+      <div>نتيجة <b>PDF</b> تحتفظ بها</div>
+    </div>
+    <div class="dimstrip" id="dimstrip"></div>
+  </div>
+</section>
+
+<!-- ===== ASSESSMENT ===== -->
+<section class="screen" id="screen-assess">
+  <div class="wrap assess">
+    <div class="progress"><i id="progBar"></i></div>
+    <div class="progress-meta"><span id="progLabel">تقدّمك</span><span id="progPct">0%</span></div>
+    <div class="q-dim" id="qDim"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="qOpts"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="backBtn" onclick="prevQ()">→ رجوع</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" disabled>التالي ←</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EMAIL GATE ===== -->
+<section class="screen" id="screen-gate">
+  <div class="wrap">
+    <div class="card gate">
+      <h2>نتائجك جاهزة.</h2>
+      <p class="sub">أخبرنا أين نرسلها. سترى مرحلة نضجك فوراً ويمكنك تنزيل ملف PDF الكامل.</p>
+      <div class="two">
+        <div class="field"><label>الاسم الأول</label><input id="f_first" type="text" placeholder="مثال: أحمد"></div>
+        <div class="field"><label>اسم العائلة</label><input id="f_last" type="text" placeholder="مثال: العلي"></div>
+      </div>
+      <div class="field"><label>البريد الإلكتروني للعمل</label><input id="f_email" type="email" placeholder="name@company.com"></div>
+      <div class="field"><label>الشركة</label><input id="f_company" type="text" placeholder="اسم الشركة"></div>
+      <button class="btn btn-primary" onclick="submitGate()">اعرض نتائجي ←</button>
+      <p class="privacy">سنستخدم هذا فقط لمشاركة نتائجك ورؤى ذات صلة. دون رسائل مزعجة.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="screen" id="screen-results">
+  <div class="wrap results">
+    <div id="resultsCard">
+      <div class="res-head">
+        <div class="res-head-l">
+          <div class="stagebig">نضجك في التسويق بالذكاء الاصطناعي</div>
+          <h2 id="r_stage">الترابط</h2>
+          <p id="r_stagedesc"></p>
+        </div>
+        <div class="scorebadge">
+          <div class="num" id="r_score">2.1</div>
+          <div class="den">من 5.0</div>
+          <div class="bandtag" id="r_band">نطاق الترابط</div>
+        </div>
+      </div>
+      <div class="res-grid">
+        <div class="panel radarpanel">
+          <div id="radarSlot"></div>
+        </div>
+        <div class="rstack">
+          <div class="panel">
+            <h3>ماذا تعني مرحلتك</h3>
+            <div id="r_meaning"></div>
+          </div>
+          <div class="panel">
+            <h3>أكبر مسافة لديك</h3>
+            <div class="gap-call" id="r_gap"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel moves-panel">
+        <h3>خطواتك ذات الأولوية</h3>
+        <p class="panel-sub">الأبعاد الثلاثة التي لديك فيها أكبر مكسب، والخطوة التالية لكلٍّ منها.</p>
+        <div id="r_moves"></div>
+      </div>
+      <div class="panel">
+        <h3>التفصيل الكامل للأبعاد</h3>
+        <div id="r_breakdown"></div>
+      </div>
+    </div>
+    <div class="res-cta">
+      <button class="btn btn-primary" onclick="downloadPDF()">⬇ نزّل نتائجك (PDF)</button>
+      <button class="btn btn-ghost" onclick="openContact()">تواصل مع Valentino</button>
+      <button class="btn btn-ghost" onclick="location.reload()">أعد التقييم</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== footer (shared) ===== -->
+<footer>
+  <div class="wrap foot">
+    <div class="who">
+      <img class="av" src="/aimarketingmaturity/assets/vales.jpg" alt="Valentino Scicolone" width="58" height="58">
+      <div>
+        <b>Valentino Scicolone<a class="li" href="https://www.linkedin.com/in/valentinoscicolone/" target="_blank" rel="noopener" aria-label="Valentino Scicolone on LinkedIn"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a></b>
+        <span><span class="u">مستشار مستقل</span> <span class="sep">|</span> <span class="u">التسويق والذكاء الاصطناعي</span> <span class="sep">|</span> <span class="u">مقرّه دبي، وحضوره عالمي</span></span>
+      </div>
+    </div>
+    <button class="btn btn-ghost" onclick="openContact()">تواصل معي</button>
+  </div>
+</footer>
+
+<!-- ===== contact modal ===== -->
+<div class="modal" id="contactModal">
+  <div class="card">
+    <button class="x" onclick="closeContact()">×</button>
+    <h3>لنتحدّث</h3>
+    <p class="s">أخبرني قليلاً عن فريقك وسأتواصل معك.</p>
+    <div class="two">
+      <div class="field"><label>الاسم</label><input id="c_name" type="text" placeholder="اسمك"></div>
+      <div class="field"><label>البريد الإلكتروني</label><input id="c_email" type="email" placeholder="name@company.com"></div>
+    </div>
+    <div class="field"><label>الرسالة</label><textarea id="c_msg" placeholder="ما الذي يدور في ذهنك؟"></textarea></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitContact()">إرسال</button>
+    <p class="demo-note">أقرأ كل رسالة وأردّ على البريد الذي تتركه.</p>
+    <!-- contact + assessment now email valentino.scicolone@gmail.com via Apps Script -->
+
+  </div>
+</div>
+
+<!-- ===== dimension explainer modal ===== -->
+<div class="modal" id="dimModal">
+  <div class="card">
+    <button class="x" onclick="closeDim()">×</button>
+    <div class="dm-tag">البُعد</div>
+    <h3 id="dm_name"></h3>
+    <p class="s" id="dm_about"></p>
+    <div class="dm-goal"><b>كيف يبدو العمل الجيّد:</b> <span id="dm_goal"></span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- data ---------- */
+const STAGES = [
+  {name:'الاستكشاف',  band:'1.00 – 1.99', lead:'الذكاء الاصطناعي حديثٌ، لا قدرةٌ بعد.',
+   desc:'فضولٌ دون التزام. الذكاء الاصطناعي يظهر في الحديث، لا في العمل بعد.'},
+  {name:'الترابط', band:'2.00 – 2.99', lead:'الاستراتيجية والتنفيذ يبدآن بالتحاور، في بعض المسارات الحقيقية.',
+   desc:'أولى الروابط الحقيقية بين الاستراتيجية والتنفيذ. العرض التقديمي ولوحة البيانات بدآ يتحاوران.'},
+  {name:'التوسّع',    band:'3.00 – 4.49', lead:'مسارات ذكاء اصطناعي متكرّرة ومقيسة تنتشر عبر البرامج.',
+   desc:'مسارات متكرّرة ومقيسة تنتشر عبر البرامج. والفجوة تنغلق بسرعة.'},
+  {name:'الريادة',    band:'4.50 – 5.00', lead:'الذكاء الاصطناعي يعمل كنظام واحد عبر التسويق ويحدّد الإيقاع.',
+   desc:'الذكاء الاصطناعي يعمل كنظام واحد عبر التسويق ويحدّد إيقاع السوق.'}
+];
+const THRESHOLDS = [2, 3, 4.5]; // upper edge of Exploring, Connecting, Scaling (1-5 scale; Leading is hard to reach)
+function stageIndex(v){ if(v<2)return 0; if(v<3)return 1; if(v<4.5)return 2; return 3; }
+
+const DIMS = [
+  {name:'الاستراتيجية', weight:1.25, goal:'رؤية واضحة وقابلة للقياس حول أين يلعب الذكاء الاصطناعي دوراً في تسويقك.',
+   next:[
+     "اكتب استراتيجية تسويق بالذكاء الاصطناعي في صفحة واحدة: أين يلعب الذكاء الاصطناعي دوراً، ومن يملكه، وأول استخدامين يستحقّان التمويل.",
+     "حوّل عرض الرؤية إلى قرارات. اربط كل أولوية ذكاء اصطناعي بنتيجة تسويقية وضعها أمام الفريق المنفّذ.",
+     "حدّد إيقاعاً فصلياً لمراجعة أولويات التسويق بالذكاء الاصطناعي مقابل العائد، واستبعد الاستخدامات التي لا تؤتي ثمارها.",
+     "اجعل نضج التسويق بالذكاء الاصطناعي مؤشّر أداء قيادياً، وقِسه مقابل السوق الذي تنافس فيه."], q:[
+    {t:'ما مدى تطوّر استراتيجيتك للتسويق بالذكاء الاصطناعي؟',o:[
+      "ليست لدينا بعد. تُطرح في الحديث لكنها غير مكتوبة.",
+      "لدينا عرض رؤية، لكنه لا يقود قرارات التسويق اليومية.",
+      "لدينا استراتيجية تسويق موثّقة بالذكاء الاصطناعي، بأولويات تستخدمها الفرق فعلاً.",
+      "حيّة، تُراجَع بإيقاع منتظم ومرتبطة بنتائج تسويقية قابلة للقياس.",
+      "استراتيجية حيّة تتكيّف شبه فورياً وتمنحنا تفوّقاً يعجز المنافسون عن تقليده."]},
+    {t:'كيف تقرّر أين يُطبَّق الذكاء الاصطناعي في التسويق؟',o:[
+      "حيثما جرّبه مسوّق فرد صدفةً.",
+      "لدينا قائمة استخدامات تسويقية لكن لم نرتّب أولوياتها.",
+      "اخترنا بضعة استخدامات تسويقية عالية القيمة وخصّصنا لها الموارد.",
+      "نعيد ترتيب أولويات الاستخدامات التسويقية باستمرار وفق النتائج والعائد.",
+      "إعادة الترتيب تلقائية، مع تدفّق الموارد نحو أعلى استخدامات الذكاء الاصطناعي عائداً كلما تغيّرت البيانات."]},
+    {t:'ما مدى اصطفاف قيادة التسويق خلف الذكاء الاصطناعي؟',o:[
+      "قيادة التسويق فضولية لكنها لم تلتزم.",
+      "القيادة تدعمه مبدئياً لكن دون تمويل أو تكليف.",
+      "وضعت القيادة توقّعات واضحة للذكاء الاصطناعي في التسويق ودعمتها بميزانية.",
+      "نضج التسويق بالذكاء الاصطناعي مقياس تُساءل عنه القيادة.",
+      "تعامل القيادة التسويق بالذكاء الاصطناعي كميزة جوهرية وتستثمر استباقياً لتبقى في المقدّمة."]}
+  ]},
+  {name:'البيانات والمنظومة التقنية', weight:1.15, goal:'بيانات موحّدة ومحكومة وجاهزة للتفعيل، تتدفّق عبر منظومة تقنية أصيلة الذكاء الاصطناعي.',
+   next:[
+     "اختر مصدراً واحداً للحقيقة التسويقية وابدأ بدمج بيانات العملاء والحملات فيه، ليكون لدى الذكاء الاصطناعي بيانات نظيفة يعمل عليها.",
+     "أغلق الفجوات بين أدوات الذكاء الاصطناعي ومنظومتك التقنية التسويقية. اربط التكاملين أو الثلاثة التي تفتح باب التفعيل.",
+     "اتّجه نحو تدفّقات بيانات محكومة وفورية، وأتمِت قواعد الوصول والخصوصية التي يعتمد عليها الذكاء الاصطناعي.",
+     "تعامل مع المنظومة كمنتَج: أبقِ الأدوات والبيانات والمسارات مترابطة من طرف إلى طرف كلما أضفت قدرة ذكاء اصطناعي جديدة."], q:[
+    {t:'ما مدى جاهزية بيانات تسويقك وعملائك للذكاء الاصطناعي؟',o:[
+      "مبعثرة عبر الأدوات والجداول، فجمعها يدوي.",
+      "مركزية جزئياً، لكن الفجوات والعزل ما زالت تبطئنا.",
+      "موحّدة ومتاحة إلى حدّ كبير، فمعظم البيانات جاهزة للتفعيل.",
+      "موحّدة وفورية ومحكومة، فتتدفّق البيانات حيث تلزم تلقائياً.",
+      "بياناتنا أصلٌ حيّ يحسّن نفسه، جاهز لأي استخدام ذكاء اصطناعي جديد لحظة نحتاجه."]},
+    {t:'ما مدى تكامل أدوات الذكاء الاصطناعي مع منظومتك التقنية التسويقية؟',o:[
+      "يستخدم بضعة مسوّقين أدوات فردية وجدوها بأنفسهم.",
+      "لدينا عدّة أدوات ذكاء اصطناعي، لكنها منفصلة عن منظومتنا التقنية التسويقية.",
+      "تُختار أدوات الذكاء الاصطناعي بعناية وتُدمَج في منظومتنا التقنية التسويقية.",
+      "منظومتنا التقنية أصيلة الذكاء الاصطناعي، بأدوات وبيانات ومسارات مترابطة من طرف إلى طرف.",
+      "تتطوّر المنظومة كلما أضفنا قدرة، مع أدوات ذكاء اصطناعي جديدة تندمج دون إعادة عمل."]},
+    {t:"ما مدى إحكام حوكمة استخدام الذكاء الاصطناعي لبيانات عملائك؟",o:[
+      "لا سياسات فعلية حول كيفية استخدام الذكاء الاصطناعي لبيانات عملائنا وتسويقنا.",
+      "قواعد غير رسمية، تُقرّر حالةً بحالة.",
+      "سياسات واضحة للوصول والخصوصية والاستخدام المقبول يتّبعها التسويق.",
+      "الحوكمة مؤتمتة ومُدقَّقة، فنثق بالذكاء الاصطناعي على بيانات العملاء بمقياس واسع.",
+      "الحوكمة قوّة تنافسية: آمنة بإثبات، وقابلة للتدقيق بالكامل، وسبب لثقة العملاء بنا."]}
+  ]},
+  {name:'العمليات', weight:1.0, goal:'مسارات ذكاء اصطناعي موحّدة، بضوابط يستطيع أي فرد في الفريق تشغيلها.',
+   next:[
+     "وثّق مساراً واحداً متكرّراً للذكاء الاصطناعي (موجز، دورة محتوى، حملة) كي لا يعتمد على المتحمّس وحده.",
+     "أضف مراجعة بشرية ضمن الحلقة وضوابط للعلامة، ثم حوّل أفضل عاداتك غير الرسمية إلى طريقة عمل مكتوبة.",
+     "وحّد المسارات الناجحة، وحدّد مسؤوليات واضحة، وقِس مكاسب زمن الدورة عبر الفريق.",
+     "استمر في تحسين النظام، وأعِد بيانات الإنتاجية لتغذية قرار أين يُطبَّق الذكاء الاصطناعي تالياً."], q:[
+    {t:'كيف يُنجَز عمل التسويق بالذكاء الاصطناعي فعلاً؟',o:[
+      "حيَل فردية، حيث يستخدم المتحمّس الذكاء الاصطناعي على محتواه وحملاته.",
+      "بعض النصائح المشتركة، لكن دون طريقة عمل موثّقة.",
+      "مسارات موثّقة ومتكرّرة (موجزات، محتوى، حملات) يستطيع أي فرد تشغيلها.",
+      "موحّدة ومحسّنة باستمرار، فالذكاء الاصطناعي هو كيف يُنجَز عمل التسويق.",
+      "مساراتنا للذكاء الاصطناعي دليلُ عملٍ يقلّده الآخرون، يُصقَل باستمرار ويتوسّع عبر الوظيفة كلها."]},
+    {t:'كيف تضبط الجودة وتحمي العلامة في مخرجات الذكاء الاصطناعي؟',o:[
+      "مراجعة قليلة، فمخرجات الذكاء الاصطناعي تخرج كما هي، أو لا تخرج.",
+      "تدقيق عارض، حين يتذكّر أحدهم.",
+      "مراجعة بشرية ضمن الحلقة وضوابط للعلامة قائمة لمخرجات الذكاء الاصطناعي.",
+      "مُمنهَجة، بضوابط للعلامة ومراجعة ومسؤولية واضحة لمحتوى الذكاء الاصطناعي.",
+      "الضوابط مؤتمتة وذاتية التحقّق، فتصمد الجودة وسلامة العلامة حتى مع تضخّم الحجم."]},
+    {t:'إلى أي مدى يحسّن الذكاء الاصطناعي سرعة تسويقك وإنتاجيته؟',o:[
+      "لم يغيّر الذكاء الاصطناعي بشكل ملموس سرعة إطلاق التسويق.",
+      "بعض المهام أسرع، لكن الأمر غير متّسق.",
+      "يقلّص الذكاء الاصطناعي بثبات أزمنة دورات الحملات والمحتوى عبر الفريق.",
+      "الذكاء الاصطناعي محرّك أساسي لإنتاجية التسويق، فنُطلق أكثر بكثير وأسرع بكثير.",
+      "يمكّننا الذكاء الاصطناعي من العمل بمقياس وسرعة يعجز المنافسون عن مجاراتهما، دون زيادة الكوادر."]}
+  ]},
+  {name:'الكفاءات', weight:1.0, goal:'إتقان واسع، ومسؤولية واضحة، وتمكينٌ مدمجٌ في طريقة عمل الفريق.',
+   next:[
+     "عيّن مالكاً للذكاء الاصطناعي في التسويق، وامنح شخصين أو ثلاثة تدريباً ملائماً لأدوارهم لبناء نواة إتقان.",
+     "سوِّ جيوب المهارة عبر أدلّة عمل مشتركة، واجعل المسؤولية جزءاً حقيقياً من دور شخص ما، لا إضافة هامشية.",
+     "موّل التمكين المستمر واجعل التعلّم جزءاً من طريقة عمل الفريق، ليستمر الإتقان في الانتشار.",
+     "اجعل مسوّقيك المعيار الذي يتعلّم منه الآخرون، داخل الشركة وفي السوق."], q:[
+    {t:'ما مدى انتشار مهارات الذكاء الاصطناعي عبر فريق تسويقك؟',o:[
+      "مسوّق أو اثنان متحمّسان؛ والبقية يراقبون.",
+      "جيوب مهارة، لكنها متفاوتة عبر فريق التسويق.",
+      "إتقان واسع للذكاء الاصطناعي ملائم للأدوار عبر فريق التسويق.",
+      "قدرة عميقة، حيث يضع مسوّقونا المعيار الذي يتعلّم منه الآخرون.",
+      "فريقنا مغناطيس لمواهب التسويق بالذكاء الاصطناعي ويضع المعيار الذي يتبعه القطاع."]},
+    {t:'ما مدى وضوح ملكية الذكاء الاصطناعي في التسويق وهيكلته؟',o:[
+      "لا أحد يملك الذكاء الاصطناعي في التسويق بوضوح.",
+      "الملكية غير واضحة أو جزئية، مضافة إلى أدوار أخرى.",
+      "ملكية واضحة ونموذج تشغيلي للذكاء الاصطناعي في التسويق.",
+      "هيكل محدّد بأدوار وتفويض وموارد مناسبة.",
+      "الذكاء الاصطناعي منسوج في كل دور تسويقي، بنموذج تقيس عليه الفرق الأخرى."]},
+    {t:'كيف يبني المسوّقون مهاراتهم في الذكاء الاصطناعي؟',o:[
+      "يتعلّم المسوّقون في وقتهم الخاص، إن تعلّموا أصلاً.",
+      "تدريب متقطّع، لكن دون برنامج حقيقي.",
+      "تدريب مموّل وأدلّة تسويق مشتركة يستخدمها الناس فعلاً.",
+      "تمكين مستمر، مع تعلّم مدمج في طريقة عمل التسويق.",
+      "يتراكم التعلّم من تلقاء نفسه، فيتّسع تفوّق الفريق في الذكاء الاصطناعي فصلاً بعد فصل."]}
+  ]},
+  {name:'القياس', weight:1.0, goal:"أثر الذكاء الاصطناعي مقيسٌ مقابل نتائج الأعمال، في حلقة مغلقة تغذّي الاستراتيجية.",
+   next:[
+     "حدّد مؤشّرَي أداء أو مؤشّراً لمساهمة الذكاء الاصطناعي في التسويق، بما يتجاوز استخدام الأدوات، لتعرف ما ينجح.",
+     "اربط مخرجات الذكاء الاصطناعي بالأداء، وابدأ بإعادة النتائج لتغذية ما تعطيه الأولوية تالياً.",
+     "اربط عمل الذكاء الاصطناعي بخطّ الفرص أو الإيرادات أو الكفاءة، وأغلق الحلقة كي يوجّه القياسُ الاستراتيجيةَ والإنفاق.",
+     "أتمِت الحلقة المغلقة، وأثبِت قيمة الذكاء الاصطناعي التسويقية بلغة أعمال تثق بها القيادة."], q:[
+    {t:"كيف تقيس أثر الذكاء الاصطناعي على التسويق؟",o:[
+      "لا نقيسه فعلاً؛ إنه إحساس حدسي.",
+      "نتتبّع النشاط (كاستخدام الأدوات)، لا النتائج التسويقية.",
+      "لدينا مؤشّرات أداء محدّدة لمساهمة الذكاء الاصطناعي في التسويق.",
+      "يُقاس الأثر مقابل النتائج التسويقية ونتائج الأعمال، باستمرار.",
+      "القياس فوري وتنبّؤي، فنعرف قيمة رهان الذكاء الاصطناعي قبل توسيعه."]},
+    {t:'ما مدى تغذية النتائج لقراراتك في التسويق بالذكاء الاصطناعي؟',o:[
+      "لا رابط بين عمل التسويق بالذكاء الاصطناعي والنتائج.",
+      "نستطيع أحياناً معرفة ما نجح، بعد وقوعه.",
+      "تغذّي النتائج التسويقية طريقة ترتيبنا لأولويات الذكاء الاصطناعي.",
+      "حلقة مغلقة، حيث يوجّه القياسُ تلقائياً الاستراتيجيةَ والإنفاق الإعلامي.",
+      "الحلقة ذاتية التحسين، تعيد توزيع الاستراتيجية والإنفاق نحو ما ينجح دون انتظارنا."]},
+    {t:'هل تقيس نتائج الذكاء الاصطناعي، أم مجرّد النشاط؟',o:[
+      "نعدّ المخرجات، كالمنشورات والأصول والحملات.",
+      "بدأنا بربط المخرجات بالأداء.",
+      "نربط عمل الذكاء الاصطناعي بخطّ الفرص أو الإيرادات أو كفاءة التسويق.",
+      "قيمة الذكاء الاصطناعي التسويقية مثبتة بلغة أعمال صلبة تثق بها القيادة.",
+      "مساهمة الذكاء الاصطناعي بندٌ تبني عليه الشركة توقّعاتها، موثوقٌ كأي محرّك إيرادات أساسي."]}
+  ]},
+  {name:'التفعيل', weight:1.0, goal:'الذكاء الاصطناعي مدمجٌ في كل ما يُطلَق، والاستراتيجية والتنفيذ يعملان كحلقة واحدة.',
+   next:[
+     "تجاوز بالذكاء الاصطناعي مرحلة الشرائح: أطلِق عملاً حقيقياً واحداً مدعوماً بالذكاء الاصطناعي في حملة فعلية هذا الفصل.",
+     "انتقل من التقطّع إلى الاستخدام المنتظم عبر بضعة برامج وقنوات أساسية.",
+     "وسّع الذكاء الاصطناعي عبر معظم البرامج والقنوات، بحيث يبني كل استخدام جديد على سابقه.",
+     "شغّل الاستراتيجية والتنفيذ كحلقة واحدة متّصلة، مع دمج الذكاء الاصطناعي في معظم ما يُطلَق."], q:[
+    {t:'كم يبلغ نصيب الذكاء الاصطناعي فعلاً فيما يُطلَق من تسويقك؟',o:[
+      "غالباً شرائح وحديث عن الذكاء الاصطناعي؛ وقليل يصل إلى الحملات أو العملاء.",
+      "يُطلَق بعض العمل المدعوم بالذكاء الاصطناعي، بشكل متقطّع.",
+      "الذكاء الاصطناعي حاضر بانتظام في الحملات الحيّة والتسويق المواجه للعملاء.",
+      "الذكاء الاصطناعي مدمج في معظم ما نُطلقه من تسويق.",
+      "الذكاء الاصطناعي في كل ما نُطلقه تقريباً، وسببٌ ظاهر لتفوّق تسويقنا."]},
+    {t:'ما مدى اتّساع نشر الذكاء الاصطناعي عبر قنواتك وبرامجك؟',o:[
+      "حملة أو تجربة لمرّة واحدة.",
+      "حفنة من البرامج أو القنوات تستخدمه.",
+      "منشور عبر معظم البرامج والقنوات التسويقية.",
+      "على مستوى التسويق كله ومتراكم، حيث يبني كل استخدام جديد على سابقه.",
+      "متراكم عبر كل قناة، فتنمو ميزتنا أسرع مما يستطيع المنافسون ملاحقته."]},
+    {t:'ما مقدار المسافة بين استراتيجيتك للتسويق بالذكاء الاصطناعي وما تُطلقه فعلاً؟',o:[
+      "فجوة كبيرة، حيث استراتيجيتنا للتسويق بالذكاء الاصطناعي وما نُطلقه عالمان متباعدان.",
+      "الفجوة تضيق، لكن ببطء.",
+      "الاستراتيجية والتنفيذ مترابطان بشكل وثيق.",
+      "لا مسافة، فاستراتيجية التسويق والتنفيذ حلقة واحدة متّصلة.",
+      "تتحرّك الاستراتيجية والتنفيذ كواحدٍ وفورياً، وتلك السرعة ذاتها خندقنا التنافسي."]}
+  ]}
+];
+
+/* storage endpoint (Apps Script web app URL — filled in after deploy) */
+const STORAGE_URL = 'https://script.google.com/macros/s/AKfycbyva0i1INHIe4-5Px2lWoBrSyVwMGlon58X7oNx7bZmpIt7qukVCbCBlRIFK3Shk7nV/exec';
+function saveToDrive(payload){
+  if(!STORAGE_URL) return; // not wired yet
+  try{
+    fetch(STORAGE_URL,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)});
+  }catch(e){console.warn('storage post failed',e);}
+}
+
+/* flatten into 18 items */
+const FLOW = [];
+DIMS.forEach((d,di)=>d.q.forEach((q,qi)=>FLOW.push({di,qi,dim:d.name,t:q.t,o:q.o})));
+const answers = new Array(FLOW.length).fill(null);
+let cur = 0;
+let LEAD = null, RES = null; // captured for the PDF
+
+/* short explainer per dimension (popup) */
+const ABOUT = {
+  'الاستراتيجية':"رؤيتك المكتوبة حول أين ينتمي الذكاء الاصطناعي في التسويق، ومن يملكه، وأي الاستخدامات تستحقّ التمويل. الاستراتيجية القوية تربط كل أولوية ذكاء اصطناعي بنتيجة تسويقية، فيتبع الجهدُ ما يهمّ بدل الفضول.",
+  'البيانات والمنظومة التقنية':"البنية التي تجعل الذكاء الاصطناعي مفيداً: بيانات عملاء وحملات موحّدة ومحكومة وجاهزة للتفعيل، مع أدوات ذكاء اصطناعي مرتبطة فعلاً بمنظومتك التقنية. حين تتدفّق البيانات حيث تلزم، يستطيع الذكاء الاصطناعي أن يعمل بمقياس واسع وأمان.",
+  'العمليات':"كيف يُنجَز عمل التسويق بالذكاء الاصطناعي فعلاً. العمليات الناضجة تعني مسارات موثّقة ومتكرّرة بضوابط للعلامة ومراجعة بشرية يستطيع أي فرد تشغيلها، فلا تعتمد الجودة والسرعة على الأكثر حماساً أبداً.",
+  'الكفاءات':"المهارات والملكية والهيكل لإدارة تسويق عصر الذكاء الاصطناعي. يشمل مدى انتشار إتقان الذكاء الاصطناعي عبر الفريق، ومن يملك الذكاء الاصطناعي في التسويق بوضوح، وهل التمكين مدمجٌ في طريقة عمل الناس.",
+  'القياس':"معرفة ما غيّره الذكاء الاصطناعي فعلاً. القياس الناضج يضع مؤشّرات واضحة لمساهمة الذكاء الاصطناعي، ويربط العمل بخطّ الفرص أو الإيرادات أو الكفاءة، ويغلق الحلقة كي تغذّي النتائجُ الاستراتيجيةَ والإنفاق، لا مجرّد عدّ النشاط.",
+  'التفعيل':"كم يصل الذكاء الاصطناعي إلى تسويق حقيقي مواجه للعملاء بدل أن يبقى في الشرائح. أقوى تفعيل يدمج الذكاء الاصطناعي عبر معظم البرامج والقنوات، مع استراتيجية وتنفيذ يعملان كحلقة واحدة متّصلة."
+};
+
+/* dim strip on landing */
+document.getElementById('dimstrip').innerHTML = DIMS.map((d,i)=>
+  `<div class="dimchip" onclick="openDim(${i})"><b>${d.name}</b><span>${d.goal}</span><span class="more">ماذا يعني هذا &larr;</span></div>`).join('');
+
+/* ---------- navigation ---------- */
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function startAssessment(){cur=0;renderQ();show('screen-assess');}
+
+function renderQ(){
+  const item=FLOW[cur];
+  document.getElementById('qDim').textContent=item.dim;
+  document.getElementById('qText').textContent=item.t;
+  document.getElementById('qOpts').innerHTML=item.o.map((txt,i)=>
+    `<button class="opt${answers[cur]===i+1?' sel':''}" onclick="pick(${i+1})">
+       <span class="dot"></span><span>${txt}</span></button>`).join('');
+  const pct=Math.round((cur)/FLOW.length*100);
+  document.getElementById('progBar').style.width=pct+'%';
+  document.getElementById('progPct').textContent=pct+'%';
+  document.getElementById('progLabel').textContent='تقدّمك';
+  document.getElementById('backBtn').style.visibility=cur===0?'hidden':'visible';
+  document.getElementById('nextBtn').disabled=answers[cur]===null;
+  document.getElementById('nextBtn').textContent=cur===FLOW.length-1?'اعرض النتائج ←':'التالي ←';
+}
+function pick(v){answers[cur]=v;renderQ();setTimeout(()=>{ if(answers[cur]!==null) nextQ(); },230);}
+function nextQ(){if(answers[cur]===null)return;
+  if(cur<FLOW.length-1){cur++;renderQ();}else{show('screen-gate');}}
+function prevQ(){if(cur>0){cur--;renderQ();}}
+
+/* ---------- scoring ---------- */
+function computeScores(){
+  const byDim=DIMS.map(()=>[]);
+  FLOW.forEach((f,idx)=>byDim[f.di].push(answers[idx]));
+  const ds=byDim.map(arr=>arr.reduce((a,b)=>a+b,0)/arr.length);
+  let wsum=0,acc=0;
+  DIMS.forEach((d,i)=>{acc+=ds[i]*d.weight;wsum+=d.weight;});
+  const overall=acc/wsum;
+  return {ds,overall};
+}
+
+/* ---------- radar ---------- */
+function radarSVG(scores){
+  const cx=220,cy=182,R=110,N=6;
+  const ang=i=>(-90+i*60)*Math.PI/180;
+  const pt=(i,r)=>[cx+Math.cos(ang(i))*r, cy+Math.sin(ang(i))*r];
+  let rings='';
+  [1,2,3,4,5].forEach(v=>{
+    const p=[...Array(N)].map((_,i)=>pt(i,R*v/5).join(',')).join(' ');
+    rings+=`<polygon points="${p}" fill="none" stroke="#DCE3FF" stroke-width="1"/>`;
+  });
+  let axes='';
+  for(let i=0;i<N;i++){const[e1,e2]=pt(i,R);axes+=`<line x1="${cx}" y1="${cy}" x2="${e1}" y2="${e2}" stroke="#DCE3FF" stroke-width="1"/>`;}
+  const dp=scores.map((v,i)=>pt(i,R*v/5).join(',')).join(' ');
+  let dots='';scores.forEach((v,i)=>{const[x,y]=pt(i,R*v/5);dots+=`<circle cx="${x}" cy="${y}" r="3.5" fill="#1A56FF"/>`;});
+  let labels='';
+  DIMS.forEach((d,i)=>{let[x,y]=pt(i,R+26);
+    let anchor=Math.abs(x-cx)<6?'middle':(x>cx?'start':'end');
+    labels+=`<text x="${x}" y="${y}" font-size="11.5" font-weight="700" fill="#0D1F5C" text-anchor="${anchor}">${d.name}</text>
+             <text x="${x}" y="${y+14}" font-size="10.5" fill="#8896B8" text-anchor="${anchor}">${scores[i].toFixed(1)}</text>`;
+  });
+  return `<svg viewBox="0 0 440 384" width="100%" style="max-width:400px">
+    ${rings}${axes}
+    <polygon points="${dp}" fill="rgba(26,86,255,.18)" stroke="#1A56FF" stroke-width="2.5"/>
+    ${dots}${labels}</svg>`;
+}
+
+/* ---------- gate ---------- */
+function submitGate(){
+  const first=val('f_first'),last=val('f_last'),email=val('f_email'),company=val('f_company');
+  if(!first||!last||!company||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+    toast('يرجى إكمال جميع الحقول ببريد إلكتروني صالح.');return;}
+  const {ds,overall}=computeScores();
+  const lead={type:'assessment',first,last,email,company,
+    overall:+overall.toFixed(2),stage:STAGES[stageIndex(overall)].name,
+    dimensions:Object.fromEntries(DIMS.map((d,i)=>[d.name,+ds[i].toFixed(2)])),at:new Date().toISOString()};
+  try{const all=JSON.parse(localStorage.getItem('ammf_leads')||'[]');all.push(lead);localStorage.setItem('ammf_leads',JSON.stringify(all));}catch(e){}
+  saveToDrive(lead);
+  LEAD=lead;
+  renderResults(ds,overall);
+  show('screen-results');
+}
+
+/* ---------- results ---------- */
+function renderResults(ds,overall){
+  const si=stageIndex(overall);
+  RES={ds,overall,si};
+  document.getElementById('r_stage').textContent=STAGES[si].name;
+  document.getElementById('r_stagedesc').textContent=STAGES[si].desc;
+  document.getElementById('r_score').textContent=overall.toFixed(1);
+  document.getElementById('r_band').textContent=STAGES[si].band;
+  document.getElementById('radarSlot').innerHTML=radarSVG(ds);
+
+  // what your stage means + how far to the next stage (honest, band-based)
+  let meaning=`أنت في مرحلة <b>${STAGES[si].name}</b>. ${STAGES[si].desc}`;
+  if(si<3){
+    const dist=(THRESHOLDS[si]-overall);
+    meaning+=`<span class="lead-line">للوصول إلى ${STAGES[si+1].name}: ${STAGES[si+1].lead} `+
+      `يفصلك نحو ${dist.toFixed(2)} ${dist<=0.1?'نقطة':'نقطة'}.</span>`;
+  } else {
+    meaning+=`<span class="lead-line">أنت من يحدّد الإيقاع. المهمة الآن أن تبقى هناك مع تحرّك السوق.</span>`;
+  }
+  document.getElementById('r_meaning').innerHTML=meaning;
+
+  // rank dimensions low to high
+  const order=DIMS.map((d,i)=>i).sort((a,b)=>ds[a]-ds[b]);
+  const lo=order[0];
+  const loStage=STAGES[stageIndex(ds[lo])].name;
+  document.getElementById('r_gap').innerHTML=
+    `<b>${DIMS[lo].name}</b> هو أوسع مسافة لديك، عند <b>${loStage}</b> (${ds[lo].toFixed(1)}/5).<br>
+     <span style="color:var(--body)">إلى أين تتّجه: ${DIMS[lo].goal}</span>`;
+
+  // priority moves = three lowest dimensions, with the move that advances each
+  document.getElementById('r_moves').innerHTML=order.slice(0,3).map((di,n)=>{
+    const sIdx=stageIndex(ds[di]);
+    return `<div class="move"><div class="rank">${n+1}</div><div class="mbody">
+      <div class="mhead"><span class="mname">${DIMS[di].name}</span>
+        <span class="mstage">${STAGES[sIdx].name} · ${ds[di].toFixed(1)}/5</span></div>
+      <div class="mtext">${DIMS[di].next[sIdx]}</div></div></div>`;}).join('');
+
+  document.getElementById('r_breakdown').innerHTML=DIMS.map((d,i)=>{
+    const stg=STAGES[stageIndex(ds[i])].name;
+    return `<div class="dimrow"><div class="nm">${d.name}</div>
+      <div class="bar"><i style="width:${ds[i]/5*100}%"></i></div>
+      <div class="sc">${ds[i].toFixed(1)}</div>
+      <div class="st">${stg}</div></div>`;}).join('');
+}
+
+/* ---------- PDF (vector, branded) ---------- */
+const C = { // brand colours as RGB
+  blue:[26,86,255], blueDark:[10,46,184], navy:[13,31,92], cyan:[0,212,255],
+  ice:[244,247,255], border:[220,227,255], muted:[136,150,184], body:[61,80,128],
+  white:[255,255,255], fill:[201,216,255]
+};
+const PW=210, PH=297, MX=16, CW=PW-MX*2;
+
+function pdfGradientBand(pdf,x,y,w,h){
+  // horizontal gradient blueDark -> blue -> cyan, drawn as thin strips
+  const stops=[C.blueDark,C.blue,C.cyan], n=120;
+  for(let i=0;i<n;i++){
+    const t=i/(n-1), seg=t*(stops.length-1), k=Math.min(stops.length-2,Math.floor(seg)), f=seg-k;
+    const c=[0,1,2].map(j=>Math.round(stops[k][j]+(stops[k+1][j]-stops[k][j])*f));
+    pdf.setFillColor(c[0],c[1],c[2]);
+    pdf.rect(x+w*i/n, y, w/n+0.4, h, 'F');
+  }
+}
+function pdfLogo(pdf,x,y,s){ // four-pane mark
+  const g=s*0.46, r=0.8;
+  const cells=[[C.cyan,0,0],[C.blue,1,0],[C.navy,0,1],[C.blueMid||[77,123,255],1,1]];
+  cells.forEach(([col,cx,cy])=>{pdf.setFillColor(col[0],col[1],col[2]);
+    pdf.roundedRect(x+cx*(g+s*0.08), y+cy*(g+s*0.08), g, g, r, r, 'F');});
+}
+function pdfRadar(pdf,cx,cy,R,ds){
+  const N=6, ang=i=>(-90+i*60)*Math.PI/180;
+  const pt=(i,rr)=>[cx+Math.cos(ang(i))*rr, cy+Math.sin(ang(i))*rr];
+  // rings
+  pdf.setDrawColor(C.border[0],C.border[1],C.border[2]); pdf.setLineWidth(0.3);
+  [1,2,3,4,5].forEach(v=>{
+    const vs=[...Array(N)].map((_,i)=>pt(i,R*v/5));
+    const segs=vs.slice(1).map((p,i)=>[p[0]-vs[i][0],p[1]-vs[i][1]]);
+    pdf.lines(segs, vs[0][0], vs[0][1], [1,1], 'S', true);
+  });
+  // axes
+  for(let i=0;i<N;i++){const[ex,ey]=pt(i,R);pdf.line(cx,cy,ex,ey);}
+  // data polygon
+  const dv=ds.map((v,i)=>pt(i,R*v/5));
+  const dsegs=dv.slice(1).map((p,i)=>[p[0]-dv[i][0],p[1]-dv[i][1]]);
+  pdf.setFillColor(C.fill[0],C.fill[1],C.fill[2]);
+  pdf.setDrawColor(C.blue[0],C.blue[1],C.blue[2]); pdf.setLineWidth(0.8);
+  pdf.lines(dsegs, dv[0][0], dv[0][1], [1,1], 'FD', true);
+  dv.forEach(([x,y])=>{pdf.setFillColor(C.blue[0],C.blue[1],C.blue[2]);pdf.circle(x,y,0.9,'F');});
+  // labels
+  DIMS.forEach((d,i)=>{
+    let[lx,ly]=pt(i,R+8);
+    const align=Math.abs(lx-cx)<2?'center':(lx>cx?'left':'right');
+    pdf.setFont('helvetica','bold');pdf.setFontSize(8);pdf.setTextColor(C.navy[0],C.navy[1],C.navy[2]);
+    pdf.text(d.name, lx, ly, {align});
+    pdf.setFont('helvetica','normal');pdf.setFontSize(7.5);pdf.setTextColor(C.muted[0],C.muted[1],C.muted[2]);
+    pdf.text(ds[i].toFixed(1), lx, ly+3.6, {align});
+  });
+}
+async function downloadPDF(){
+  const card=document.getElementById('resultsCard');
+  if(!(window.jspdf && window.html2canvas && card)){ window.print(); return; }
+  toast('جارٍ إنشاء ملف PDF…');
+  try{
+    const canvas=await html2canvas(card,{scale:2,backgroundColor:'#ffffff',useCORS:true});
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF('p','mm','a4');
+    const pw=210, ph=297, iw=pw, ih=canvas.height*iw/canvas.width;
+    const img=canvas.toDataURL('image/jpeg',0.94);
+    let position=0, heightLeft=ih;
+    pdf.addImage(img,'JPEG',0,position,iw,ih); heightLeft-=ph;
+    while(heightLeft>0){ position-=ph; pdf.addPage(); pdf.addImage(img,'JPEG',0,position,iw,ih); heightLeft-=ph; }
+    pdf.save('AMMF-natijat-nudj.pdf');
+  }catch(e){ console.warn('pdf failed',e); window.print(); }
+}
+
+/* ---------- contact + helpers ---------- */
+function openContact(){document.getElementById('contactModal').classList.add('open');}
+function closeContact(){document.getElementById('contactModal').classList.remove('open');}
+function submitContact(){const n=val('c_name'),e=val('c_email'),m=val('c_msg');
+  if(!n||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){toast('أضف اسمك وبريداً إلكترونياً صالحاً.');return;}
+  saveToDrive({type:'contact',name:n,email:e,message:m,at:new Date().toISOString()});
+  closeContact();toast('شكراً! سيتواصل معك Valentino.');}
+function val(id){return document.getElementById(id).value.trim();}
+let tT;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),2600);}
+document.getElementById('contactModal').addEventListener('click',e=>{if(e.target.id==='contactModal')closeContact();});
+
+/* ---------- dimension explainer ---------- */
+function openDim(i){const d=DIMS[i];
+  document.getElementById('dm_name').textContent=d.name;
+  document.getElementById('dm_about').textContent=ABOUT[d.name];
+  document.getElementById('dm_goal').textContent=d.goal;
+  document.getElementById('dimModal').classList.add('open');}
+function closeDim(){document.getElementById('dimModal').classList.remove('open');}
+document.getElementById('dimModal').addEventListener('click',e=>{if(e.target.id==='dimModal')closeDim();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDim();closeContact();}});
+</script>
+
+<script>
+/* language switcher dropdown */
+(function(){
+  window.vlsToggle=function(btn){var ls=btn.closest('.langswitch');var open=ls.classList.toggle('open');btn.setAttribute('aria-expanded',open);};
+  document.addEventListener('click',function(e){document.querySelectorAll('.langswitch.open').forEach(function(ls){if(!ls.contains(e.target))ls.classList.remove('open');});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.langswitch.open').forEach(function(ls){ls.classList.remove('open');});});
+})();
+</script>
+</body>
+</html>

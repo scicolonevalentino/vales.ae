@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>How I work · vales.ae</title>
-<meta name="description" content="Meet the team. There isn't one. There's a new way of working. Agentic execution, framed by the four things AI can't replace." />
+<title>كيف أعمل · vales.ae</title>
+<meta name="description" content="تعرّف على الفريق. لا يوجد فريق. بل طريقة عمل جديدة. تنفيذ وكيلي، مؤطَّر بالأشياء الأربعة التي لا يستطيع الذكاء الاصطناعي استبدالها." />
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --blue:#1A56FF; --cyan:#00D4FF; --navy:#0D1F5C; --mid:#4D7BFF; --ice:#F4F7FF;
@@ -19,7 +19,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     background:var(--ice);color:var(--navy);-webkit-font-smoothing:antialiased;line-height:1.5;
     overflow-x:hidden;overflow-x:clip;
   }
@@ -188,6 +188,15 @@
     .reveal-el{opacity:1!important;transform:none!important}
   }
 
+  /* ===== Arabic / RTL — Camille standard ===== */
+  *{letter-spacing:normal !important}
+  body{line-height:1.7}
+  .eyebrow,.eyebrow-lt,.sec-head .eyebrow,.promise .eyebrow,.lane .lbl,.mesh-legend-lbl{text-transform:none}
+  .hiw-hero h1{line-height:1.32}.sec-head h2{line-height:1.3}.promise h2{line-height:1.32}
+  .path-step p{max-width:none}
+  .lane.me{border-left:0;border-right:3px solid var(--cyan)}
+  @media(max-width:860px){.path-step:not(:last-child)::before{left:auto;right:26px}}
+
   /* ===== language switcher (dropdown) ===== */
   .langswitch{position:relative;display:inline-block;font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,sans-serif}
   .langswitch-btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:14px;line-height:1;color:var(--navy);background:none;padding:9px 14px;border:1px solid var(--line);border-radius:100px;cursor:pointer;transition:border-color .15s,color .15s,background .15s;white-space:nowrap}
@@ -212,27 +221,27 @@
 <header class="top">
   <div class="wrap">
     <div class="top-actions">
-      <a class="backlink" href="/">&larr; <span>Back to site</span></a>
+      <a class="backlink" href="/ar/">&rarr; <span>العودة إلى الموقع</span></a>
       <div class="brandmark">
         <b>Valentino Scicolone</b>
         <span>vales.ae</span>
       </div>
     </div>
-    <div class="langswitch" data-lang="en"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/how-i-work" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/how-i-work" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div><a class="talk-cta" href="/quote">Send a brief</a>
+    <div class="langswitch" data-lang="ar"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">العربية</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item" href="/how-i-work" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item active" href="/ar/how-i-work" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div><a class="talk-cta" href="/ar/quote">أرسل موجزاً</a>
   </div>
 </header>
 
 <!-- ============ HERO / THE REVEAL ============ -->
 <section class="hiw-hero">
   <div class="wrap">
-    <p class="eyebrow-lt">Meet the team</p>
+    <p class="eyebrow-lt">تعرّف على الفريق</p>
     <h1>
-      <span class="h-line"><span>There isn't one.</span></span>
-      <span class="h-line"><span class="h-grad">There's a NEW way of working.</span></span>
+      <span class="h-line"><span>لا يوجد فريق.</span></span>
+      <span class="h-line"><span class="h-grad">بل طريقة عمل جديدة.</span></span>
     </h1>
-    <p class="lede">No bios. No headshots. A swarm of agents doing the work at machine speed, all of it wrapped in the four human competencies that decide what's actually good.</p>
+    <p class="lede">لا سِيَر ذاتية. لا صور. سربٌ من الوكلاء يؤدّي العمل بسرعة الآلة، محاطٌ كلّه بالكفاءات الإنسانية الأربع التي تحدّد ما هو جيّد فعلاً.</p>
     <div class="hero-ctas">
-      <a class="btn-primary" href="#org">See how it runs <span class="arr">↓</span></a>
+      <a class="btn-primary" href="#org">شاهد كيف يعمل <span class="arr">↓</span></a>
     </div>
   </div>
 </section>
@@ -241,15 +250,15 @@
 <section class="sec" id="org">
   <div class="wrap">
     <div class="sec-head reveal-el">
-      <p class="eyebrow">The agentic org</p>
-      <h2>Execution runs on agents.<br>Judgment doesn't.</h2>
-      <p>Not a team of people. A living swarm of agents around you, moving in parallel, all of it held inside one human layer that decides what ships.</p>
+      <p class="eyebrow">المنظومة الوكيلة</p>
+      <h2>التنفيذ يجري على الوكلاء.<br>أما الحُكم فلا.</h2>
+      <p>ليس فريقاً من البشر. سربٌ حيّ من الوكلاء حولك، يتحرّك بالتوازي، محكومٌ كلّه بطبقة إنسانية واحدة تقرّر ما يُطلَق.</p>
     </div>
 
     <div class="org reveal-el">
       <div class="mesh-panel">
         <div class="mesh-wrap">
-          <svg id="mesh" class="mesh" viewBox="-60 -20 1120 660" role="img" aria-label="An agentic system: you talk to one human, the agents talk to each other, all framed by a human supervision layer of curiosity, creativity, critical thinking and empathy.">
+          <svg id="mesh" class="mesh" viewBox="-60 -20 1120 660" role="img" aria-label="منظومة وكيلة: أنت تتحدّث إلى إنسان واحد، والوكلاء يتحدّثون فيما بينهم، والكل مؤطَّر بطبقة إشراف إنسانية من الفضول والإبداع والتفكير النقدي والتعاطف.">
             <defs>
               <filter id="mglow" x="-70%" y="-70%" width="240%" height="240%">
                 <feGaussianBlur stdDeviation="5" result="b"/>
@@ -265,15 +274,15 @@
             <g id="mSup"></g>
           </svg>
         </div>
-        <p class="mesh-caption"><b>You talk to one human. The agents talk to each other.</b> All of it stays inside the four human competencies.</p>
-        <p class="mesh-legend-lbl">The agents on the job</p>
+        <p class="mesh-caption"><b>أنت تتحدّث إلى إنسان واحد. والوكلاء يتحدّثون فيما بينهم.</b> وكلّ ذلك يبقى داخل الكفاءات الإنسانية الأربع.</p>
+        <p class="mesh-legend-lbl">الوكلاء في العمل</p>
         <div class="mesh-legend" id="meshLegend"></div>
       </div>
 
       <div class="triad">
-        <div class="lane ai"><span class="lbl">Agents accelerate</span><span class="val">Research, drafts, analysis, at machine speed</span></div>
-        <div class="lane you"><span class="lbl">You still own</span><span class="val">Every call that actually matters</span></div>
-        <div class="lane me"><span class="lbl">I supervise</span><span class="val">With curiosity, creativity, critical thinking, empathy</span></div>
+        <div class="lane ai"><span class="lbl">الوكلاء يُسرّعون</span><span class="val">البحث والمسودّات والتحليل، بسرعة الآلة</span></div>
+        <div class="lane you"><span class="lbl">القرار يبقى لك</span><span class="val">كل قرار يهمّ فعلاً</span></div>
+        <div class="lane me"><span class="lbl">أنا أُشرف</span><span class="val">بالفضول والإبداع والتفكير النقدي والتعاطف</span></div>
       </div>
     </div>
   </div>
@@ -283,9 +292,9 @@
 <section class="sec" id="path" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head reveal-el">
-      <p class="eyebrow">The path</p>
-      <h2>From brief to kick-off.<br>No mystery in between.</h2>
-      <p>Four steps, always in this order. You know exactly where you stand at every one of them.</p>
+      <p class="eyebrow">المسار</p>
+      <h2>من الموجز إلى الانطلاق.<br>ولا غموض بينهما.</h2>
+      <p>أربع خطوات، دائماً بهذا الترتيب. تعرف تماماً أين تقف في كلٍّ منها.</p>
     </div>
 
     <div class="path-wrap reveal-el">
@@ -294,30 +303,30 @@
         <div class="path-step">
           <div class="path-num">01</div>
           <div class="path-body">
-            <h3>Brief</h3>
-            <p>You describe the problem. No jargon required, no forms to decode.</p>
-            <a class="path-cta" href="/quote">Start here →</a>
+            <h3>الموجز</h3>
+            <p>تصف المشكلة. دون مصطلحات، ودون نماذج تحتاج فكّ رموزها.</p>
+            <a class="path-cta" href="/ar/quote">ابدأ من هنا ←</a>
           </div>
         </div>
         <div class="path-step">
           <div class="path-num">02</div>
           <div class="path-body">
-            <h3>Scoping session</h3>
-            <p>We size the real scope together, live, against what you actually need.</p>
+            <h3>جلسة تحديد النطاق</h3>
+            <p>نحدّد النطاق الحقيقي معاً، مباشرةً، وفق ما تحتاجه فعلاً.</p>
           </div>
         </div>
         <div class="path-step">
           <div class="path-num">03</div>
           <div class="path-body">
-            <h3>SOW signature</h3>
-            <p>Clear terms, clear price, clear deliverables.</p>
+            <h3>توقيع بيان العمل</h3>
+            <p>شروط واضحة، سعر واضح، مُخرَجات واضحة.</p>
           </div>
         </div>
         <div class="path-step">
           <div class="path-num">04</div>
           <div class="path-body">
-            <h3>Kick-off</h3>
-            <p>The engagement starts with a clear direction. No slow ramp-up, no guesswork.</p>
+            <h3>الانطلاق</h3>
+            <p>يبدأ المشروع باتجاه واضح. دون بطء في الإقلاع، ودون تخمين.</p>
           </div>
         </div>
       </div>
@@ -341,22 +350,22 @@
         <path transform="translate(26,26.65)" stroke="#FFFFFF" d="M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z"/>
       </g>
     </svg>
-    <p class="eyebrow">The promise</p>
-    <h2>Efficacy and efficiency.<br>Never without <em>the four.</em></h2>
-    <p class="lede">Every outcome, filtered through curiosity, creativity, critical thinking and empathy before it ever reaches you.</p>
+    <p class="eyebrow">الوعد</p>
+    <h2>الفعالية والكفاءة.<br>لكن أبداً دون <em>الأربع.</em></h2>
+    <p class="lede">كل نتيجة، تمرّ عبر الفضول والإبداع والتفكير النقدي والتعاطف قبل أن تصلك.</p>
 
     <div class="comp-row">
-      <div class="comp"><span class="ic" style="background:var(--cyan)"><svg viewBox="0 0 17 17" fill="none" stroke="#0D1F5C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3.8,3.8)" d="M3.3 0 C1.2 0.1 0 1.7 0.1 3.4 C0.2 5.1 1.6 6.5 3.4 6.4 C5.2 6.3 6.5 4.8 6.3 3.1 C6.1 1.3 5.1 0.1 3.3 0 Z M5.6 5.6 L9.4 9.4 M1.5 2.5 C2.1 2 3 1.8 3.7 2.1"/></svg></span><b>Curiosity</b></div>
-      <div class="comp"><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 17 17" fill="none" stroke="#00D4FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3,3.75)" d="M0 7 C1.4 2 3.5 0 5 1.4 C6.4 2.8 5 7 7 5.6 C9 4.2 9.7 0 11 2.8 M0.7 9.5 C2.8 7 5.6 7.7 7.7 5.6"/></svg></span><b>Creativity</b></div>
-      <div class="comp"><span class="ic" style="background:rgba(255,255,255,.16)"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3.5,3.9)" d="M0 5.5 L3.5 9.2 L10 0"/></svg></span><b>Critical thinking</b></div>
-      <div class="comp"><span class="ic" style="background:var(--mid)"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3,3.65)" d="M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z"/></svg></span><b>Empathy</b></div>
+      <div class="comp"><span class="ic" style="background:var(--cyan)"><svg viewBox="0 0 17 17" fill="none" stroke="#0D1F5C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3.8,3.8)" d="M3.3 0 C1.2 0.1 0 1.7 0.1 3.4 C0.2 5.1 1.6 6.5 3.4 6.4 C5.2 6.3 6.5 4.8 6.3 3.1 C6.1 1.3 5.1 0.1 3.3 0 Z M5.6 5.6 L9.4 9.4 M1.5 2.5 C2.1 2 3 1.8 3.7 2.1"/></svg></span><b>الفضول</b></div>
+      <div class="comp"><span class="ic" style="background:var(--blue)"><svg viewBox="0 0 17 17" fill="none" stroke="#00D4FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3,3.75)" d="M0 7 C1.4 2 3.5 0 5 1.4 C6.4 2.8 5 7 7 5.6 C9 4.2 9.7 0 11 2.8 M0.7 9.5 C2.8 7 5.6 7.7 7.7 5.6"/></svg></span><b>الإبداع</b></div>
+      <div class="comp"><span class="ic" style="background:rgba(255,255,255,.16)"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3.5,3.9)" d="M0 5.5 L3.5 9.2 L10 0"/></svg></span><b>التفكير النقدي</b></div>
+      <div class="comp"><span class="ic" style="background:var(--mid)"><svg viewBox="0 0 17 17" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(3,3.65)" d="M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z"/></svg></span><b>التعاطف</b></div>
     </div>
 
     <div class="promise-ctas">
-      <a class="btn-primary" href="/quote">Send a brief <span class="arr">→</span></a>
+      <a class="btn-primary" href="/ar/quote">أرسل موجزاً <span class="arr">←</span></a>
       <a class="wa-cta" href="https://wa.me/971554150304" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.11.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 01-1.44-5A9.42 9.42 0 0118.7 5.4a9.36 9.36 0 012.76 6.66 9.42 9.42 0 01-9.42 9.44zm8.02-17.46A11.32 11.32 0 0012.04.5C5.8.5.73 5.57.72 11.81c0 2 .53 3.95 1.52 5.67L.63 23.5l6.16-1.61a11.32 11.32 0 005.25 1.34h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.32-8.01z"/></svg>
-        Talk to Valentino
+        تحدّث إلى Valentino
       </a>
     </div>
   </div>
@@ -376,8 +385,8 @@
   const NS='http://www.w3.org/2000/svg';
   const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
   const AGENTS=[
-    {n:'Research'},{n:'Strategy'},{n:'Data'},{n:'Content'},{n:'Creative'},{n:'Paid'},
-    {n:'Optimization'},{n:'Analytics'},{n:'Ops'},{n:'Automation'},{n:'Insight'},{n:'Your Agent',custom:true}
+    {n:'البحث'},{n:'الاستراتيجية'},{n:'البيانات'},{n:'المحتوى'},{n:'الإبداع'},{n:'الإعلانات'},
+    {n:'التحسين'},{n:'التحليلات'},{n:'العمليات'},{n:'الأتمتة'},{n:'الرؤى'},{n:'وكيلك',custom:true}
   ];
   const PAL=['#00D4FF','#35C4FF','#4D7BFF','#1A56FF','#3A6BFF','#22B8FF'];
   const CUSTOM='#00E5FF';
@@ -436,7 +445,7 @@
     if(p.custom) g.appendChild(el('circle',{r:22,fill:'none',stroke:p.color,'stroke-width':1.4,'stroke-dasharray':'3 4',opacity:.85}));
     g.appendChild(el('circle',{class:'core',r:p.custom?17:15,fill:p.custom?'#052836':'#0a1642',stroke:p.color,'stroke-width':p.custom?2.4:2,filter:'url(#mglow)'}));
     g.appendChild(el('circle',{r:p.custom?5.2:4.5,fill:p.color}));
-    const ttl=document.createElementNS(NS,'title'); ttl.textContent=p.n+(p.custom?'':' Agent'); g.appendChild(ttl);
+    const ttl=document.createElementNS(NS,'title'); ttl.textContent=p.n+(p.custom?'':' · وكيل'); g.appendChild(ttl);
     gNodes.appendChild(g);
   });
 
@@ -454,15 +463,15 @@
     gCen.appendChild(el('path',{d:'M'+(pt.x-10.5)+','+(pt.y+11.5)+' C'+(pt.x-10.5)+','+(pt.y+2)+' '+(pt.x+10.5)+','+(pt.y+2)+' '+(pt.x+10.5)+','+(pt.y+11.5),fill:'#fff'}));
     const t=el('text',{class:'m-center-label',x:pt.x,y:pt.y+R+22,fill:big?'#fff':'#8ff2ff'}); t.textContent=label; gCen.appendChild(t);
   }
-  human(ME,'ME','#00E5FF',true,false);
-  human(YOU,'YOU','#ffffff',false,true);
+  human(ME,'أنا','#00E5FF',true,false);
+  human(YOU,'أنت','#ffffff',false,true);
 
   /* supervision competencies on the four frame sides */
   const COMP=[
-    {name:'Curiosity',x:500,y:80,lx:500,ly:44,anc:'middle',fill:'#00D4FF',ic:'#0D1F5C',lab:'#00D4FF',bw:2,bs:'rgba(255,255,255,.5)',d:'M3.3 0 C1.2 0.1 0 1.7 0.1 3.4 C0.2 5.1 1.6 6.5 3.4 6.4 C5.2 6.3 6.5 4.8 6.3 3.1 C6.1 1.3 5.1 0.1 3.3 0 Z M5.6 5.6 L9.4 9.4 M1.5 2.5 C2.1 2 3 1.8 3.7 2.1',tx:3.4,ty:3.4},
-    {name:'Creativity',x:930,y:310,lx:960,ly:315,anc:'start',fill:'#1A56FF',ic:'#fff',lab:'#7ea3ff',bw:2,bs:'rgba(255,255,255,.5)',d:'M0 7 C1.4 2 3.5 0 5 1.4 C6.4 2.8 5 7 7 5.6 C9 4.2 9.7 0 11 2.8 M0.7 9.5 C2.8 7 5.6 7.7 7.7 5.6',tx:2.6,ty:3.4},
-    {name:'Critical thinking',x:500,y:540,lx:500,ly:578,anc:'middle',fill:'#33489a',ic:'#fff',lab:'#b3c4f2',bw:2.6,bs:'rgba(255,255,255,.72)',d:'M0 5.5 L3.5 9.2 L10 0',tx:3,ty:3.6},
-    {name:'Empathy',x:70,y:310,lx:40,ly:315,anc:'end',fill:'#4D7BFF',ic:'#fff',lab:'#93adff',bw:2,bs:'rgba(255,255,255,.5)',d:'M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z',tx:2.7,ty:3}
+    {name:'الفضول',x:500,y:80,lx:500,ly:44,anc:'middle',fill:'#00D4FF',ic:'#0D1F5C',lab:'#00D4FF',bw:2,bs:'rgba(255,255,255,.5)',d:'M3.3 0 C1.2 0.1 0 1.7 0.1 3.4 C0.2 5.1 1.6 6.5 3.4 6.4 C5.2 6.3 6.5 4.8 6.3 3.1 C6.1 1.3 5.1 0.1 3.3 0 Z M5.6 5.6 L9.4 9.4 M1.5 2.5 C2.1 2 3 1.8 3.7 2.1',tx:3.4,ty:3.4},
+    {name:'الإبداع',x:930,y:310,lx:960,ly:315,anc:'start',fill:'#1A56FF',ic:'#fff',lab:'#7ea3ff',bw:2,bs:'rgba(255,255,255,.5)',d:'M0 7 C1.4 2 3.5 0 5 1.4 C6.4 2.8 5 7 7 5.6 C9 4.2 9.7 0 11 2.8 M0.7 9.5 C2.8 7 5.6 7.7 7.7 5.6',tx:2.6,ty:3.4},
+    {name:'التفكير النقدي',x:500,y:540,lx:500,ly:578,anc:'middle',fill:'#33489a',ic:'#fff',lab:'#b3c4f2',bw:2.6,bs:'rgba(255,255,255,.72)',d:'M0 5.5 L3.5 9.2 L10 0',tx:3,ty:3.6},
+    {name:'التعاطف',x:70,y:310,lx:40,ly:315,anc:'end',fill:'#4D7BFF',ic:'#fff',lab:'#93adff',bw:2,bs:'rgba(255,255,255,.5)',d:'M5.5 9.7 C1.5 6.2 0 4.2 0 2.4 C0 0.8 1.7 0 3.3 1.1 C4.2 1.7 5 2.7 5.5 3.6 C6 2.7 6.8 1.7 7.7 1.1 C9.3 0 11 0.8 11 2.4 C11 4.2 9.5 6.2 5.5 9.7 Z',tx:2.7,ty:3}
   ];
   COMP.forEach(c=>{
     const g=el('g',{});
@@ -487,15 +496,15 @@
   lg.appendChild(el('circle',{r:21,fill:'none',stroke:LEAD.color,'stroke-width':1.4,'stroke-dasharray':'3 4',opacity:.85}));
   lg.appendChild(el('circle',{class:'core',r:16,fill:'#1a1035',stroke:LEAD.color,'stroke-width':2.4,filter:'url(#mglow)'}));
   lg.appendChild(el('circle',{r:5,fill:LEAD.color}));
-  const lt=document.createElementNS(NS,'title'); lt.textContent='Lead Agent'; lg.appendChild(lt);
+  const lt=document.createElementNS(NS,'title'); lt.textContent='الوكيل القائد'; lg.appendChild(lt);
   gNodes.appendChild(lg);
-  const llab=el('text',{class:'m-sup-label',x:LEAD.x,y:LEAD.y-30,fill:'#c4b5fd','text-anchor':'middle'}); llab.textContent='Lead'; gSup.appendChild(llab);
+  const llab=el('text',{class:'m-sup-label',x:LEAD.x,y:LEAD.y-30,fill:'#c4b5fd','text-anchor':'middle'}); llab.textContent='القائد'; gSup.appendChild(llab);
 
   /* legend */
   const leg=document.getElementById('meshLegend');
   if(leg){
     AGENTS.forEach(a=>{
-      if(a.custom){const sl=document.createElement('span');sl.textContent='Lead';sl.className='lead';leg.appendChild(sl);}
+      if(a.custom){const sl=document.createElement('span');sl.textContent='القائد';sl.className='lead';leg.appendChild(sl);}
       const s=document.createElement('span');s.textContent=a.n;if(a.custom)s.className='custom';leg.appendChild(s);
     });
   }

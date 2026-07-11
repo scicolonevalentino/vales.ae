@@ -193,9 +193,31 @@ footer{border-top:1px solid var(--border);background:#fff}
 .dm-goal{margin-top:16px;border-left:4px solid var(--cyan);background:#f5fdff;border-radius:0 12px 12px 0;
   padding:12px 16px;font-size:14px;color:var(--body);line-height:1.5}
 .dm-goal b{color:var(--navy)}
+
+  #langFixed{position:fixed;top:14px;left:16px;z-index:600}
+  #langFixed .langswitch-btn{background:#fff;box-shadow:0 4px 16px rgba(13,31,92,.10)}
+
+  /* ===== language switcher (dropdown) ===== */
+  .langswitch{position:relative;display:inline-block;font-family:'Plus Jakarta Sans','IBM Plex Sans Arabic',system-ui,sans-serif}
+  .langswitch-btn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-weight:700;font-size:14px;line-height:1;color:var(--navy);background:none;padding:9px 14px;border:1px solid var(--line);border-radius:100px;cursor:pointer;transition:border-color .15s,color .15s,background .15s;white-space:nowrap}
+  .langswitch-btn:hover{border-color:var(--blue);color:var(--blue)}
+  .langswitch-btn .globe{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0}
+  .langswitch-btn .chev{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4;transition:transform .2s;flex-shrink:0}
+  .langswitch.open .langswitch-btn{border-color:var(--blue);color:var(--blue)}
+  .langswitch.open .langswitch-btn .chev{transform:rotate(180deg)}
+  .langswitch-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:184px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(13,31,92,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease,ease),transform .18s var(--ease,ease),visibility .18s;z-index:300}
+  .langswitch.open .langswitch-menu{opacity:1;visibility:visible;transform:none}
+  .langswitch-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 13px;border-radius:10px;font-size:14.5px;font-weight:700;color:var(--navy);text-decoration:none;transition:background .15s,color .15s}
+  .langswitch-item:hover{background:var(--ice)}
+  .langswitch-item.active{color:var(--blue)}
+  .langswitch-item[lang=ar]{font-family:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif}
+  .langswitch-item .chk{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.6;opacity:0;flex-shrink:0}
+  .langswitch-item.active .chk{opacity:1}
+  [dir=rtl] .langswitch-menu{right:auto;left:0}
 </style>
 </head>
 <body>
+<div id="langFixed"><div class="langswitch" data-lang="en"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/aimarketingmaturity" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/aimarketingmaturity" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div></div>
 
 <!-- ===== LANDING ===== -->
 <section class="screen active" id="screen-landing">
@@ -851,6 +873,15 @@ function openDim(i){const d=DIMS[i];
 function closeDim(){document.getElementById('dimModal').classList.remove('open');}
 document.getElementById('dimModal').addEventListener('click',e=>{if(e.target.id==='dimModal')closeDim();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDim();closeContact();}});
+</script>
+
+<script>
+/* language switcher dropdown */
+(function(){
+  window.vlsToggle=function(btn){var ls=btn.closest('.langswitch');var open=ls.classList.toggle('open');btn.setAttribute('aria-expanded',open);};
+  document.addEventListener('click',function(e){document.querySelectorAll('.langswitch.open').forEach(function(ls){if(!ls.contains(e.target))ls.classList.remove('open');});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.langswitch.open').forEach(function(ls){ls.classList.remove('open');});});
+})();
 </script>
 </body>
 </html>
