@@ -4,6 +4,22 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>تقييم نضج التسويق بالذكاء الاصطناعي</title>
+<meta name="description" content="قِس نضج فريقك في التسويق بالذكاء الاصطناعي عبر ستّة أبعاد في خمس دقائق. تقييم مجاني ونتيجة PDF فورية." />
+<link rel="alternate" hreflang="en" href="https://vales.ae/aimarketingmaturity" />
+<link rel="alternate" hreflang="ar" href="https://vales.ae/ar/aimarketingmaturity" />
+<link rel="alternate" hreflang="x-default" href="https://vales.ae/aimarketingmaturity" />
+<link rel="canonical" href="https://vales.ae/ar/aimarketingmaturity" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="vales.ae" />
+<meta property="og:url" content="https://vales.ae/ar/aimarketingmaturity" />
+<meta property="og:locale" content="ar_AR" />
+<meta property="og:title" content="تقييم نضج التسويق بالذكاء الاصطناعي" />
+<meta property="og:description" content="قِس نضج فريقك في التسويق بالذكاء الاصطناعي عبر ستّة أبعاد في خمس دقائق. تقييم مجاني ونتيجة PDF فورية." />
+<meta property="og:image" content="https://vales.ae/assets/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="تقييم نضج التسويق بالذكاء الاصطناعي" />
+<meta name="twitter:description" content="قِس نضج فريقك في التسويق بالذكاء الاصطناعي عبر ستّة أبعاد في خمس دقائق. تقييم مجاني ونتيجة PDF فورية." />
+<meta name="twitter:image" content="https://vales.ae/assets/og-image.png" />
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/aimarketingmaturity/assets/apple-touch-icon.png">
@@ -755,14 +771,16 @@ async function downloadPDF(){
   if(!(window.jspdf && window.html2canvas && card)){ window.print(); return; }
   toast('جارٍ إنشاء ملف PDF…');
   try{
-    const canvas=await html2canvas(card,{scale:2,backgroundColor:'#ffffff',useCORS:true});
+    const canvas=await html2canvas(card,{scale:2,backgroundColor:'#ffffff',useCORS:true,windowWidth:1100});
+    if(!canvas.width||!canvas.height){ window.print(); return; }
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF('p','mm','a4');
     const pw=210, ph=297, iw=pw, ih=canvas.height*iw/canvas.width;
+    if(!isFinite(ih)||ih<=0){ window.print(); return; }
     const img=canvas.toDataURL('image/jpeg',0.94);
-    let position=0, heightLeft=ih;
+    let position=0, heightLeft=ih, guard=0;
     pdf.addImage(img,'JPEG',0,position,iw,ih); heightLeft-=ph;
-    while(heightLeft>0){ position-=ph; pdf.addPage(); pdf.addImage(img,'JPEG',0,position,iw,ih); heightLeft-=ph; }
+    while(heightLeft>0 && guard++<40){ position-=ph; pdf.addPage(); pdf.addImage(img,'JPEG',0,position,iw,ih); heightLeft-=ph; }
     pdf.save('AMMF-natijat-nudj.pdf');
   }catch(e){ console.warn('pdf failed',e); window.print(); }
 }
