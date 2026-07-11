@@ -128,13 +128,18 @@ select{padding:11px 18px 11px 40px}
 <footer><div class="wrap"><span>Valentino Scicolone · مستشار مستقل | التسويق والذكاء الاصطناعي · دبي</span><span>© 2026 vales.ae</span></div></footer>
 <script>
 const PID="7fvx0718",DS="production";
-const Q=`*[_type=="caseStudy"]|order(featured desc, date desc){title,subtitle,"slug":slug.current,"year":string(date),date,featured,market,engagementType,"industry":industry->title,"services":services[]->title,competencies,cardMetric,metrics,takeaway,challenge,angle,actions,"img":coverImage.asset->url}`;
+const Q=`*[_type=="caseStudy"]|order(featured desc, date desc){"title":coalesce(titleAr,title),"subtitle":coalesce(subtitleAr,subtitle),"slug":slug.current,"year":string(date),date,featured,market,engagementType,"industry":industry->title,"services":services[]->title,competencies,"cardMetric":{"value":cardMetric.value,"label":coalesce(cardMetric.labelAr,cardMetric.label)},"metrics":metrics[]{"value":value,"label":coalesce(labelAr,label)},"takeaway":coalesce(takeawayAr,takeaway),"challenge":coalesce(challengeAr,challenge),"angle":coalesce(angleAr,angle),"actions":coalesce(actionsAr,actions),"img":coverImage.asset->url}`;
 const CTA="الاستراتيجية تختلف في كل مرة. أما نقطة البداية فلا تتغيّر: اعرف أين تقف.";
 const CMAP={"curiosity":"الفضول","creativity":"الإبداع","critical-thinking":"التفكير النقدي","empathy":"التعاطف"};
+const IND={"Financial Services":"الخدمات المالية","Consumer Goods":"السلع الاستهلاكية","Government & Public Sector":"الحكومة والقطاع العام","Education":"التعليم","Real Estate & PropTech":"العقارات والتقنية العقارية","Fashion & Luxury":"الأزياء والرفاهية","Telecom":"الاتصالات","Retail & E-commerce":"التجزئة والتجارة الإلكترونية","Beverage & Spirits":"المشروبات والكحوليات","Beauty":"التجميل","Healthcare & Pharma":"الرعاية الصحية والأدوية","Technology":"التقنية","Sportswear & Outdoor":"الملابس الرياضية والخارجية","Automotive & Industrial":"السيارات والصناعة","Travel & Tourism":"السفر والسياحة","Energy & Utilities":"الطاقة والمرافق","Mobility":"التنقّل","Events":"الفعاليات","Logistics":"الخدمات اللوجستية"};
+const MKT={"Italy":"إيطاليا","Europe":"أوروبا","North America":"أمريكا الشمالية","MENA":"الشرق الأوسط وشمال إفريقيا","Global":"عالمي"};
+const ENG={"Advisory":"استشارة","Audit & roadmap":"تدقيق وخارطة طريق","Implementation":"تنفيذ","End-to-end delivery":"تسليم متكامل","Training & enablement":"تدريب وتمكين"};
+const SVC={"AI Research":"أبحاث الذكاء الاصطناعي","Marketing Strategy":"استراتيجية التسويق","Data & Technology":"البيانات والتقنية","Marketing Operations":"عمليات التسويق","Measurement & Analytics":"القياس والتحليلات","AI Fluency":"إتقان الذكاء الاصطناعي"};
+const tr=(m,v)=>m[v]||v||"";
 let DATA=[],F={industry:"",year:""};
 const yr=d=>(d||"").slice(0,4);
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-const flow=t=>esc(t).split(/(?<=\.)\s+(?=[A-Z"'])/).map(s=>`<span class="s">${s}</span>`).join("");
+const flow=t=>esc(t).split(/(?<=[\.\u061F\u06D4])\s+(?=\S)/).map(s=>`<span class="s">${s}</span>`).join("");
 const uniq=a=>[...new Set(a)];
 function fetchData(){
   const url=`https://${PID}.apicdn.sanity.io/v2024-01-01/data/query/${DS}?query=`+encodeURIComponent(Q);
@@ -145,7 +150,7 @@ function route(){ (location.hash.slice(1)) ? detail(decodeURIComponent(location.
 function gridView(){
   const inds=uniq(DATA.map(d=>d.industry).filter(Boolean)).sort();
   const years=uniq(DATA.map(d=>yr(d.year))).sort((a,b)=>b-a);
-  const opt=(v,cur)=>`<option value="${esc(v)}"${v===cur?" selected":""}>${esc(v)}</option>`;
+  const opt=(v,cur,disp)=>`<option value="${esc(v)}"${v===cur?" selected":""}>${esc(disp||v)}</option>`;
   let items=DATA.filter(d=>(!F.industry||d.industry===F.industry)&&(!F.year||yr(d.year)===F.year));
   const active=v=>v?" act":"";
   document.getElementById("app").innerHTML=`
@@ -155,7 +160,7 @@ function gridView(){
    </header>
    <div class="filters wrap">
      <span class="lbl">تصفية حسب</span>
-     <div class="sel${active(F.industry)}"><select id="fi"><option value="">القطاع</option>${inds.map(i=>opt(i,F.industry)).join("")}</select></div>
+     <div class="sel${active(F.industry)}"><select id="fi"><option value="">القطاع</option>${inds.map(i=>opt(i,F.industry,IND[i])).join("")}</select></div>
      <div class="sel${active(F.year)}"><select id="fy"><option value="">السنة</option>${years.map(y=>opt(y,F.year)).join("")}</select></div>
      ${(F.industry||F.year)?`<button class="reset" id="fr">إعادة تعيين ✕</button>`:""}
    </div>
@@ -169,10 +174,10 @@ function gridView(){
 function card(d){
   const cm=d.cardMetric||{};
   const thumb=d.img
-    ? `<div class="thumb photo"><span class="badge">دراسة حالة</span>${d.market?`<span class="mkt">${esc(d.market)}</span>`:""}<img loading="lazy" src="${d.img}?w=760&h=475&fit=crop&auto=format" alt=""></div>`
-    : `<div class="thumb"><span class="badge">دراسة حالة</span>${d.market?`<span class="mkt">${esc(d.market)}</span>`:""}<div class="gtext">${esc(d.industry||"")}</div></div>`;
+    ? `<div class="thumb photo"><span class="badge">دراسة حالة</span>${d.market?`<span class="mkt">${esc(tr(MKT,d.market))}</span>`:""}<img loading="lazy" src="${d.img}?w=760&h=475&fit=crop&auto=format" alt=""></div>`
+    : `<div class="thumb"><span class="badge">دراسة حالة</span>${d.market?`<span class="mkt">${esc(tr(MKT,d.market))}</span>`:""}<div class="gtext">${esc(tr(IND,d.industry))}</div></div>`;
   return `<div class="card" data-slug="${esc(d.slug)}">${thumb}<div class="body">
-    <div class="ml">${yr(d.year)} · ${esc(d.industry||"")}</div>
+    <div class="ml">${yr(d.year)} · ${esc(tr(IND,d.industry))}</div>
     <h3>${esc(d.title)}</h3>
     ${cm.value?`<div class="cm"><span class="v">${esc(cm.value)}</span><span class="l">${esc(cm.label||"")}</span></div>`:""}
   </div></div>`;
@@ -189,9 +194,9 @@ function detail(slug){
      <div>
        <div class="crumbs">
          <span class="chip type">دراسة حالة</span><span class="chip">${yr(d.year)}</span>
-         ${d.market?`<span class="chip market">${esc(d.market)}</span>`:""}
-         ${d.industry?`<span class="chip">${esc(d.industry)}</span>`:""}
-         ${d.engagementType?`<span class="chip">${esc(d.engagementType)}</span>`:""}
+         ${d.market?`<span class="chip market">${esc(tr(MKT,d.market))}</span>`:""}
+         ${d.industry?`<span class="chip">${esc(tr(IND,d.industry))}</span>`:""}
+         ${d.engagementType?`<span class="chip">${esc(tr(ENG,d.engagementType))}</span>`:""}
        </div>
        <h1>${esc(d.title)}</h1>
        ${d.subtitle?`<p class="hsub">${esc(d.subtitle)}</p>`:""}
@@ -202,8 +207,8 @@ function detail(slug){
        <div class="rl">النتيجة</div>
        ${statHTML||`<div class="stat"><div class="l" style="color:rgba(255,255,255,.6)">النتائج متاحة عند الطلب</div></div>`}
        <div class="pfoot">
-         ${d.market?`<div><h4>السوق</h4><p>${esc(d.market)}</p></div>`:""}
-         ${d.engagementType?`<div><h4>نوع المشروع</h4><p>${esc(d.engagementType)}</p></div>`:""}
+         ${d.market?`<div><h4>السوق</h4><p>${esc(tr(MKT,d.market))}</p></div>`:""}
+         ${d.engagementType?`<div><h4>نوع المشروع</h4><p>${esc(tr(ENG,d.engagementType))}</p></div>`:""}
          ${comps.length?`<div><h4>تحقّق بـ</h4><p>${comps.map(esc).join(" · ")}</p></div>`:""}
        </div>
      </div></aside>
@@ -212,7 +217,7 @@ function detail(slug){
      <div class="col angle"><div class="lbl2">الزاوية</div><p class="flow">${flow(d.angle)}</p></div>
      <div class="col did"><div class="lbl2">ما قمتُ به</div><ul>${(d.actions||[]).map((a,i)=>`<li><span class="n">${i+1}</span>${esc(a)}</li>`).join("")}</ul></div>
    </section>
-   ${(d.services||[]).length?`<div class="svc wrap"><span class="lbl2">الخدمات</span>${d.services.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}</div>`:""}
+   ${(d.services||[]).length?`<div class="svc wrap"><span class="lbl2">الخدمات</span>${d.services.map(s=>`<span class="tag">${esc(tr(SVC,s))}</span>`).join("")}</div>`:""}
    <div class="wrap"><div class="cta"><p>${CTA}</p><a class="btn" href="/ar/aimarketingmaturity">ابدأ تقييمك المجاني اليوم ←</a></div></div>`;
   document.getElementById("back").onclick=()=>{location.hash="";};
 }
