@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Get a price range · vales.ae</title>
 <link rel="alternate" hreflang="en" href="https://vales.ae/quote" />
 <link rel="alternate" hreflang="ar" href="https://vales.ae/ar/quote" />
@@ -180,7 +180,7 @@
   .langswitch-btn .chev{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4;transition:transform .2s;flex-shrink:0}
   .langswitch.open .langswitch-btn{border-color:var(--blue);color:var(--blue)}
   .langswitch.open .langswitch-btn .chev{transform:rotate(180deg)}
-  .langswitch-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:184px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(13,31,92,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease,ease),transform .18s var(--ease,ease),visibility .18s;z-index:300}
+  .langswitch-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:184px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(13,31,92,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease,ease),transform .18s var(--ease,ease),visibility .18s;z-index:300}
   .langswitch.open .langswitch-menu{opacity:1;visibility:visible;transform:none}
   .langswitch-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 13px;border-radius:10px;font-size:14.5px;font-weight:700;color:var(--navy);text-decoration:none;transition:background .15s,color .15s}
   .langswitch-item:hover{background:var(--ice)}
@@ -189,6 +189,7 @@
   .langswitch-item .chk{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.6;opacity:0;flex-shrink:0}
   .langswitch-item.active .chk{opacity:1}
   [dir=rtl] .langswitch-menu{right:auto;left:0}
+  @media(max-width:640px){.langswitch-menu{left:0;right:auto}[dir=rtl] .langswitch-menu{right:0;left:auto}}
 </style>
 </head>
 <body>
@@ -196,7 +197,7 @@
 <header class="top">
   <div class="wrap">
     <div class="brandmark">
-      <div><b>Valentino Scicolone</b><span>vales.ae</span></div>
+      <div><b>Valentino Scicolone</b></div>
     </div>
     <div style="display:flex;align-items:center;gap:14px">
       <div class="langswitch" data-lang="en"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/quote" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/quote" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div>

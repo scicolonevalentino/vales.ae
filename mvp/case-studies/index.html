@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Case studies · Valentino Scicolone · vales.ae</title>
 <link rel="alternate" hreflang="en" href="https://vales.ae/case-studies" />
 <link rel="alternate" hreflang="ar" href="https://vales.ae/ar/case-studies" />
@@ -32,10 +32,10 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between}
 .brand{font-weight:800;font-size:17px}.brand span{color:var(--blue)}
 .navlink{font-weight:600;font-size:14px;color:var(--muted);transition:.2s}.navlink:hover{color:var(--blue)}
 /* ---- grid view ---- */
-.head{padding:52px 0 8px}
+.head{padding-top:52px;padding-bottom:8px}
 .head h1{font-size:clamp(30px,4.4vw,46px);font-weight:800;letter-spacing:-.02em}
 .head p{color:var(--muted);font-weight:500;margin-top:10px;max-width:640px;line-height:1.5}
-.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:28px 0 6px}
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-top:28px;padding-bottom:6px}
 .filters .lbl{font-size:13px;font-weight:700;color:var(--muted)}
 .sel{position:relative}
 select{appearance:none;font-family:inherit;font-size:14px;font-weight:700;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:100px;padding:11px 40px 11px 18px;cursor:pointer;transition:.15s}
@@ -44,7 +44,7 @@ select.act{background:var(--blue);color:#fff;border-color:var(--blue)}
 .sel::after{content:"▾";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none;color:var(--muted)}
 .sel.act::after{color:#fff}
 .reset{font-size:13px;font-weight:700;color:var(--blue);cursor:pointer;background:none;border:none;padding:8px}
-.count{font-size:13px;color:var(--muted);font-weight:600;padding:18px 0 26px}
+.count{font-size:13px;color:var(--muted);font-weight:600;padding-top:18px;padding-bottom:26px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding-bottom:80px}
 .card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 18px 44px -24px rgba(13,31,92,.35);transition:transform .3s var(--ease),box-shadow .3s;cursor:pointer;display:flex;flex-direction:column}
 .card:hover{transform:translateY(-5px);box-shadow:0 28px 60px -26px rgba(13,31,92,.45)}
@@ -63,7 +63,7 @@ select.act{background:var(--blue);color:#fff;border-color:var(--blue)}
 .empty{padding:60px 0;text-align:center;color:var(--muted);font-weight:600}
 /* ---- detail view ---- */
 .back{display:inline-flex;gap:8px;font-weight:700;font-size:14px;color:var(--muted);padding:30px 0 0;cursor:pointer;transition:.2s}.back:hover{color:var(--blue)}
-.hero{padding:26px 0 0;display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
+.hero{padding-top:26px;display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
 .crumbs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .chip{font-size:12px;font-weight:700;letter-spacing:.03em;padding:6px 12px;border-radius:100px;border:1px solid var(--line);color:var(--muted)}
 .chip.type{background:var(--blue);border-color:var(--blue);color:#fff}.chip.market{background:rgba(0,212,255,.1);border-color:transparent;color:#0092b8}
@@ -103,7 +103,7 @@ select.act{background:var(--blue);color:#fff;border-color:var(--blue)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(26,86,255,.5)}
 footer{border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.load{padding:80px 0;text-align:center;color:var(--muted);font-weight:600}
+.load{padding-top:80px;padding-bottom:80px;text-align:center;color:var(--muted);font-weight:600}
 @media(max-width:860px){.hero{grid-template-columns:1fr}.proof{position:static}.story{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.cta{flex-direction:column;align-items:flex-start}}
 
@@ -115,7 +115,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .langswitch-btn .chev{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4;transition:transform .2s;flex-shrink:0}
   .langswitch.open .langswitch-btn{border-color:var(--blue);color:var(--blue)}
   .langswitch.open .langswitch-btn .chev{transform:rotate(180deg)}
-  .langswitch-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:184px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(13,31,92,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease,ease),transform .18s var(--ease,ease),visibility .18s;z-index:300}
+  .langswitch-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:184px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 44px rgba(13,31,92,.16);padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s var(--ease,ease),transform .18s var(--ease,ease),visibility .18s;z-index:300}
   .langswitch.open .langswitch-menu{opacity:1;visibility:visible;transform:none}
   .langswitch-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 13px;border-radius:10px;font-size:14.5px;font-weight:700;color:var(--navy);text-decoration:none;transition:background .15s,color .15s}
   .langswitch-item:hover{background:var(--ice)}
@@ -124,9 +124,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .langswitch-item .chk{width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2.6;opacity:0;flex-shrink:0}
   .langswitch-item.active .chk{opacity:1}
   [dir=rtl] .langswitch-menu{right:auto;left:0}
+  @media(max-width:640px){.langswitch-menu{left:0;right:auto}[dir=rtl] .langswitch-menu{right:0;left:auto}}
 </style></head><body>
 <nav><div class="wrap">
-  <a class="brand" href="/">Valentino Scicolone <span>·</span> vales.ae</a>
+  <a class="brand" href="/">Valentino Scicolone</a>
   <div style="display:flex;align-items:center;gap:14px"><div class="langswitch" data-lang="en"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/case-studies" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/case-studies" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div><a class="navlink" href="/">← Home</a></div>
 </div></nav>
 <div id="app"><div class="load wrap">Loading case studies…</div></div>
