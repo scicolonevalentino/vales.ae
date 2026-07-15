@@ -97,6 +97,24 @@
   }
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
   .field textarea{resize:vertical;min-height:78px}
+  /* ---------------- document attachments ---------------- */
+  .attach-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:1.5px dashed rgba(13,31,92,.28);border-radius:12px;padding:11px 16px;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;font-family:inherit;max-width:100%;text-align:start}
+  .attach-btn:hover{border-color:var(--blue);color:var(--blue)}
+  .attach-btn svg{width:15px;height:15px;flex-shrink:0}
+  .attach-btn .attach-types{font-weight:600;font-size:12px}
+  .attach-btn .attach-star{color:var(--blue);font-weight:800}
+  @media(max-width:560px){.attach-btn{width:100%;justify-content:center;flex-wrap:wrap}}
+  .attach-note{font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.6;margin-top:8px}
+  .attach-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .attach-item{display:flex;align-items:center;gap:10px;background:var(--ice);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12.5px;font-weight:600;min-width:0}
+  .attach-item .fname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .attach-item .fstatus{font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
+  .attach-item .fstatus.ok{color:#158043}
+  .attach-item .fstatus.fail{color:#c53030}
+  .attach-item .fremove{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;line-height:1;padding:2px 4px;font-family:inherit}
+  .attach-item .fremove:hover{color:#c53030}
+  @media(max-width:560px){.attach-item{flex-wrap:wrap}.attach-item .fname{flex:1 1 100%}}
+
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:560px){.row2{grid-template-columns:1fr}}
 
@@ -225,7 +243,18 @@
       <h2>What's the problem?</h2>
       <p class="lede">Tell me what's not working. I'll figure out which services apply, you don't need to know that part.</p>
 
-      <div class="field"><label>The challenge</label><textarea id="f_challenge" placeholder="What's not working right now?"></textarea></div>
+      <div class="field">
+        <label>The challenge</label>
+        <textarea id="f_challenge" placeholder="What's not working right now?"></textarea>
+        <input type="file" id="f_docs" accept=".pdf,.doc,.docx,.xls,.xlsx" multiple hidden onchange="handleDocs(this.files);this.value=''" />
+        <div class="attach-list" id="attachList"></div>
+        <button type="button" class="attach-btn" style="margin-top:10px" onclick="document.getElementById('f_docs').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          Attach a document <span class="attach-types">(PDF, Word, Excel)</span><span class="attach-star">*</span>
+        </button>
+        <p class="attach-note"><span class="attach-star">*</span> Read-only: documents are used solely to understand your brief &mdash; the files are never stored.</p>
+        <p class="err" id="errDocs"></p>
+      </div>
       <div class="field"><label>What does success look like?</label><textarea id="f_outcome" placeholder="What has to be true for this to have worked?"></textarea></div>
 
       <p class="err" id="err1">Tell me at least what the challenge is.</p>
@@ -662,6 +691,135 @@ async function inferFromBriefAPI(challenge, outcome){
   }
 }
 
+/* ---------------------------------------------------------
+   DOCUMENT ATTACHMENTS — read-only by design. Files are parsed
+   entirely in the browser (pdf.js / mammoth / SheetJS, lazy-
+   loaded from CDN on first use); only a short text excerpt is
+   passed to the brief-reading step. The file itself never goes
+   anywhere and nothing about it is kept in the lead payload.
+   --------------------------------------------------------- */
+const DOC_MAX_FILES = 3;
+const DOC_MAX_BYTES = 10 * 1024 * 1024;
+const DOC_TEXT_CAP = 6000; // total excerpt budget across all files
+const attachedDocs = []; // { name, status: 'reading'|'ok'|'fail', statusMsg, text }
+
+const DOC_I18N = {
+  reading: 'Reading…', ok: 'Read ✓', fail: "Couldn't read",
+  tooBig: 'Too large (max 10 MB)', badType: 'Unsupported type',
+  tooMany: 'You can attach up to 3 documents.',
+  legacyDoc: 'Old .doc format — please save as .docx',
+  remove: 'Remove',
+};
+
+const docLibPromises = {};
+function loadDocLib(src){
+  if(!docLibPromises[src]){
+    docLibPromises[src] = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src; s.onload = resolve; s.onerror = () => reject(new Error('lib load failed'));
+      document.head.appendChild(s);
+    });
+  }
+  return docLibPromises[src];
+}
+
+async function extractPdf(buf){
+  await loadDocLib('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let out = '';
+  const maxPages = Math.min(pdf.numPages, 20);
+  for(let p = 1; p <= maxPages && out.length < DOC_TEXT_CAP; p++){
+    const page = await pdf.getPage(p);
+    const tc = await page.getTextContent();
+    out += tc.items.map(i => i.str).join(' ') + '\n';
+  }
+  return out;
+}
+
+async function extractDocx(buf){
+  await loadDocLib('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
+  const res = await mammoth.extractRawText({ arrayBuffer: buf });
+  return res.value;
+}
+
+async function extractSheet(buf){
+  await loadDocLib('https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js');
+  const wb = XLSX.read(buf, { type: 'array' });
+  let out = '';
+  wb.SheetNames.forEach(name => {
+    if(out.length >= DOC_TEXT_CAP) return;
+    out += name + '\n' + XLSX.utils.sheet_to_csv(wb.Sheets[name]) + '\n';
+  });
+  return out;
+}
+
+function renderAttachList(){
+  const list = document.getElementById('attachList');
+  list.innerHTML = attachedDocs.map((d, i) => `
+    <div class="attach-item">
+      <span class="fname">${escapeHtml(d.name)}</span>
+      <span class="fstatus ${d.status === 'ok' ? 'ok' : d.status === 'fail' ? 'fail' : ''}">${escapeHtml(d.statusMsg)}</span>
+      <button type="button" class="fremove" aria-label="${DOC_I18N.remove}" onclick="removeDoc(${i})">&times;</button>
+    </div>`).join('');
+}
+
+function removeDoc(i){
+  attachedDocs.splice(i, 1);
+  document.getElementById('errDocs').classList.remove('on');
+  renderAttachList();
+}
+
+async function handleDocs(fileList){
+  const errEl = document.getElementById('errDocs');
+  errEl.classList.remove('on');
+  for(const file of Array.from(fileList)){
+    if(attachedDocs.length >= DOC_MAX_FILES){
+      errEl.textContent = DOC_I18N.tooMany; errEl.classList.add('on');
+      break;
+    }
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    const doc = { name: file.name, status: 'reading', statusMsg: DOC_I18N.reading, text: '' };
+    attachedDocs.push(doc);
+    if(file.size > DOC_MAX_BYTES){
+      doc.status = 'fail'; doc.statusMsg = DOC_I18N.tooBig;
+    } else if(ext === 'doc'){
+      doc.status = 'fail'; doc.statusMsg = DOC_I18N.legacyDoc;
+    } else if(!['pdf','docx','xls','xlsx'].includes(ext)){
+      doc.status = 'fail'; doc.statusMsg = DOC_I18N.badType;
+    } else {
+      doc.pending = (async () => {
+        try {
+          const buf = await file.arrayBuffer();
+          const text = ext === 'pdf' ? await extractPdf(buf)
+                     : ext === 'docx' ? await extractDocx(buf)
+                     : await extractSheet(buf);
+          doc.text = (text || '').replace(/\s+/g, ' ').trim();
+          if(doc.text){ doc.status = 'ok'; doc.statusMsg = DOC_I18N.ok; }
+          else { doc.status = 'fail'; doc.statusMsg = DOC_I18N.fail; }
+        } catch(e){
+          doc.status = 'fail'; doc.statusMsg = DOC_I18N.fail;
+        }
+        renderAttachList();
+      })();
+    }
+  }
+  renderAttachList();
+}
+
+/* Waits for in-flight parsing, then returns one capped excerpt string. */
+async function attachedDocText(){
+  await Promise.all(attachedDocs.map(d => d.pending).filter(Boolean));
+  let out = '';
+  for(const d of attachedDocs){
+    if(d.status !== 'ok' || !d.text) continue;
+    const room = DOC_TEXT_CAP - out.length;
+    if(room <= 0) break;
+    out += `\n[Document: ${d.name}]\n` + d.text.slice(0, room);
+  }
+  return out.trim();
+}
+
 function showStep(n){
   document.querySelectorAll('.step').forEach(el => el.classList.toggle('on', +el.dataset.step === n));
   const done = n > TOTAL_STEPS;
@@ -684,14 +842,19 @@ async function goNext(from){
     }
     err1.classList.remove('on');
     const outcome = document.getElementById('f_outcome').value.trim();
-    const combined = challenge + ' ' + outcome;
+    let combined = challenge + ' ' + outcome;
     // Real Claude call first (Apps Script, type: 'proposal_infer'). Falls
     // back to the local keyword heuristic if the call fails for any reason
     // (no API key set yet, network hiccup, unexpected response) so a brief
     // still gets a usable, if cruder, suggestion instead of nothing.
     let unclear = false;
     await withLoading('Reading your brief...', async () => {
-      const apiResult = await inferFromBriefAPI(challenge, outcome);
+      // Attached documents: fold a short client-side excerpt into the brief
+      // for this one inference read. The excerpt is not part of leadPayload,
+      // so nothing document-related is ever stored.
+      const docText = await attachedDocText();
+      if(docText) combined += ' ' + docText;
+      const apiResult = await inferFromBriefAPI(docText ? challenge + '\n\n' + docText : challenge, outcome);
       if(apiResult && apiResult.configured){
         // configured:true means Claude actually answered - even an empty
         // services list (found nothing that clearly applies) is a real
@@ -822,6 +985,9 @@ function resetForm(){
   document.getElementById('f_timeline').value = 4;
   updateTimelineLabel(4);
   renderDialCodes();
+  attachedDocs.length = 0;
+  renderAttachList();
+  document.getElementById('errDocs').classList.remove('on');
   state.services = [];
   state.activityHours = {};
   state.size = 'medium';
