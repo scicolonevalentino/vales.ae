@@ -210,7 +210,7 @@
   .aff-disclosure{display:block;font-size:11px;color:#5a6aa0;margin-top:6px;line-height:1.5}
   .wa-cta{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14.5px;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);padding:12px 22px;border-radius:999px;transition:transform .25s var(--ease),background .25s,border-color .25s}
   .wa-cta svg{width:19px;height:19px;fill:#25D366;transition:fill .25s}
-  .wa-cta:hover{background:#25D366;border-color:#25D366;transform:translateY(-2px);box-shadow:0 12px 28px rgba(37,211,102,.3)}
+  .wa-cta:hover{border-color:#25D366;transform:translateY(-2px);box-shadow:0 12px 28px rgba(37,211,102,.3)}
   .wa-cta:hover svg{fill:#fff}
 
   @media(prefers-reduced-motion:reduce){
@@ -242,6 +242,22 @@
   .langswitch-item.active .chk{opacity:1}
   [dir=rtl] .langswitch-menu{right:auto;left:0}
   @media(max-width:640px){.langswitch-menu{left:0;right:auto}[dir=rtl] .langswitch-menu{right:0;left:auto}}
+
+  /* ===== cursor-tracking sweep on primary CTAs =====
+     A second colour layer is clipped to a circle centred wherever the pointer
+     entered, then grown to cover; on leave it collapses back toward the exit
+     point, so the fill follows the cursor instead of just appearing.
+     z-index:-1 inside an isolated stacking context paints it above the button's
+     own background but below the label, so the markup stays untouched. */
+  .fx-sweep{position:relative;isolation:isolate}
+  .fx-sweep::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sweep,var(--navy));clip-path:circle(0% at var(--mx,50%) var(--my,50%));transition:clip-path .55s var(--ease);z-index:-1;pointer-events:none}
+  .fx-sweep:hover::after{clip-path:circle(150% at var(--mx,50%) var(--my,50%))}
+  .btn-primary.fx-sweep{--sweep:#fff}
+  .wa-cta.fx-sweep{--sweep:#25D366}
+  .nav-pill-cta.fx-sweep{--sweep:var(--navy)}
+  /* no pointer to follow on touch, and no sweep when motion is turned down */
+  @media(hover:none){.fx-sweep::after{display:none}}
+  @media(prefers-reduced-motion:reduce){.fx-sweep::after{transition:none}}
 </style>
 </head>
 <body>
@@ -270,7 +286,7 @@
     <a class="nav-pill" href="/books" style="margin-left:auto;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">Books</a>
     <a class="nav-pill" href="/how-i-work" style="margin-left:10px;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">How I work</a>
     <a class="nav-pill" href="/case-studies" style="margin-left:10px;font-weight:700;font-size:15px;color:var(--navy);padding:9px 18px;border:1px solid var(--line);border-radius:100px;transition:border-color .15s,color .15s;text-decoration:none" onmouseover="this.style.borderColor='#1A56FF';this.style.color='#1A56FF'" onmouseout="this.style.borderColor='';this.style.color=''">Case studies</a>
-    <a class="nav-pill nav-pill-cta" href="/quote" style="margin-left:24px;font-weight:700;font-size:15px;color:#fff;background:#1A56FF;padding:10px 19px;border:1px solid #1A56FF;border-radius:100px;transition:background .15s,box-shadow .15s;text-decoration:none" onmouseover="this.style.background='#1444cc';this.style.boxShadow='0 8px 22px rgba(26,86,255,.35)'" onmouseout="this.style.background='#1A56FF';this.style.boxShadow=''">Send a brief</a>
+    <a class="nav-pill nav-pill-cta fx-sweep" href="/quote" style="margin-left:24px;font-weight:700;font-size:15px;color:#fff;background:#1A56FF;padding:10px 19px;border:1px solid #1A56FF;border-radius:100px;transition:background .15s,box-shadow .15s;text-decoration:none" onmouseover="this.style.boxShadow='0 8px 22px rgba(26,86,255,.35)'" onmouseout="this.style.boxShadow=''">Send a brief</a>
     <div class="langswitch" data-lang="en" style="margin-left:24px"><button class="langswitch-btn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / اللغة" onclick="vlsToggle(this)"><svg class="globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="langswitch-cur">English</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="langswitch-menu" role="listbox"><a class="langswitch-item active" href="/" lang="en" hreflang="en" role="option"><span>English</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a><a class="langswitch-item" href="/ar/" lang="ar" hreflang="ar" dir="rtl" role="option"><span>العربية</span><svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></a></div></div>
   </div>
 </header>
@@ -285,7 +301,7 @@
         <span class="h-line"><span class="h-grad">stay with us.</span></span>
       </h1>
       <div class="hero-ctas">
-        <a class="btn-primary" href="#services">Discover how <span class="arr">↓</span></a>
+        <a class="btn-primary fx-sweep" href="#services">Discover how <span class="arr">↓</span></a>
       </div>
     </div>
 
@@ -468,7 +484,7 @@
       </g>
     </svg>
     <h2>Start your free<br>AI Marketing Maturity<br>assessment <em>today.</em></h2>
-    <a class="btn-primary" href="https://vales.ae/aimarketingmaturity">See where you stand <span class="arr">→</span></a>
+    <a class="btn-primary fx-sweep" href="https://vales.ae/aimarketingmaturity">See where you stand <span class="arr">→</span></a>
   </div>
   <div class="foot-bottom">
     <div class="id">
@@ -480,7 +496,7 @@
       </div>
       <span class="aff-disclosure">As an Amazon Associate I earn from qualifying purchases.</span>
     </div>
-    <a class="wa-cta" href="https://wa.me/971554150304" target="_blank" rel="noopener">
+    <a class="wa-cta fx-sweep" href="https://wa.me/971554150304" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.08-.3-.15-1.26-.47-2.4-1.48-.89-.8-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.11.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 01-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 01-1.44-5A9.42 9.42 0 0118.7 5.4a9.36 9.36 0 012.76 6.66 9.42 9.42 0 01-9.42 9.44zm8.02-17.46A11.32 11.32 0 0012.04.5C5.8.5.73 5.57.72 11.81c0 2 .53 3.95 1.52 5.67L.63 23.5l6.16-1.61a11.32 11.32 0 005.25 1.34h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.32-8.01z"/></svg>
       Talk to Valentino
     </a>
@@ -523,6 +539,26 @@
 </script>
 
 <script>
+/* Feed the pointer's entry/exit point to the CSS sweep as --mx/--my, so the
+   circle grows from where the cursor came in and retreats toward where it left. */
+(function(){
+  if(!window.matchMedia||!window.matchMedia('(hover:hover)').matches)return;
+  function track(e){
+    var el=e.currentTarget,r=el.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    el.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  }
+  window.vlsBindSweep=function(root){
+    (root||document).querySelectorAll('.fx-sweep:not([data-sweep])').forEach(function(el){
+      el.setAttribute('data-sweep','1');
+      el.addEventListener('mouseenter',track);
+      el.addEventListener('mouseleave',track);
+    });
+  };
+  window.vlsBindSweep();
+})();
+
 /* language switcher dropdown */
 (function(){
   window.vlsToggle=function(btn){var ls=btn.closest('.langswitch');var open=ls.classList.toggle('open');btn.setAttribute('aria-expanded',open);};

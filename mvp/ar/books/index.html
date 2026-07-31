@@ -86,6 +86,20 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .langswitch-item.active .chk{opacity:1}
 [dir=rtl] .langswitch-menu{right:auto;left:0}
 @media(max-width:640px){.langswitch-menu{left:0;right:auto}[dir=rtl] .langswitch-menu{right:0;left:auto}}
+
+/* ===== cursor-tracking sweep on primary CTAs =====
+   A second colour layer is clipped to a circle centred wherever the pointer
+   entered, then grown to cover; on leave it collapses back toward the exit
+   point, so the fill follows the cursor instead of just appearing.
+   z-index:-1 inside an isolated stacking context paints it above the button's
+   own background but below the label, so the markup stays untouched. */
+.fx-sweep{position:relative;isolation:isolate}
+.fx-sweep::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sweep,var(--navy));clip-path:circle(0% at var(--mx,50%) var(--my,50%));transition:clip-path .55s var(--ease);z-index:-1;pointer-events:none}
+.fx-sweep:hover::after{clip-path:circle(150% at var(--mx,50%) var(--my,50%))}
+.amz.fx-sweep{--sweep:var(--navy)}
+/* no pointer to follow on touch, and no sweep when motion is turned down */
+@media(hover:none){.fx-sweep::after{display:none}}
+@media(prefers-reduced-motion:reduce){.fx-sweep::after{transition:none}}
 </style></head><body>
 <nav><div class="wrap">
   <a class="brand" href="/">Valentino Scicolone</a>
@@ -118,6 +132,7 @@ function render(){
    <div class="grid wrap">${items.map(card).join("")||`<div class="empty">لا توجد كتب تطابق هذه التصفية.</div>`}</div>`;
   document.getElementById("fc").onchange=e=>{F.category=e.target.value;render();};
   const fr=document.getElementById("fr"); if(fr) fr.onclick=()=>{F={category:""};render();};
+  if(window.vlsBindSweep) window.vlsBindSweep();
 }
 
 function card(b,i){
@@ -129,7 +144,7 @@ function card(b,i){
       <div class="ml">${esc(b.category)}</div>
       <h3>${esc(b.title)}</h3>
       <div class="author">${esc(b.author)}</div>
-      ${url?`<a class="amz" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="View ${esc(b.title)} on Amazon.ae (affiliate link)">عرض على Amazon.ae ↗</a>`:""}
+      ${url?`<a class="amz fx-sweep" href="${esc(url)}" target="_blank" rel="sponsored nofollow noopener noreferrer" aria-label="View ${esc(b.title)} on Amazon.ae (affiliate link)">عرض على Amazon.ae ↗</a>`:""}
     </div>
   </div>`;
 }
@@ -158,6 +173,28 @@ document.head.appendChild(ldScript);
   window.vlsToggle=function(btn){var ls=btn.closest('.langswitch');var open=ls.classList.toggle('open');btn.setAttribute('aria-expanded',open);};
   document.addEventListener('click',function(e){document.querySelectorAll('.langswitch.open').forEach(function(ls){if(!ls.contains(e.target))ls.classList.remove('open');});});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.langswitch.open').forEach(function(ls){ls.classList.remove('open');});});
+})();
+</script>
+<script>
+/* Feed the pointer's entry/exit point to the CSS sweep as --mx/--my, so the
+   circle grows from where the cursor came in and retreats toward where it left.
+   Cards render client-side, so vlsBindSweep() is re-run after each render. */
+(function(){
+  if(!window.matchMedia||!window.matchMedia('(hover:hover)').matches){window.vlsBindSweep=function(){};return;}
+  function track(e){
+    var el=e.currentTarget,r=el.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    el.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  }
+  window.vlsBindSweep=function(root){
+    (root||document).querySelectorAll('.fx-sweep:not([data-sweep])').forEach(function(el){
+      el.setAttribute('data-sweep','1');
+      el.addEventListener('mouseenter',track);
+      el.addEventListener('mouseleave',track);
+    });
+  };
+  window.vlsBindSweep();
 })();
 </script>
 </body></html>

@@ -208,6 +208,21 @@
   .langswitch-item.active .chk{opacity:1}
   [dir=rtl] .langswitch-menu{right:auto;left:0}
   @media(max-width:640px){.langswitch-menu{left:0;right:auto}[dir=rtl] .langswitch-menu{right:0;left:auto}}
+
+  /* ===== cursor-tracking sweep on primary CTAs =====
+     A second colour layer is clipped to a circle centred wherever the pointer
+     entered, then grown to cover; on leave it collapses back toward the exit
+     point, so the fill follows the cursor instead of just appearing.
+     z-index:-1 inside an isolated stacking context paints it above the button's
+     own background but below the label, so the markup stays untouched. */
+  .fx-sweep{position:relative;isolation:isolate}
+  .fx-sweep::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--sweep,var(--navy));clip-path:circle(0% at var(--mx,50%) var(--my,50%));transition:clip-path .55s var(--ease);z-index:-1;pointer-events:none}
+  .fx-sweep:hover::after{clip-path:circle(150% at var(--mx,50%) var(--my,50%))}
+  .btn-primary.fx-sweep{--sweep:#fff}
+  .talk-cta.fx-sweep{--sweep:var(--navy)}
+  /* no pointer to follow on touch, and no sweep when motion is turned down */
+  @media(hover:none){.fx-sweep::after{display:none}}
+  @media(prefers-reduced-motion:reduce){.fx-sweep::after{transition:none}}
 </style>
 </head>
 <body>
@@ -260,7 +275,7 @@
       <p class="err" id="err1">Tell me at least what the challenge is.</p>
       <div class="stepnav">
         <span></span>
-        <button class="btn-primary" onclick="goNext(1)">Continue <span>&rarr;</span></button>
+        <button class="btn-primary fx-sweep" onclick="goNext(1)">Continue <span>&rarr;</span></button>
       </div>
     </section>
 
@@ -274,7 +289,7 @@
       <p class="err" id="err2">Pick at least one service.</p>
       <div class="stepnav">
         <button class="btn-ghost" onclick="goBack(2)">&larr; Back</button>
-        <button class="btn-primary" onclick="goNext(2)">Continue <span>&rarr;</span></button>
+        <button class="btn-primary fx-sweep" onclick="goNext(2)">Continue <span>&rarr;</span></button>
       </div>
     </section>
 
@@ -348,7 +363,7 @@
       <p class="err" id="err3">Fill in your first name, last name and business email.</p>
       <div class="stepnav">
         <button class="btn-ghost" onclick="goBack(3)">&larr; Back</button>
-        <button class="btn-primary" onclick="goNext(3)">Continue <span>&rarr;</span></button>
+        <button class="btn-primary fx-sweep" onclick="goNext(3)">Continue <span>&rarr;</span></button>
       </div>
     </section>
 
@@ -360,7 +375,7 @@
       <div class="opt-list" id="paymentGrid"></div>
       <div class="stepnav">
         <button class="btn-ghost" onclick="goBack(4)">&larr; Back</button>
-        <button class="btn-primary" onclick="goNext(4)">See my range <span>&rarr;</span></button>
+        <button class="btn-primary fx-sweep" onclick="goNext(4)">See my range <span>&rarr;</span></button>
       </div>
     </section>
 
@@ -379,8 +394,8 @@
       <div class="stepnav">
         <button class="btn-ghost" onclick="goBack(5)">&larr; Adjust something</button>
         <div class="range-actions">
-          <a class="talk-cta" href="mailto:valentino.scicolone@gmail.com">Let's talk</a>
-          <button class="btn-primary" onclick="goNext(5)">Let's move on! <span>&rarr;</span></button>
+          <a class="talk-cta fx-sweep" href="mailto:valentino.scicolone@gmail.com">Let's talk</a>
+          <button class="btn-primary fx-sweep" onclick="goNext(5)">Let's move on! <span>&rarr;</span></button>
         </div>
       </div>
     </section>
@@ -1013,6 +1028,27 @@ updateTimelineLabel(document.getElementById('f_timeline').value);
   window.vlsToggle=function(btn){var ls=btn.closest('.langswitch');var open=ls.classList.toggle('open');btn.setAttribute('aria-expanded',open);};
   document.addEventListener('click',function(e){document.querySelectorAll('.langswitch.open').forEach(function(ls){if(!ls.contains(e.target))ls.classList.remove('open');});});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.langswitch.open').forEach(function(ls){ls.classList.remove('open');});});
+})();
+</script>
+<script>
+/* Feed the pointer's entry/exit point to the CSS sweep as --mx/--my, so the
+   circle grows from where the cursor came in and retreats toward where it left. */
+(function(){
+  if(!window.matchMedia||!window.matchMedia('(hover:hover)').matches)return;
+  function track(e){
+    var el=e.currentTarget,r=el.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    el.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    el.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  }
+  window.vlsBindSweep=function(root){
+    (root||document).querySelectorAll('.fx-sweep:not([data-sweep])').forEach(function(el){
+      el.setAttribute('data-sweep','1');
+      el.addEventListener('mouseenter',track);
+      el.addEventListener('mouseleave',track);
+    });
+  };
+  window.vlsBindSweep();
 })();
 </script>
 </body>
