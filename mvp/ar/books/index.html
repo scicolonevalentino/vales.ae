@@ -20,6 +20,7 @@
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://covers.openlibrary.org"><link rel="dns-prefetch" href="https://covers.openlibrary.org">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#1A56FF;--cyan:#00D4FF;--navy:#0D1F5C;--mid:#4D7BFF;--ice:#F4F7FF;--muted:#5b6aa0;--line:rgba(13,31,92,.10);--maxw:1180px;--ease:cubic-bezier(.16,.84,.44,1)}
@@ -116,10 +117,11 @@ function render(){
   const fr=document.getElementById("fr"); if(fr) fr.onclick=()=>{F={category:""};render();};
 }
 
-function card(b){
+function card(b,i){
   const url=b.amazonUrl;
+  const eager=i<4;
   return `<div class="card">
-    <div class="thumb">${b.featured?`<span class="badge">موصى به</span>`:""}<img src="${esc(b.coverImage)}" alt="${esc(b.title)} cover" onerror="this.style.display='none'"></div>
+    <div class="thumb">${b.featured?`<span class="badge">موصى به</span>`:""}<img src="${esc(b.coverImage)}" alt="${esc(b.title)} cover" loading="${eager?"eager":"lazy"}" decoding="async" ${eager?'fetchpriority="high"':''} onerror="this.style.display='none'"></div>
     <div class="body">
       <div class="ml">${esc(b.category)}</div>
       <h3>${esc(b.title)}</h3>
