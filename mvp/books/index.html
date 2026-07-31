@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Books I've Read · Valentino Scicolone · vales.ae</title>
+<title>Books I've read · Valentino Scicolone · vales.ae</title>
 <link rel="alternate" hreflang="en" href="https://vales.ae/books" />
 <link rel="alternate" hreflang="ar" href="https://vales.ae/ar/books" />
 <link rel="alternate" hreflang="x-default" href="https://vales.ae/books" />
@@ -9,18 +9,21 @@
 <meta property="og:site_name" content="vales.ae" />
 <meta property="og:url" content="https://vales.ae/books" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:title" content="Books I've Read · Valentino Scicolone · vales.ae" />
+<meta property="og:title" content="Books I've read · Valentino Scicolone · vales.ae" />
 <meta property="og:description" content="Business and startup books I've actually read and recommend, from The Lean Startup to Never Split the Difference. Filter by category." />
 <meta property="og:image" content="https://vales.ae/assets/og-image.png" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Books I've Read · Valentino Scicolone · vales.ae" />
+<meta name="twitter:title" content="Books I've read · Valentino Scicolone · vales.ae" />
 <meta name="twitter:description" content="Business and startup books I've actually read and recommend, from The Lean Startup to Never Split the Difference. Filter by category." />
 <meta name="twitter:image" content="https://vales.ae/assets/og-image.png" />
 <meta name="description" content="Business and startup books I've actually read and recommend, from The Lean Startup to Never Split the Difference. Filter by category.">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://covers.openlibrary.org"><link rel="dns-prefetch" href="https://covers.openlibrary.org">
+<link rel="preload" as="image" href="/books/covers/0307887898.webp">
+<link rel="preload" as="image" href="/books/covers/0470876417.webp">
+<link rel="preload" as="image" href="/books/covers/0804139296.webp">
+<link rel="preload" as="image" href="/books/covers/0062273205.webp">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#1A56FF;--cyan:#00D4FF;--navy:#0D1F5C;--mid:#4D7BFF;--ice:#F4F7FF;--muted:#5b6aa0;--line:rgba(13,31,92,.10);--maxw:1180px;--ease:cubic-bezier(.16,.84,.44,1)}
@@ -103,8 +106,8 @@ function render(){
   const active=v=>v?" act":"";
   document.getElementById("app").innerHTML=`
    <header class="head wrap">
-     <h1>Books I've Read</h1>
-     <p>Business and startup books I've actually read, cover to cover, over the years of building AI marketing strategy for clients. No filler, no books I only skimmed for a summary.</p>
+     <h1>Books I've read</h1>
+     <p>The business and startup books that actually shaped how I work. Read cover to cover, not skimmed for the summary.</p>
    </header>
    <div class="filters wrap">
      <span class="lbl">Filter by</span>
@@ -135,7 +138,7 @@ render();
 const itemList={
   "@context":"https://schema.org",
   "@type":"ItemList",
-  "name":"Books I've Read",
+  "name":"Books I've read",
   "url":"https://vales.ae/books",
   "itemListElement":BOOKS.sort((a,b)=>a.displayOrder-b.displayOrder).map((b,i)=>({
     "@type":"ListItem",

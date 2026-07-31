@@ -11,29 +11,12 @@ function buildAmazonAffiliateUrl(asin) {
   return `https://www.amazon.ae/dp/${clean}/ref=nosim?tag=${AMAZON_TAG}`;
 }
 
+// Covers are self-hosted (sourced from Open Library, converted to WebP) rather than
+// hot-linked: openlibrary.org routes through archive.org and regularly takes seconds
+// per image, which made the grid load visibly slowly.
 function coverUrl(asin) {
-  // Open Library Covers API, keyed by ISBN-10 (== ASIN for these books). Free, no auth, no ToS conflict.
-  return `https://covers.openlibrary.org/b/isbn/${asin}-L.jpg`;
+  return `/books/covers/${asin}.webp`;
 }
-
-// Open Library has no cover (or a low-res one) filed under some exact ISBNs.
-// These overrides point at a verified, high-res cover for the same title/edition family
-// (via Open Library's cover_i, not tied to one ISBN), so no card ever ships a blank
-// or pixelated image. The affiliate link still always uses the book's real `asin` above.
-function coverById(id) {
-  return `https://covers.openlibrary.org/b/id/${id}-L.jpg`;
-}
-const COVER_OVERRIDES = {
-  "0062312693": coverById(9265081),   // Multipliers
-  "1118968077": coverById(10196709),  // Value Proposition Design
-  "1119594820": coverById(8732100),   // Venture Deals
-  "1489391851": coverById(13461522),  // Play Bigger
-  "1591843170": coverById(866008),    // Purple Cow
-  "1400064287": coverById(7004880),   // Made to Stick (higher-res edition than the ISBN-matched scan)
-  "142218739X": coverById(14507238),  // Playing to Win
-  "0684841460": coverById(10525724),  // Competitive Advantage (Free Press reissue scan is far sharper than the ISBN-matched one)
-  "0684841487": coverById(19091)      // Competitive Strategy (sharper scan than the ISBN-matched one)
-};
 
 const BOOKS = [
   { title: "The Lean Startup", author: "Eric Ries", asin: "0307887898", category: "Entrepreneurship", featured: true, displayOrder: 1, status: "read",
@@ -141,5 +124,5 @@ const BOOKS = [
 
 BOOKS.forEach(b => {
   b.amazonUrl = buildAmazonAffiliateUrl(b.asin);
-  b.coverImage = COVER_OVERRIDES[b.asin] || coverUrl(b.asin);
+  b.coverImage = coverUrl(b.asin);
 });

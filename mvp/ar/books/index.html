@@ -20,7 +20,10 @@
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.ico" sizes="any">
 <link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://covers.openlibrary.org"><link rel="dns-prefetch" href="https://covers.openlibrary.org">
+<link rel="preload" as="image" href="/books/covers/0307887898.webp">
+<link rel="preload" as="image" href="/books/covers/0470876417.webp">
+<link rel="preload" as="image" href="/books/covers/0804139296.webp">
+<link rel="preload" as="image" href="/books/covers/0062273205.webp">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#1A56FF;--cyan:#00D4FF;--navy:#0D1F5C;--mid:#4D7BFF;--ice:#F4F7FF;--muted:#5b6aa0;--line:rgba(13,31,92,.10);--maxw:1180px;--ease:cubic-bezier(.16,.84,.44,1)}
@@ -104,7 +107,7 @@ function render(){
   document.getElementById("app").innerHTML=`
    <header class="head wrap">
      <h1>الكتب التي قرأتها</h1>
-     <p>كتب في ريادة الأعمال والإدارة قرأتها بالكامل على مدار سنوات بناء استراتيجيات التسويق بالذكاء الاصطناعي لعملائي. لا حشو، ولا كتب اكتفيت بملخصها فقط.</p>
+     <p>كتب ريادة الأعمال والإدارة التي شكّلت فعلاً طريقة عملي. قرأتها كاملةً، لا ملخّصات.</p>
    </header>
    <div class="filters wrap">
      <span class="lbl">تصفية حسب</span>
@@ -135,7 +138,7 @@ render();
 const itemList={
   "@context":"https://schema.org",
   "@type":"ItemList",
-  "name":"Books I've Read",
+  "name":"Books I've read",
   "url":"https://vales.ae/ar/books",
   "itemListElement":BOOKS.sort((a,b)=>a.displayOrder-b.displayOrder).map((b,i)=>({
     "@type":"ListItem",
