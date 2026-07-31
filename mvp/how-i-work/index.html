@@ -64,18 +64,27 @@
   @keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(-70px,50px) scale(1.12)}}
   @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(80px,-50px)}}
   .hiw-hero .wrap{position:relative;z-index:1;padding-top:96px;padding-bottom:104px;text-align:center}
-  .eyebrow-lt{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);opacity:0;animation:fadeup .7s var(--ease) .05s forwards}
+  .eyebrow-lt{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);opacity:0;animation:fadeup .7s var(--ease) 1.5s forwards}
+  /* The setup line and the punchline share one grid cell, so "Meet the team."
+     can hand over to "There isn't one." without the layout shifting under it. */
+  .reveal{display:grid}
+  .reveal>*{grid-area:1/1}
+  /* setupOut must finish before the punchline starts rising: if the two overlap
+     the stacked headlines cross-fade through each other and turn to mush. */
+  .setup-big{align-self:center;font-size:clamp(36px,6vw,64px);font-weight:800;line-height:1.14;letter-spacing:-.028em;margin-top:20px;opacity:0;animation:setupIn .55s var(--ease) .1s forwards,setupOut .4s var(--ease) 1.15s forwards}
+  @keyframes setupIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @keyframes setupOut{to{opacity:0;transform:translateY(-18px) scale(.96)}}
   .hiw-hero h1{font-size:clamp(36px,6vw,64px);font-weight:800;line-height:1.14;letter-spacing:-.028em;margin-top:20px}
   .h-line{display:block;overflow:hidden}
   .h-line span{display:inline-block;opacity:0;transform:translateY(26px);animation:rise .85s var(--ease) forwards}
-  .h-line:nth-child(1) span{animation-delay:.18s}
-  .h-line:nth-child(2) span{animation-delay:.31s}
-  .h-line:nth-child(3) span{animation-delay:.44s}
+  .h-line:nth-child(1) span{animation-delay:1.58s}
+  .h-line:nth-child(2) span{animation-delay:1.71s}
+  .h-line:nth-child(3) span{animation-delay:1.84s}
   @keyframes rise{to{opacity:1;transform:none}}
   .h-grad{background:linear-gradient(90deg,var(--cyan),#8fb4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hiw-hero .lede{max-width:600px;margin:26px auto 0;font-size:17.5px;color:rgba(255,255,255,.78);font-weight:500;line-height:1.6;opacity:0;animation:fadeup .8s var(--ease) .58s forwards}
+  .hiw-hero .lede{max-width:600px;margin:26px auto 0;font-size:17.5px;color:rgba(255,255,255,.78);font-weight:500;line-height:1.6;opacity:0;animation:fadeup .8s var(--ease) 2s forwards}
   @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-  .hero-ctas{margin-top:32px;opacity:0;animation:fadeup .8s var(--ease) .72s forwards}
+  .hero-ctas{margin-top:32px;opacity:0;animation:fadeup .8s var(--ease) 2.15s forwards}
   .btn-primary{background:var(--cyan);color:var(--navy);font-weight:800;font-size:15.5px;padding:15px 30px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;transition:transform .25s var(--ease),box-shadow .25s var(--ease);border:none;cursor:pointer}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,212,255,.4)}
   .btn-primary .arr{transition:transform .3s var(--ease)}
@@ -200,6 +209,7 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
     .h-line span{transform:none}.hero-ctas,.lede,.eyebrow-lt{opacity:1}
+    .setup-big{display:none}
     .reveal-el{opacity:1!important;transform:none!important}
   }
 
@@ -241,10 +251,13 @@
 <section class="hiw-hero">
   <div class="wrap">
     <p class="eyebrow-lt">Meet the team</p>
-    <h1>
-      <span class="h-line"><span>There isn't one.</span></span>
-      <span class="h-line"><span class="h-grad">There's a NEW way of working.</span></span>
-    </h1>
+    <div class="reveal">
+      <p class="setup-big" aria-hidden="true">Meet the team.</p>
+      <h1>
+        <span class="h-line"><span>There isn't one.</span></span>
+        <span class="h-line"><span class="h-grad">There's a NEW way of working.</span></span>
+      </h1>
+    </div>
     <p class="lede">No bios. No headshots. A swarm of agents doing the work at machine speed, all of it wrapped in the four human competencies that decide what's actually good.</p>
     <div class="hero-ctas">
       <a class="btn-primary" href="#org">See how it runs <span class="arr">↓</span></a>

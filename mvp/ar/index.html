@@ -77,9 +77,11 @@
   .li svg{width:16px;height:16px;fill:currentColor}
   .li:hover{color:#0A66C2;transform:translateY(-1px)}
   @media(max-width:1024px){
-    .nav .wrap{flex-wrap:wrap;gap:12px;min-height:0;padding:16px 28px 18px}
+    .nav .wrap{flex-wrap:wrap;gap:10px;min-height:0;padding:16px 28px 18px}
     .brand{flex:1 1 100%}
-    .nav-pill{margin-left:0 !important}
+    /* desktop spacing margins would survive the wrap and make the rows ragged */
+    .nav-pill,.langswitch{margin-left:0 !important;margin-inline-start:0 !important}
+    .nav-pill{white-space:nowrap}
   }
   @media(max-width:640px){
     .nav .wrap{gap:9px;padding:10px max(24px,env(safe-area-inset-right)) 12px max(24px,env(safe-area-inset-left))}
