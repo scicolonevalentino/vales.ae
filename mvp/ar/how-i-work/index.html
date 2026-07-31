@@ -208,7 +208,10 @@
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
     .h-line span{transform:none}.hero-ctas,.lede,.eyebrow-lt{opacity:1}
-    .setup-big{display:none}
+    /* No animation to carry the setup, so un-stack it and render it as the
+       eyebrow instead: the joke still needs its first line to make sense. */
+    .reveal{display:block}
+    .setup-big{opacity:1;font-size:12px;letter-spacing:.22em;color:var(--cyan);line-height:1.6;margin-top:0}
     .reveal-el{opacity:1!important;transform:none!important}
   }
 
@@ -258,9 +261,8 @@
 <!-- ============ HERO / THE REVEAL ============ -->
 <section class="hiw-hero">
   <div class="wrap">
-    <p class="eyebrow-lt">تعرّف على الفريق</p>
     <div class="reveal">
-      <p class="setup-big" aria-hidden="true">تعرّف على الفريق.</p>
+      <p class="setup-big">تعرّف على الفريق.</p>
       <h1>
         <span class="h-line"><span>لا يوجد فريق.</span></span>
         <span class="h-line"><span class="h-grad">بل طريقة عمل جديدة.</span></span>
