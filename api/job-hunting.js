@@ -55,7 +55,23 @@ function sessionValid(req, secret) {
 }
 
 function loginPage(error = false) {
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Private target map · Valentino Scicolone</title><link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>:root{--blue:#1A56FF;--navy:#0D1F5C;--muted:#5b6aa0;--ice:#F4F7FF}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--ice);color:var(--navy);font-family:'Plus Jakarta Sans',system-ui,sans-serif;padding:24px}.card{width:min(100%,440px);background:#fff;border:1px solid rgba(13,31,92,.1);border-radius:24px;padding:clamp(28px,5vw,44px);box-shadow:0 24px 60px -35px rgba(13,31,92,.35)}.brand{font-weight:800;text-decoration:none;color:var(--navy)}.brand span{color:var(--navy)}.eyebrow{margin:42px 0 10px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}h1{font-size:clamp(28px,5vw,36px);line-height:1.15;letter-spacing:-.03em;margin:0}p{color:var(--muted);line-height:1.6;font-size:15px}label{display:block;margin:28px 0 8px;font-size:13px;font-weight:700}input{width:100%;padding:14px 16px;border:1px solid rgba(13,31,92,.2);border-radius:12px;font:inherit}input:focus{outline:2px solid var(--blue);outline-offset:2px}button{width:100%;margin-top:16px;padding:14px;border:0;border-radius:999px;background:var(--blue);color:#fff;font:700 15px 'Plus Jakarta Sans',sans-serif;cursor:pointer}.error{color:#ad263b;font-weight:700;font-size:13px;margin-bottom:0}</style></head><body><main class="card"><a class="brand" href="/">Valentino <span>Scicolone</span></a><div class="eyebrow">Private working map</div><h1>Where could Valentino actually fit?</h1><p>Enter the shared password to explore the target organisations and startup programmes.</p><form method="post" action="/job-hunting"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required autofocus>${error ? '<p class="error" role="alert">Incorrect password. Please try again.</p>' : ''}<button type="submit">Open the map</button></form></main></body></html>`;
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Private target map</title>
+<link rel="icon" href="/aimarketingmaturity/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#1A56FF;--navy:#0D1F5C;--ice:#F4F7FF}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--ice);color:var(--navy);font-family:'Plus Jakarta Sans',system-ui,sans-serif;padding:18px}
+.card{width:min(100%,460px);background:#fff;border:1px solid rgba(13,31,92,.1);border-radius:24px;padding:clamp(26px,6vw,42px);box-shadow:0 24px 60px -35px rgba(13,31,92,.35)}
+.eyebrow{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+h1{font-size:clamp(28px,6vw,36px);line-height:1.18;letter-spacing:-.025em;margin:0;text-wrap:balance}
+label{display:block;margin:32px 0 8px;font-size:13px;font-weight:700}
+input{width:100%;min-height:50px;padding:13px 16px;border:1px solid rgba(13,31,92,.2);border-radius:12px;font:inherit}
+input:focus{outline:2px solid var(--blue);outline-offset:2px}
+button{width:100%;min-height:50px;margin-top:16px;padding:13px;border:0;border-radius:999px;background:var(--blue);color:#fff;font:700 15px 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+.error{color:#ad263b;font-weight:700;font-size:13px;margin-bottom:0}
+</style></head><body><main class="card"><div class="eyebrow">Private working map</div><h1>Find the right fit</h1><form method="post" action="/job-hunting"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required autofocus>${error ? '<p class="error" role="alert">Incorrect password. Please try again.</p>' : ''}<button type="submit">Open the map</button></form></main></body></html>`;
 }
 
 const matchSchema = {
