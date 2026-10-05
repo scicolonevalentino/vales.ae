@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "mvp",
+  "functions": {
+    "api/job-hunting.js": {
+      "includeFiles": "private/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/job-hunting", "destination": "/api/job-hunting" },
+    { "source": "/job-hunting/", "destination": "/api/job-hunting" },
+    { "source": "/job-hunting/data", "destination": "/api/job-hunting?view=data" }
+  ]
+}

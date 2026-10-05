@@ -6,3 +6,6 @@ assessment-design.md
 # OS / tooling
 .DS_Store
 node_modules/
+.vercel
+.env*
+/private/*.json
