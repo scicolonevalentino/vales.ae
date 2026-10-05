@@ -4,12 +4,14 @@
   "outputDirectory": "mvp",
   "functions": {
     "api/job-hunting.js": {
-      "includeFiles": "private/**"
+      "includeFiles": "private/**",
+      "maxDuration": 60
     }
   },
   "rewrites": [
     { "source": "/job-hunting", "destination": "/api/job-hunting" },
     { "source": "/job-hunting/", "destination": "/api/job-hunting" },
-    { "source": "/job-hunting/data", "destination": "/api/job-hunting?view=data" }
+    { "source": "/job-hunting/data", "destination": "/api/job-hunting?view=data" },
+    { "source": "/job-hunting/match", "destination": "/api/job-hunting?view=match" }
   ]
 }

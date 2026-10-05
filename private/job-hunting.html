@@ -44,11 +44,7 @@ nav .wrap{min-height:70px;display:flex;align-items:center;justify-content:space-
 .search{display:block;width:100%;border:1px solid rgba(13,31,92,.22);border-radius:14px;background:#fff;padding:15px 18px;outline:none;font-size:16px;color:var(--navy);transition:border-color .2s,box-shadow .2s}
 .search:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,255,.1)}
 select:focus,input[type=checkbox]:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.quick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 22px}
-.quick span{font-size:12px;color:var(--muted);font-weight:700;margin-right:3px}
-.chip{border:1px solid var(--line);background:var(--ice);color:var(--navy);border-radius:999px;padding:10px 14px;min-height:42px;font-size:13px;font-weight:700;transition:background .2s,border-color .2s,color .2s,transform .2s}
-.chip:hover{border-color:var(--blue);transform:translateY(-2px)}.chip.active{border-color:var(--blue);background:var(--blue);color:#fff}
-.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:17px}
 .field label{display:block;font-size:12px;color:var(--muted);font-weight:800;margin:0 0 7px}
 .field select{width:100%;min-width:0;max-width:100%;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--navy);padding:12px;font-size:13px;font-weight:700;min-height:46px}
 .more{margin-top:12px}.more summary{font-size:13px;color:var(--blue);font-weight:800;cursor:pointer;list-style:none;display:inline-block;padding:10px 0}
@@ -58,13 +54,6 @@ select:focus,input[type=checkbox]:focus-visible,button:focus-visible,a:focus-vis
 .extra .field{min-width:160px}.reset{border:0;background:none;color:var(--blue);font-size:13px;font-weight:800;padding:12px;min-height:44px}
 .summary{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:14px;font-weight:700;padding:24px 0 14px}
 .summary strong{color:var(--navy)}
-.program-directory{border:1px solid var(--line);border-radius:16px;background:var(--ice);margin:8px 0 22px;overflow:hidden}
-.program-directory>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;list-style:none;cursor:pointer;padding:18px 22px;transition:background .2s}
-.program-directory>summary::-webkit-details-marker{display:none}.program-directory>summary:hover{background:#eaf0ff}
-.program-directory>summary strong{font-size:16px}.program-directory>summary span{font-size:13px;font-weight:700;color:var(--muted)}
-.program-directory>summary::after{content:'▾';color:var(--blue);font-weight:800}.program-directory[open]>summary::after{content:'▴'}
-.program-body{border-top:1px solid var(--line);padding:18px;display:grid;gap:10px;animation:rise .22s ease-out both}
-.program-note{font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 4px}
 .list{display:grid;gap:10px}.company,.program{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 8px 24px -22px rgba(13,31,92,.35);min-width:0;transition:transform .22s,border-color .22s,box-shadow .22s}
 .company:hover,.program:hover{transform:translateY(-2px);box-shadow:0 15px 32px -25px rgba(13,31,92,.5)}.company[open]{border-color:rgba(26,86,255,.4)}
 .company summary{list-style:none;display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr) 130px;gap:18px;align-items:center;cursor:pointer;padding:20px 22px}
@@ -80,28 +69,36 @@ select:focus,input[type=checkbox]:focus-visible,button:focus-visible,a:focus-vis
 .program{padding:18px 20px}.program-head{display:flex;justify-content:space-between;gap:18px}.program h3{font-size:17px;margin:0 0 8px;overflow-wrap:anywhere}.program .attrs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}.program p{font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 11px}.program-links{display:flex;flex-wrap:wrap;gap:16px;align-items:center}.program .country{font-size:12px;font-weight:800;color:var(--blue);white-space:nowrap}.program .company-link{border:0;background:none;color:var(--blue);font-size:13px;font-weight:800;padding:8px 0}
 footer{background:var(--navy);color:#fff;padding:26px 0;font-size:13px}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:820px){.company summary{grid-template-columns:minmax(0,1fr) 110px}.company .meta{grid-column:1/-1;grid-row:2}.score{grid-column:2;grid-row:1}.guide{grid-template-columns:1fr}.section-head{display:block}.section-head p{text-align:left;margin-top:8px}}
-@media(max-width:580px){.wrap{padding:0 18px}nav .wrap{min-height:62px}.brand{font-size:15px}.nav-right{gap:7px}.nav-right a{display:none}.sound-toggle{padding:9px 11px}.hero{padding:33px 0}.hero p{font-size:16px}.guide{gap:12px;padding-top:18px;padding-bottom:18px}.guide article{padding:19px}.guide p{font-size:16px}.main{padding-top:14px}.filters{grid-template-columns:1fr 1fr}.company summary{padding:17px;gap:10px}.name{font-size:16px}.division{font-size:13px}.meta{font-size:12px}.score b{font-size:18px}.detail{grid-template-columns:1fr;padding:19px;gap:18px}.program-directory>summary{padding:17px}.program-directory>summary span{font-size:12px}.program-body{padding:12px}.program-head{display:block}.program .country{display:block;margin:3px 0 8px}}
+@media(max-width:820px){.workbench{grid-template-columns:1fr}.company summary{grid-template-columns:minmax(0,1fr) 110px}.company .meta{grid-column:1/-1;grid-row:2}.score{grid-column:2;grid-row:1}.guide{grid-template-columns:1fr}.section-head{display:block}.section-head p{text-align:left;margin-top:8px}}
+@media(max-width:580px){.wrap{padding:0 18px}nav .wrap{min-height:62px}.brand{font-size:15px}.nav-right{gap:7px}.nav-right a{display:none}.sound-toggle{padding:9px 11px}.hero{padding:33px 0}.hero p{font-size:16px}.guide{gap:12px;padding-top:18px;padding-bottom:18px}.guide article{padding:19px}.guide p{font-size:16px}.main{padding-top:14px}.filters{grid-template-columns:1fr 1fr}.company summary{padding:17px;gap:10px}.name{font-size:16px}.division{font-size:13px}.meta{font-size:12px}.score b{font-size:18px}.detail{grid-template-columns:1fr;padding:19px;gap:18px}.program-head{display:block}.program .country{display:block;margin:3px 0 8px}}
 @media(max-width:360px){.filters{grid-template-columns:1fr}.nav-right{gap:2px}.sound-toggle{font-size:11px}}
-@media(hover:none){.company:hover,.program:hover,.chip:hover{transform:none}}
+@media(hover:none){.company:hover,.program:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.workbench{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.map-tools,.matcher{border:1px solid var(--line);border-radius:20px;padding:23px;background:#fff;box-shadow:0 16px 38px -34px rgba(13,31,92,.4)}
+.matcher{background:var(--ice)}.tool-title{font-size:20px;letter-spacing:-.02em;margin:0 0 6px}.tool-intro{font-size:15px;color:var(--muted);line-height:1.5;margin:0 0 18px}
+.match-input{display:block;width:100%;min-height:135px;resize:vertical;border:1px solid rgba(13,31,92,.22);border-radius:14px;background:#fff;padding:15px;color:var(--navy);font:inherit;font-size:16px;line-height:1.5}
+.match-input:focus{outline:2px solid var(--blue);outline-offset:2px}.match-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.upload{position:relative;display:inline-flex;align-items:center;justify-content:center;border:1px dashed var(--mid);border-radius:12px;padding:11px 14px;min-height:46px;color:var(--navy);font-size:14px;font-weight:800;cursor:pointer;background:#fff}.upload input{position:absolute;inset:0;width:100%;opacity:0;cursor:pointer}.upload:focus-within{outline:2px solid var(--blue);outline-offset:2px}.analyze{border:0;border-radius:12px;background:var(--blue);color:#fff;padding:12px 18px;min-height:46px;font-weight:800;font-size:14px}.analyze:hover{background:var(--navy)}.file-name,.match-error{font-size:13px;line-height:1.45;margin:10px 0 0}.file-name{color:var(--muted)}.match-error{color:#ad263b;font-weight:700}.selected-company{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#e9efff;padding:9px 12px;border-radius:10px;margin:0 0 12px;font-size:13px;font-weight:700}.selected-company button{border:0;background:none;color:var(--blue);font-weight:800;padding:5px}
+.match-link{border:1px solid var(--blue);background:#fff;color:var(--blue);padding:10px 14px;border-radius:10px;font-weight:800;min-height:44px}.match-link:hover{background:#ecf2ff}.match-overlay{position:fixed;inset:0;z-index:30;background:rgba(8,22,65,.6);display:grid;place-items:center;padding:20px}.match-dialog{background:#fff;border-radius:22px;padding:clamp(24px,4vw,36px);width:min(100%,620px);max-height:90vh;overflow:auto;box-shadow:0 28px 90px rgba(0,0,0,.2)}.match-dialog h2{font-size:26px;line-height:1.2;margin:0 0 14px}.match-dialog p,.match-dialog li{font-size:16px;line-height:1.6}.dialog-top{display:flex;justify-content:space-between;align-items:start;gap:12px}.close-dialog{border:0;background:var(--ice);border-radius:50%;width:42px;height:42px;font-size:22px;flex:none}.spinner{width:42px;height:42px;border:4px solid #dbe5ff;border-top-color:var(--blue);border-radius:50%;animation:spin .85s linear infinite;margin:22px auto}.report-score{font-size:48px;font-weight:800;color:var(--blue);line-height:1}.report-verdict{font-size:14px;font-weight:800;color:var(--navy);margin:6px 0 18px}.report-section h3{font-size:17px;margin:21px 0 6px}.report-section ul{padding-left:21px;margin:0}.report-note{color:var(--muted);font-size:13px!important;border-top:1px solid var(--line);padding-top:14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:820px){.workbench{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
 </style>
 </head>
 <body>
-<nav><div class="wrap"><a class="brand" href="/">Valentino Scicolone</a><div class="nav-right"><a href="/">← Home</a><button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">Sound off</button><form method="post" action="/job-hunting"><input type="hidden" name="logout" value="1"><button class="text-button" type="submit">Log out</button></form></div></div></nav>
+<nav><div class="wrap"><a class="brand" href="/">Valentino Scicolone</a><div class="nav-right"><a href="/">← Home</a><button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true">🔊 Sound on</button><form method="post" action="/job-hunting"><input type="hidden" name="logout" value="1"><button class="text-button" type="submit">Log out</button></form></div></div></nav>
 <header class="hero"><div class="wrap"><div class="eyebrow">Private target map · GCC</div><h1>Where could Valentino actually fit?</h1><p>Shortlist employers, then open each card to see the team, possible roles, evidence and watch-outs. The map covers consulting, media, customer transformation, martech, travel and the GCC startup ecosystem. It does not track open jobs.</p><span class="note">Match describes profile fit, not the chance of being hired.</span></div></header>
 <main class="main wrap">
- <div class="section-head"><h2>Target organizations</h2><p>Search the whole map. Filters narrow the organization list; startup programs remain searchable.</p></div>
- <div class="toolbar"><label class="search-label" for="search">Search the map</label><input class="search" id="search" type="search" placeholder="Company, role, client or program" autocomplete="off">
-  <div class="quick" id="quick"><span>Quick views</span><button type="button" class="chip" data-quick="consulting">Consulting</button><button type="button" class="chip" data-quick="media">Media</button><button type="button" class="chip" data-quick="ai">AI + MarTech</button><button type="button" class="chip" data-quick="travel">Travel</button><button type="button" class="chip" data-quick="startup">Startup ecosystem</button><button type="button" class="chip" data-quick="p1">P1 only</button></div>
+ <div class="workbench"><section class="map-tools" aria-labelledby="map-title"><h2 class="tool-title" id="map-title">🔎 Search the map</h2><p class="tool-intro">Find a company or team, then open its profile.</p><label class="search-label" for="search">Organization, role or program</label><input class="search" id="search" type="search" placeholder="Search target organizations" autocomplete="off">
   <div class="filters"><div class="field"><label for="sector">Sector</label><select id="sector"><option value="">All sectors</option></select></div><div class="field"><label for="type">Organization type</label><select id="type"><option value="">All types</option></select></div><div class="field"><label for="function">Function</label><select id="function"><option value="">All functions</option></select></div><div class="field"><label for="priority">Priority</label><select id="priority"><option value="">All priorities</option><option>P1</option><option>P2</option><option>P3</option><option>P4</option></select></div></div>
   <details class="more"><summary>More filters</summary><div class="extra"><label class="toggle"><input type="checkbox" id="startup"> Startup ecosystem</label><label class="toggle"><input type="checkbox" id="client"> Direct / strong client adjacency</label><div class="field"><label for="min-score">Minimum match</label><select id="min-score"><option value="0">Any match</option><option value="80">80%+</option><option value="85">85%+</option><option value="90">90%+</option></select></div><button class="reset" id="reset" type="button">Clear all filters</button></div></details>
- </div>
- <div class="guide"><article><h2>Where to focus</h2><p>Look for senior strategy and transformation roles in consulting, media and customer teams. <strong>Camille</strong> adds travel and customer journey experience. <strong>Pitch Peasy</strong> adds media workflow and AI product strategy.</p></article><article><h2>Roles to skip</h2><p>Campaign execution, e-commerce trading, sales quotas, programme administration, generic PMO and software engineering. Check the actual scope of a role before relying on an organization’s rank.</p></article></div>
- <div class="summary"><span id="count" aria-live="polite">Loading map…</span><span>Ranked by match</span></div>
- <details class="program-directory" id="program-directory"><summary><strong>Startup programs</strong><span id="program-count">84 programs in the same search</span></summary><div class="program-body"><p class="program-note">Programs are research leads, not extra ranked employers. Check the source before outreach.</p><div id="program-results" class="list"></div></div></details>
+ </section><section class="matcher" id="role-matcher" aria-labelledby="matcher-title"><h2 class="tool-title" id="matcher-title">🧭 Check a job description</h2><p class="tool-intro">Paste a role or a headhunter’s message, attach a file, or use both. Get a role match score and the reasons behind it.</p><form id="match-form"><div class="selected-company" id="selected-company" hidden><span id="selected-company-name"></span><button type="button" id="clear-company" aria-label="Remove selected organization">✕</button></div><label class="search-label" for="role-prompt">Job description or question</label><textarea class="match-input" id="role-prompt" maxlength="30000" placeholder="Paste the job description or ask whether this role fits Valentino…"></textarea><div class="match-actions"><label class="upload">📎 Attach PDF, Word or text<input id="role-file" type="file" accept=".pdf,.docx,.txt,.md,application/pdf" aria-label="Attach a job description"></label><button class="analyze" type="submit">Check match →</button></div><p class="file-name" id="file-name">PDF, DOCX, TXT or MD · 2.5 MB max</p><p class="match-error" id="match-error" role="alert" hidden></p></form></section></div>
+ <div class="guide"><article><h2>🎯 Where to focus</h2><p>Look for senior strategy and transformation roles in consulting, media and customer teams.</p></article><article><h2>⛔ Roles to skip</h2><p>Campaign execution, e-commerce trading, sales quotas, programme administration, generic PMO and solution engineering even if Valentino may have the skillset.</p></article></div>
+ <div class="section-head"><h2>Target organizations</h2></div>
+ <div class="summary"><span id="count" aria-live="polite">Loading map…</span></div>
  <div id="results" class="list"></div><button class="load" id="load" type="button" hidden>Show more organizations</button>
 </main>
+<div class="match-overlay" id="match-overlay" hidden><div class="match-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title">⏳ Checking the role</h2><button class="close-dialog" id="close-dialog" type="button" aria-label="Close result">×</button></div><div id="dialog-content" aria-live="polite"><div class="spinner" aria-hidden="true"></div><p style="text-align:center">Reading the description against Valentino’s experience…</p></div></div></div>
 <footer><div class="wrap"><span>Valentino Scicolone · Independent Advisor | Marketing &amp; AI · Dubai</span><span>Private research map · Verify program sources before outreach.</span></div></footer>
 <script>
 (() => {
@@ -112,8 +109,8 @@ const url = value => /^https?:\/\//i.test(value || '') ? esc(value) : '';
 const text = value => Array.isArray(value) ? value.join(' ') : String(value ?? '');
 const norm = value => text(value).toLocaleLowerCase();
 const unique = values => [...new Set(values.filter(Boolean))].sort((a,b) => a.localeCompare(b));
-const F = {sector:'',type:'',function:'',priority:'',minScore:0,startup:false,client:false,quick:''};
-let companies = [], programs = [], shown = 60, query = '', soundOn = false, audioContext, autoOpenedPrograms = false;
+const F = {sector:'',type:'',function:'',priority:'',minScore:0,startup:false,client:false};
+let companies = [], programs = [], shown = 5, query = '', soundOn = true, audioContext, selectedCompanyId = '';
 const companyByProgram = new Map();
 function playSound(kind) {
  if(!soundOn)return;
@@ -152,27 +149,67 @@ function card(c){
  const badges=[direct?'<span class="badge">Past client</span>':'',c.startup_ecosystem_operator?'<span class="badge accent">Startup ecosystem</span>':''].join('');
  const programNames=c.accelerator_programs.length ? section('Related programs',c.accelerator_programs.join(' · ')) : '';
  const links=[external('Source',c.source_url),external('Careers',c.careers_url)].filter(Boolean).join('');
- return `<details class="company" id="company-${esc(c.id)}"><summary><div><div class="name">${esc(c.company)}</div><div class="division">${esc(c.target_division)}</div>${badges?`<div class="badges">${badges}</div>`:''}</div><div class="meta"><b>${esc(c.sector)}</b><br>${esc(c.function_cluster)}<br>${esc(c.gcc_hubs.join(' · '))}</div><div class="score"><b>${esc(c.match_score)}%</b><small>${esc(c.priority)} · #${esc(c.rank)}</small></div></summary><div class="detail">${section('Why it fits',c.why_fit,'wide')}${section('Target team',c.target_department)}${section('Possible roles',c.role_archetypes.join(' · '))}${section('Relevant experience',c.profile_evidence)}${section('Camille / Pitch Peasy experience',c.entrepreneurial_evidence)}${section('Past client connection',c.past_client_link)}${section('Watch-outs',c.watch_out,'warn')}${programNames}${section('Presence confidence',c.presence_confidence)}<section class="wide links">${links}</section></div></details>`;
+ return `<details class="company" id="company-${esc(c.id)}"><summary><div><div class="name">${esc(c.company)}</div><div class="division">${esc(c.target_division)}</div>${badges?`<div class="badges">${badges}</div>`:''}</div><div class="meta"><b>${esc(c.sector)}</b><br>${esc(c.function_cluster)}<br>${esc(c.gcc_hubs.join(' · '))}</div><div class="score"><b>${esc(c.match_score)}%</b><small>${esc(c.priority)} · #${esc(c.rank)}</small></div></summary><div class="detail">${section('Why it fits',c.why_fit,'wide')}${section('Target team',c.target_department)}${section('Possible roles',c.role_archetypes.join(' · '))}${section('Relevant experience',c.profile_evidence)}${section('Past client connection',c.past_client_link)}${section('Watch-outs',c.watch_out,'warn')}${programNames}${section('Presence confidence',c.presence_confidence)}<section class="wide links"><button class="match-link" type="button" data-match-company="${esc(c.id)}">🧭 Check a role at ${esc(c.company)}</button>${links}</section></div></details>`;
 }
 function programCard(p){
  const c=companyByProgram.get(norm(p.program));
  const links=[external('Source',p.source_url),external('Official program',p.official_url)].filter(Boolean).join('');
- return `<article class="program"><div class="program-head"><h3>${esc(p.program)}</h3><span class="country">${esc(p.country)}</span></div><div class="attrs"><span class="badge">${esc(p.operator)}</span><span class="badge accent">${esc(p.type)}</span></div><p>${esc(p.notes)}</p><div class="program-links">${links}${c?`<button class="company-link" type="button" data-company="${esc(c.id)}">See ${esc(c.company)} in the ranking →</button>`:''}</div></article>`;
+ return `<article class="program"><div class="program-head"><h3>${esc(p.program)}</h3><span class="country">${esc(p.country)}</span></div><div class="attrs"><span class="badge accent">Program</span><span class="badge">${esc(p.operator)}</span><span class="badge">${esc(p.type)}</span></div><p>${esc(p.notes)}</p><div class="program-links">${links}${c?`<button class="company-link" type="button" data-company="${esc(c.id)}">See ${esc(c.company)} in the map →</button>`:''}</div></article>`;
 }
 function render(){
  const matches=companies.filter(companyMatches);
- const programMatches=programs.filter(p=>!query||p._search.includes(query));
- $('count').innerHTML=`<strong>${matches.length}</strong> of ${companies.length} organizations`;
- $('results').innerHTML=matches.length ? matches.slice(0,shown).map(card).join('') : '<div class="empty">No organizations match. Try a wider search or clear the filters.</div>';
- $('load').hidden=shown>=matches.length;
- $('program-count').textContent=query ? `${programMatches.length} matching program${programMatches.length===1?'':'s'}` : `${programs.length} programs in the same search`;
- $('program-results').innerHTML=programMatches.length ? programMatches.map(programCard).join('') : '<div class="empty">No programs match this search.</div>';
- if(query && programMatches.length && !$('program-directory').open){$('program-directory').open=true;autoOpenedPrograms=true;}
- if((!query || !programMatches.length) && autoOpenedPrograms){$('program-directory').open=false;autoOpenedPrograms=false;}
- document.querySelectorAll('.chip').forEach(b=>b.classList.toggle('active',F.quick===b.dataset.quick));
+ const filtersActive=F.sector||F.type||F.function||F.priority||F.minScore||F.startup||F.client;
+ const programMatches=filtersActive?[]:programs.filter(p=>!query||p._search.includes(query));
+ const total=matches.length+programMatches.length;
+ const visible=[...matches.slice(0,shown).map(card),...programMatches.slice(0,Math.max(0,shown-matches.length)).map(programCard)];
+ $('count').innerHTML=`Showing <strong>${Math.min(shown,total)}</strong> of <strong>${total}</strong> targets`;
+ $('results').innerHTML=total ? visible.join('') : '<div class="empty">No targets match. Try a wider search or clear the filters.</div>';
+ $('load').hidden=shown>=total;
+ $('load').textContent=`Show all ${total} targets`;
 }
 function syncControls(){for(const [key,id] of [['sector','sector'],['type','type'],['function','function'],['priority','priority'],['minScore','min-score']])$(id).value=F[key];for(const key of ['startup','client'])$(key).checked=F[key];}
-function reset(){Object.assign(F,{sector:'',type:'',function:'',priority:'',minScore:0,startup:false,client:false,quick:''});query='';$('search').value='';syncControls();shown=60;render();}
+function reset(){Object.assign(F,{sector:'',type:'',function:'',priority:'',minScore:0,startup:false,client:false});query='';$('search').value='';syncControls();shown=5;render();}
+function selectCompany(id){
+ const company=companies.find(c=>c.id===id);
+ if(!company)return;
+ selectedCompanyId=id;
+ $('selected-company-name').textContent=`Checking a role at ${company.company}`;
+ $('selected-company').hidden=false;
+ $('role-matcher').scrollIntoView({block:'center'});
+ $('role-prompt').focus();
+ playSound('open');
+}
+function matchError(message){$('match-error').textContent=message;$('match-error').hidden=false;}
+function closeDialog(){$('match-overlay').hidden=true;document.body.style.overflow='';$('role-prompt').focus();}
+function showDialog(title,content){$('dialog-title').textContent=title;$('dialog-content').innerHTML=content;$('match-overlay').hidden=false;document.body.style.overflow='hidden';$('close-dialog').focus();}
+function list(items){return items.length?`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:'<p>None identified from the supplied role.</p>';}
+function showReport(report){
+ const score=Number.isFinite(report.score)?Math.max(0,Math.min(100,report.score)):0;
+ showDialog(`🧭 ${report.role || 'Role match'}`,`<div class="report-score">${score}%</div><div class="report-verdict">${esc(report.verdict)}</div><p>${esc(report.why)}</p><div class="report-section"><h3>Why it fits</h3>${list(report.evidence||[])}</div><div class="report-section"><h3>Gaps to check</h3>${list(report.gaps||[])}</div><div class="report-section"><h3>Next step</h3><p>${esc(report.next_step)}</p></div><p class="report-note">Role fit is an assessment of the supplied description, not a hiring probability. Verify the actual remit with the recruiter.</p>`);
+}
+async function filePayload(file){
+ const buffer=await file.arrayBuffer();
+ const bytes=new Uint8Array(buffer);
+ let binary='';
+ for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));
+ return {name:file.name,data:btoa(binary)};
+}
+async function analyzeRole(event){
+ event.preventDefault();
+ $('match-error').hidden=true;
+ const prompt=$('role-prompt').value.trim();
+ const file=$('role-file').files[0];
+ if(!prompt&&!file){matchError('Paste a description or attach a file.');return;}
+ if(file&&(!/\.(pdf|docx|txt|md)$/i.test(file.name)||file.size>2500000)){matchError('Use PDF, DOCX, TXT or MD under 2.5 MB.');return;}
+ playSound('open');
+ showDialog('⏳ Checking the role','<div class="spinner" aria-hidden="true"></div><p style="text-align:center">Reading the description against Valentino’s experience…</p>');
+ try{
+  const response=await fetch('/job-hunting/match',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({prompt,file:file?await filePayload(file):null,companyId:selectedCompanyId})});
+  const result=await response.json();
+  if(!response.ok)throw new Error(result.error||'The analysis failed. Please try again.');
+  showReport(result);playSound('on');
+ }catch(error){closeDialog();matchError(error.message||'The analysis failed. Please try again.');}
+}
 async function init(){
  const response=await fetch('/job-hunting/data',{credentials:'same-origin',cache:'no-store'});
  if(response.status===401){location.href='/job-hunting';return;}
@@ -184,16 +221,19 @@ async function init(){
  for(const [id,values] of [['sector',companies.map(c=>c.sector)],['type',companies.map(c=>c.organization_type)],['function',companies.map(c=>c.function_cluster)]])$(id).insertAdjacentHTML('beforeend',unique(values).map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join(''));
  render();
 }
-$('sound-toggle').addEventListener('click',e=>{soundOn=!soundOn;e.currentTarget.setAttribute('aria-pressed',String(soundOn));e.currentTarget.textContent=soundOn?'Sound on':'Sound off';playSound('on');});
-$('search').addEventListener('input',e=>{query=norm(e.target.value.trim());shown=60;render();});
-for(const [key,id] of [['sector','sector'],['type','type'],['function','function'],['priority','priority'],['minScore','min-score']])$(id).addEventListener('change',e=>{F[key]=key==='minScore'?Number(e.target.value):e.target.value;F.quick='';shown=60;render();playSound('filter');});
-for(const key of ['startup','client'])$(key).addEventListener('change',e=>{F[key]=e.target.checked;F.quick='';shown=60;render();playSound('filter');});
+$('sound-toggle').addEventListener('click',e=>{soundOn=!soundOn;e.currentTarget.setAttribute('aria-pressed',String(soundOn));e.currentTarget.textContent=soundOn?'🔊 Sound on':'🔇 Sound off';playSound('on');});
+$('search').addEventListener('input',e=>{query=norm(e.target.value.trim());shown=5;render();});
+for(const [key,id] of [['sector','sector'],['type','type'],['function','function'],['priority','priority'],['minScore','min-score']])$(id).addEventListener('change',e=>{F[key]=key==='minScore'?Number(e.target.value):e.target.value;shown=5;render();playSound('filter');});
+for(const key of ['startup','client'])$(key).addEventListener('change',e=>{F[key]=e.target.checked;shown=5;render();playSound('filter');});
 $('reset').addEventListener('click',()=>{reset();playSound('filter');});
-$('quick').addEventListener('click',e=>{const k=e.target.closest('[data-quick]')?.dataset.quick;if(!k)return;const same=F.quick===k;reset();if(same){playSound('filter');return;}F.quick=k;const sectors={consulting:'Consulting & Transformation',media:'Media & Marketing Services',ai:'AI, Data, MarTech & Technology',travel:'Travel, Tourism & Hospitality'};if(sectors[k])F.sector=sectors[k];if(k==='startup')F.startup=true;if(k==='p1')F.priority='P1';syncControls();render();playSound('filter');});
-$('load').addEventListener('click',()=>{shown+=60;render();playSound('filter');});
-$('results').addEventListener('click',e=>{if(e.target.closest('.company summary'))playSound('open');});
-$('program-directory').querySelector('summary').addEventListener('click',()=>{if(!$('program-directory').open)playSound('open');autoOpenedPrograms=false;});
-$('program-results').addEventListener('click',e=>{const id=e.target.closest('[data-company]')?.dataset.company;if(!id)return;reset();shown=companies.findIndex(c=>c.id===id)+1;render();const card=$('company-'+id);if(card){card.open=true;card.scrollIntoView({block:'center'});playSound('open');}});
+$('match-form').addEventListener('submit',analyzeRole);
+$('role-file').addEventListener('change',e=>{$('file-name').textContent=e.target.files[0]?`📎 ${e.target.files[0].name}`:'PDF, DOCX, TXT or MD · 2.5 MB max';$('match-error').hidden=true;});
+$('clear-company').addEventListener('click',()=>{selectedCompanyId='';$('selected-company').hidden=true;});
+$('close-dialog').addEventListener('click',closeDialog);
+$('match-overlay').addEventListener('click',e=>{if(e.target===$('match-overlay'))closeDialog();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('match-overlay').hidden)closeDialog();});
+$('load').addEventListener('click',()=>{shown=companies.length+programs.length;render();playSound('filter');});
+$('results').addEventListener('click',e=>{const matchId=e.target.closest('[data-match-company]')?.dataset.matchCompany;if(matchId){selectCompany(matchId);return;}const id=e.target.closest('[data-company]')?.dataset.company;if(id){reset();shown=companies.findIndex(c=>c.id===id)+1;render();const companyCard=$('company-'+id);if(companyCard){companyCard.open=true;companyCard.scrollIntoView({block:'center'});playSound('open');}return;}if(e.target.closest('.company summary'))playSound('open');});
 init().catch(()=>{$('count').textContent='Unable to load the map';$('results').innerHTML='<div class="empty">Please reload the page. If this continues, contact Valentino.</div>';});
 })();
 </script>
