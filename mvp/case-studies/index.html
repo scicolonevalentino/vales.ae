@@ -151,6 +151,7 @@ const PID="7fvx0718",DS="production";
 const Q=`*[_type=="caseStudy"]|order(featured desc, date desc){title,subtitle,"slug":slug.current,"year":string(date),date,featured,market,engagementType,"industry":industry->title,"services":services[]->title,competencies,cardMetric,metrics,takeaway,challenge,angle,actions,"img":coverImage.asset->url}`;
 const CTA="The strategy is different every time. The starting point never is: know where you stand.";
 const CMAP={"curiosity":"Curiosity","creativity":"Creativity","critical-thinking":"Critical thinking","empathy":"Empathy"};
+const SVC={"AI Research":"Research","AI Fluency":"Trainings"};
 let DATA=[],F={industry:"",year:""};
 const yr=d=>(d||"").slice(0,4);
 const esc=s=>(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -232,7 +233,7 @@ function detail(slug){
      <div class="col angle"><div class="lbl2">The angle</div><p class="flow">${flow(d.angle)}</p></div>
      <div class="col did"><div class="lbl2">What I did</div><ul>${(d.actions||[]).map((a,i)=>`<li><span class="n">${i+1}</span>${esc(a)}</li>`).join("")}</ul></div>
    </section>
-   ${(d.services||[]).length?`<div class="svc wrap"><span class="lbl2">Services</span>${d.services.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}</div>`:""}
+   ${(d.services||[]).length?`<div class="svc wrap"><span class="lbl2">Services</span>${d.services.map(s=>`<span class="tag">${esc(SVC[s]||s)}</span>`).join("")}</div>`:""}
    <div class="wrap"><div class="cta"><p>${CTA}</p><a class="btn fx-sweep" href="https://vales.ae/aimarketingmaturity">Start your free assessment today →</a></div></div>`;
   document.getElementById("back").onclick=()=>{location.hash="";};
   if(window.vlsBindSweep) window.vlsBindSweep();
